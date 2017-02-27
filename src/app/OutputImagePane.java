@@ -42,15 +42,20 @@ class OutputImagePane {//{{{
       });
 
   }//}}}
+  /**
+   * 画像をImageViewに貼り付ける。
+   *
+   * @param imageFile 画像
+   */
   void setImage(File imageFile) {//{{{
     Image image = new Image("file:" + imageFile.getAbsolutePath());
     PixelReader pixel = image.getPixelReader();
 
     Properties prop = MainController.prop;
-    int row = Integer.parseInt(prop.getProperty("row"));
+    int row    = Integer.parseInt(prop.getProperty("row"));
     int column = Integer.parseInt(prop.getProperty("column"));
-    int size = Integer.parseInt(prop.getProperty("size"));
-    int count = row * column;
+    int size   = Integer.parseInt(prop.getProperty("size"));
+    int count  = row * column;
 
     IntStream.range(0, count)
       .forEach(i -> {
@@ -59,6 +64,16 @@ class OutputImagePane {//{{{
         WritableImage trimmingImage = new WritableImage(pixel, x, y, size, size);
         stackImageViewList.get(i).setImage(trimmingImage);
       });
+  }//}}}
+  /**
+   * 選択した２つのImageViewの画像を交換する。
+   */
+  void exchangeImage() {//{{{
+    Properties prop = MainController.prop;
+    int size = Integer.parseInt(prop.getProperty("size"));
+    Image image1 = stackImageViewList.get(0).getImage();
+    Image image2 = stackImageViewList.get(1).getImage();
+    Image tmpImage = new WritableImage(size, size);
   }//}}}
 }//}}}
 /**
@@ -71,6 +86,7 @@ class StackImageView extends StackPane {//{{{
   private final Label label;
   private final ImageView imageView;
   private final Button button;
+  private boolean isSelected = false;
 
   StackImageView(int index, double size) {//{{{
     label     = new Label("" + index);
@@ -80,7 +96,8 @@ class StackImageView extends StackPane {//{{{
     label.setAlignment(Pos.CENTER);
 
     button.setOpacity(0.0);
-    button.setOnAction(e -> buttonOnAction(label));
+    button.setStyle("-fx-background-color: blue");
+    button.setOnAction(e -> buttonOnAction());
 
     this      .setPrefSize(size, size);
     label     .setPrefSize(size, size);
@@ -94,7 +111,10 @@ class StackImageView extends StackPane {//{{{
   }//}}}
 
   private List<Integer> buttonIndexList = new ArrayList<>();
-  private void buttonOnAction(Label label) {//{{{
+  private void buttonOnAction() {//{{{
+    isSelected = !isSelected;
+    button.setOpacity(isSelected ? 0.25 : 0.0);
+
     int number = Integer.parseInt(label.getText());
     buttonIndexList.add(number);
     for (int i : buttonIndexList) {
@@ -109,7 +129,10 @@ class StackImageView extends StackPane {//{{{
   private void reverse() {//{{{
     System.out.println("reverse.");
   }//}}}
-  void setImage(Image image) {
+  Image getImage() {//{{{
+    return imageView.getImage();
+  }//}}}
+  void setImage(Image image) {//{{{
     imageView.setImage(image);
-  }
+  }//}}}
 }//}}}

@@ -25,7 +25,7 @@ public class Main extends Application {
 
     try {
       VBox root = (VBox) loader.load();
-      final double WIDTH = 600;
+      final double WIDTH = 800;
       final double HEIGHT = 400;
       Scene scene = new Scene(root, WIDTH, HEIGHT);
       scene.getStylesheets().add(getClass().getResource("res/css/Basic.css").toExternalForm());
