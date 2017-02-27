@@ -62,11 +62,11 @@
               <items>
                 <AnchorPane minHeight="300.0" minWidth="250.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TitledPane collapsible="false" minHeight="300.0" minWidth="250.0" text="ファイルリスト" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TitledPane fx:id="fileListTitledPane" collapsible="false" minHeight="300.0" minWidth="250.0" text="%fileListTitledPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ListView prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="fileListView" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
                                     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -80,9 +80,9 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="パネルクリア" />
-                                          <Button mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="リスト削除" GridPane.rowIndex="1" />
-                                          <Button mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="リストクリア" GridPane.rowIndex="2" />
+                                          <Button fx:id="clearImagesButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="%clearImagesButton" />
+                                          <Button fx:id="deleteListButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="1" />
+                                          <Button fx:id="clearListButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="2" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -95,14 +95,24 @@
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <top>
-                              <TitledPane animated="false" collapsible="false" text="パネル操作変更" BorderPane.alignment="CENTER">
+                              <TitledPane fx:id="controlPanelTitledPane" animated="false" collapsible="false" text="%controlPanelTitledPane" BorderPane.alignment="CENTER">
                                  <content>
                                     <VBox spacing="5.0">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" text="削除モード" />
-                                          <RadioButton mnemonicParsing="false" text="削除モード(空白詰め)" />
-                                          <RadioButton mnemonicParsing="false" text="並べ替えモード" />
-                                          <RadioButton mnemonicParsing="false" text="左右反転モード" />
+                                          <RadioButton fx:id="deleteModeRadioButton" mnemonicParsing="false" text="%deleteModeRadioButton" />
+                                          <RadioButton fx:id="deleteNonEmptyModeRadioButton" mnemonicParsing="false" text="%deleteNonEmptyModeRadioButton" />
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <RadioButton fx:id="sortModeRadioButton" mnemonicParsing="false" text="%sortModeRadioButton" />
+                                                <Button mnemonicParsing="false" text="実行" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <RadioButton fx:id="reverseModeRadioButton" mnemonicParsing="false" text="%reverseModeRadioButton" />
+                                                <Button mnemonicParsing="false" text="実行" />
+                                             </children>
+                                          </HBox>
                                        </children>
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -114,7 +124,7 @@
                            <center>
                               <AnchorPane>
                                  <children>
-                                    <TitledPane fx:id="outputImageTitledPane" collapsible="false" text="出力画像パネル" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+                                    <TitledPane fx:id="outputImageTitledPane" collapsible="false" text="%outputImageTitledPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
                                        <content>
                                           <ScrollPane prefViewportHeight="289.0" prefViewportWidth="577.0">
                                              <content>
