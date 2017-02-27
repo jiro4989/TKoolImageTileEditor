@@ -47,9 +47,18 @@ class OutputImagePane {//{{{
     PixelReader pixel = image.getPixelReader();
 
     Properties prop = MainController.prop;
+    int row = Integer.parseInt(prop.getProperty("row"));
+    int column = Integer.parseInt(prop.getProperty("column"));
     int size = Integer.parseInt(prop.getProperty("size"));
-    WritableImage trimmingImage = new WritableImage(pixel, 0, 0, size, size);
-    stackImageViewList.get(0).setImage(trimmingImage);
+    int count = row * column;
+
+    IntStream.range(0, count)
+      .forEach(i -> {
+        int x = i % column * size;
+        int y = i / column * size;
+        WritableImage trimmingImage = new WritableImage(pixel, x, y, size, size);
+        stackImageViewList.get(i).setImage(trimmingImage);
+      });
   }//}}}
 }//}}}
 /**
