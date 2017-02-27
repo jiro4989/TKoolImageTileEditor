@@ -11,9 +11,11 @@ import javafx.scene.layout.*;
 
 class OutputImagePane {//{{{
   private final GridPane outputImageGridPane;
+  private List<StackImageView> stackImageViewList;
 
   OutputImagePane(GridPane aGridPane) {
     outputImageGridPane = aGridPane;
+    stackImageViewList = new ArrayList<>(8);
   }
 
   /**
@@ -33,6 +35,7 @@ class OutputImagePane {//{{{
     IntStream.range(0, count)
       .forEach(i -> {
         final StackImageView siv = new StackImageView(i+1, size);
+        stackImageViewList.add(siv);
         final int c = i % column;
         final int r = i / column;
         outputImageGridPane.add(siv, c, r);
@@ -46,6 +49,7 @@ class OutputImagePane {//{{{
     Properties prop = MainController.prop;
     int size = Integer.parseInt(prop.getProperty("size"));
     WritableImage trimmingImage = new WritableImage(pixel, 0, 0, size, size);
+    stackImageViewList.get(0).setImage(trimmingImage);
   }//}}}
 }//}}}
 /**
@@ -59,7 +63,7 @@ class StackImageView extends StackPane {//{{{
   private final ImageView imageView;
   private final Button button;
 
-  StackImageView(int index, double size) {
+  StackImageView(int index, double size) {//{{{
     label     = new Label("" + index);
     imageView = new ImageView();
     button    = new Button();
@@ -78,7 +82,7 @@ class StackImageView extends StackPane {//{{{
     this.getChildren().add(label);
     this.getChildren().add(imageView);
     this.getChildren().add(button);
-  }
+  }//}}}
 
   private List<Integer> buttonIndexList = new ArrayList<>();
   private void buttonOnAction(Label label) {//{{{
@@ -96,4 +100,7 @@ class StackImageView extends StackPane {//{{{
   private void reverse() {//{{{
     System.out.println("reverse.");
   }//}}}
+  void setImage(Image image) {
+    imageView.setImage(image);
+  }
 }//}}}
