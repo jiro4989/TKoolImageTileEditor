@@ -25,10 +25,14 @@ public class Main extends Application {
 
     try {
       VBox root = (VBox) loader.load();
-      Scene scene = new Scene(root, 200, 300);
+      final double WIDTH = 600;
+      final double HEIGHT = 400;
+      Scene scene = new Scene(root, WIDTH, HEIGHT);
       scene.getStylesheets().add(getClass().getResource("res/css/Basic.css").toExternalForm());
       primaryStage.setScene(scene);
       primaryStage.setTitle(TITLE);
+      primaryStage.setMinWidth(WIDTH);
+      primaryStage.setMinHeight(HEIGHT);
 
       primaryStage.show();
     } catch (IOException e) {
