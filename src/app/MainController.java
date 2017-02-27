@@ -1,77 +1,92 @@
 package app;
 
 import java.io.*;
-import java.util.stream.IntStream;
+import java.util.*;
 import java.util.Properties;
+import java.util.stream.IntStream;
+import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 
 public class MainController {
+  public static Properties prop;
   // FXMLで指定するコンポーネント{{{
   // メニューバー {{{
   @FXML private MenuItem fileMenuItem;
   //}}}
   // ファイルリスト//{{{
   @FXML private TitledPane fileListTitledPane;
-  @FXML private ListView<String> fileListView;
+  @FXML private ListView<File> fileListView;
   @FXML private Button clearImagesButton;
   @FXML private Button deleteListButton;
   @FXML private Button clearListButton;
   //}}}
   // パネル操作変更//{{{
   @FXML private TitledPane controlPanelTitledPane;
+
+  @FXML private ToggleGroup toggleGroup;
   @FXML private RadioButton deleteModeRadioButton;
   @FXML private RadioButton deleteNonEmptyModeRadioButton;
   @FXML private RadioButton sortModeRadioButton;
+  @FXML private Button sortExecuteButton;
   @FXML private RadioButton reverseModeRadioButton;
+  @FXML private Button reverseExecuteButton;
   //}}}
   // 出力画像パネル//{{{
   @FXML private TitledPane outputImageTitledPane;
   @FXML private GridPane outputImageGridPane;
   //}}}
   //}}}
+  // 出力画像パネル
+  private OutputImagePane outputImagePane;
+  
+  @FXML private void initialize() {//{{{
+    outputImagePane = new OutputImagePane(outputImageGridPane);
 
-  @FXML
-  private void initialize() {//{{{
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
+    File file1 = new MyFile("input/Actor1.png");
+    File file2 = new MyFile("input/Actor2.png");
+    File file3 = new MyFile("input/Actor3.png");
+
+    fileListView.getItems().add(file1);
+    fileListView.getItems().add(file2);
+    fileListView.getItems().add(file3);
+
     //}}}
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
-    Properties prop = new Properties();
+    prop = new Properties();
     try (InputStream is = new FileInputStream(new File("presets/MV.properties"))) {
       prop.load(new InputStreamReader(is, "UTF-8"));
-
-      String strRow  = prop.getProperty("row");
-      String strCol  = prop.getProperty("column");
-      String strSize = prop.getProperty("size");
-
-      int row    = Integer.parseInt(strRow);
-      int column = Integer.parseInt(strCol);
-      int size   = Integer.parseInt(strSize);
-      int count  = row * column;
-
-      double gridWidth  = (double) (size * column);
-      double gridHeight = (double) (size * row);
-      outputImageGridPane.setPrefSize(gridWidth, gridHeight);
-
-      IntStream.range(0, count)
-        .forEach(i -> {
-          final Button button = new Button("" + (i+1));
-          //button.setStyle("-fx-background-color: black;");
-          double width = (double) size;
-          button.setPrefWidth(width);
-          button.setPrefHeight(width);
-
-          int c = i % column;
-          int r = i / column;
-          outputImageGridPane.add(button, c, r);
-        });
-
+      outputImagePane.setGridCells();
     } catch (IOException e) {
       e.printStackTrace();
     }
-//}}}
     //}}}
+    //}}}
+  }//}}}
+  @FXML private void clearImagesButtonOnAction() {//{{{
+  }//}}}
+  @FXML private void deleteListButtonOnAction() {//{{{
+    ObservableList<File> selectedItems = fileListView.getSelectionModel().getSelectedItems();
+    fileListView.getItems().removeAll(selectedItems);
+  }//}}}
+  @FXML private void clearListButtonOnAction() {//{{{
+    fileListView.getItems().clear();
+  }//}}}
+  @FXML private void fileListViewOnMouseClicked(MouseEvent event) {//{{{
+    SelectionModel<File> model = fileListView.getSelectionModel();
+    if (!model.isEmpty()) {
+      File imageFile = model.getSelectedItem();
+      outputImagePane.setImage(imageFile);
+    }
+  }//}}}
+  @FXML private void fileListViewOnDragOver(DragEvent event) {//{{{
+    System.out.println("dragover.");
+  }//}}}
+  @FXML private void fileListViewOnDragDropped(DragEvent event) {//{{{
+    System.out.println("dragover.");
   }//}}}
 }

@@ -66,7 +66,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ListView fx:id="fileListView" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="fileListView" onDragDropped="#fileListViewOnDragDropped" onDragOver="#fileListViewOnDragOver" onMouseClicked="#fileListViewOnMouseClicked" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
                                     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -80,9 +80,9 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Button fx:id="clearImagesButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="%clearImagesButton" />
-                                          <Button fx:id="deleteListButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="1" />
-                                          <Button fx:id="clearListButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="2" />
+                                          <Button fx:id="clearImagesButton" mnemonicParsing="false" onAction="#clearImagesButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearImagesButton" />
+                                          <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="1" />
+                                          <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="2" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -99,18 +99,21 @@
                                  <content>
                                     <VBox spacing="5.0">
                                        <children>
-                                          <RadioButton fx:id="deleteModeRadioButton" mnemonicParsing="false" text="%deleteModeRadioButton" />
-                                          <RadioButton fx:id="deleteNonEmptyModeRadioButton" mnemonicParsing="false" text="%deleteNonEmptyModeRadioButton" />
+                                          <RadioButton fx:id="deleteModeRadioButton" mnemonicParsing="false" selected="true" text="%deleteModeRadioButton">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="toggleGroup" />
+                                             </toggleGroup></RadioButton>
+                                          <RadioButton fx:id="deleteNonEmptyModeRadioButton" mnemonicParsing="false" text="%deleteNonEmptyModeRadioButton" toggleGroup="$toggleGroup" />
                                           <HBox alignment="CENTER_LEFT" spacing="5.0">
                                              <children>
-                                                <RadioButton fx:id="sortModeRadioButton" mnemonicParsing="false" text="%sortModeRadioButton" />
-                                                <Button mnemonicParsing="false" text="実行" />
+                                                <RadioButton fx:id="sortModeRadioButton" mnemonicParsing="false" text="%sortModeRadioButton" toggleGroup="$toggleGroup" />
+                                                <Button fx:id="sortExecuteButton" mnemonicParsing="false" text="%sortExecuteButton" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="5.0">
                                              <children>
-                                                <RadioButton fx:id="reverseModeRadioButton" mnemonicParsing="false" text="%reverseModeRadioButton" />
-                                                <Button mnemonicParsing="false" text="実行" />
+                                                <RadioButton fx:id="reverseModeRadioButton" mnemonicParsing="false" text="%reverseModeRadioButton" toggleGroup="$toggleGroup" />
+                                                <Button fx:id="reverseExecuteButton" mnemonicParsing="false" text="%reverseExecuteButton" />
                                              </children>
                                           </HBox>
                                        </children>
