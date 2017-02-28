@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.scene.image.*;
+import javafx.scene.layout.*;
 
 /**
  * 出力画像ペインの処理やフィールドをラップしたクラス。
