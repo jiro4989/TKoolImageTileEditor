@@ -60,9 +60,10 @@ public class MainController {
   @FXML private void initialize() {//{{{
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
-    deleteModeRadioButton         .setOnAction( e -> strategy = new DeleteStrategy(         ) );
-    deleteNonEmptyModeRadioButton .setOnAction( e -> strategy = new DeleteNonEmptyStrategy( ) );
-    sortModeRadioButton           .setOnAction( e -> strategy = new SortStrategy(           ) );
+    deleteModeRadioButton         .setOnAction( e -> strategy = new DeleteStrategy(         ) ) ;
+    deleteNonEmptyModeRadioButton .setOnAction( e -> strategy = new DeleteNonEmptyStrategy( ) ) ;
+    sortModeRadioButton           .setOnAction( e -> strategy = new SortStrategy(           ) ) ;
+    reverseModeRadioButton        .setOnAction( e -> strategy = new ReverseStrategy(        ) ) ;
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
     File file1 = new MyFile("input/Actor1.png");
