@@ -18,9 +18,9 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    URL location = getClass().getResource("Main.fxml");
+    URL location = getClass().getResource("main.fxml");
     ResourceBundle resources = ResourceBundle.getBundle(
-        "app.res.langs.Main"
+        "app.res.langs.main"
         , Locale.getDefault()
         , ResourceBundleWithUtf8.UTF8_ENCODING_CONTROL
         );
@@ -29,7 +29,7 @@ public class Main extends Application {
     double width = 952.0;
     double height = 565.0;
     double dividerPosition = 0.366;
-    try (InputStream is = new FileInputStream(new File("properties/Preferences.properties"))) {
+    try (InputStream is = new FileInputStream(new File("properties/preferences.properties"))) {
       Properties prop = new Properties();
       prop.load(new InputStreamReader(is, "UTF-8"));
       width = Double.parseDouble(prop.getProperty("primaryStage.width"));
@@ -43,7 +43,7 @@ public class Main extends Application {
       VBox root = (VBox) loader.load();
       mainController = (MainController) loader.getController();
       Scene scene = new Scene(root, width, height);
-      scene.getStylesheets().add(getClass().getResource("res/css/Basic.css").toExternalForm());
+      scene.getStylesheets().add(getClass().getResource("res/css/basic.css").toExternalForm());
       primaryStage.setScene(scene);
       primaryStage.setTitle(TITLE);
       primaryStage.setMinWidth(480);

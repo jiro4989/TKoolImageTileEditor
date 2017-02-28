@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="TKoolFacetileMaker3" default="default" basedir="."
+<project name="TKoolFacetileEditor" default="default" basedir="."
   xmlns:fx="javafx:com.sun.javafx.tools.ant">
   <!-- プロパティ --><!--{{{-->
   <property environment="env"/>
   <property name="env.JAVA_HOME" value="${env.JAVA_HOME}"/>
   <property name="build.src.dir" value="src"/>
   <property name="build.classes.dir" value="classes"/>
-  <property name="jar.name" value="TKFM.jar"/>
+  <property name="jar.name" value="tkfe.jar"/>
   <!--}}}-->
 
   <target name="default" depends="clean,compile,jar"/>
@@ -45,7 +45,7 @@
     <!-- 実行 --><!--{{{-->
     <java fork="true" jvm="${env.JAVA_HOME}\bin\java"
       classname="app.Main" classpath="${build.classes.dir}">
-      <sysproperty key="app.preferences.id" value="TKoolFacetileMaker3ID"/>
+      <sysproperty key="app.preferences.id" value="TKoolFacetileEditorID"/>
     </java>
     <!--}}}-->
   </target>

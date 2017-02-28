@@ -66,9 +66,9 @@ public class MainController {
     reverseModeRadioButton        .setOnAction( e -> strategy = new ReverseStrategy(        ) ) ;
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
-    File file1 = new MyFile("input/Actor1.png");
-    File file2 = new MyFile("input/Actor2.png");
-    File file3 = new MyFile("input/Actor3.png");
+    File file1 = new MyFile("input/actor1.png");
+    File file2 = new MyFile("input/actor2.png");
+    File file3 = new MyFile("input/actor3.png");
 
     fileListView.getItems().add(file1);
     fileListView.getItems().add(file2);
@@ -77,7 +77,7 @@ public class MainController {
     //}}}
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
     prop = new Properties();
-    try (InputStream is = new FileInputStream(new File("presets/MV.properties"))) {
+    try (InputStream is = new FileInputStream(new File("presets/mv.properties"))) {
       prop.load(new InputStreamReader(is, "UTF-8"));
       outputImagePane.changeGridCells();
     } catch (IOException e) {

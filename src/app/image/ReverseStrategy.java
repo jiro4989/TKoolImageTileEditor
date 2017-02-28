@@ -13,24 +13,21 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
    */
   @Override
   public void invoke(List<StackImageView> list) {
-    PixelFormat<IntBuffer> format = WritablePixelFormat.getIntArgbInstance();
-    int offset = 0;
+    // TODO
     list.stream()
       .forEach(siv -> {
-        Image image = siv.getImage();
+        Image image        = siv.getImage();
+        PixelReader reader = image.getPixelReader();
+
         int width  = (int) image.getWidth();
         int height = (int) image.getHeight();
-        WritableImage reversedImage = new WritableImage(width, height);
 
-        PixelReader reader  = image.getPixelReader();
-        PixelWriter writer  = reversedImage.getPixelWriter();
+        WritableImage wImage = new WritableImage(width, height);
+        PixelWriter writer   = wImage.getPixelWriter();
 
-        int scanlineStride = height;
-        for (int x=width-1, y = 0, w = 1, h = height; 0<=x; x--) {
-          int[] buffer = new int[height];
-          reader.getPixels(x, y, w, h, format, buffer, offset, scanlineStride);
-        }
-        writer.setPixel();
+        WritablePixelFormat<IntBuffer> format = WritablePixelFormat.getIntArgbInstance();
+        int[] pixels = new int[width * height];
+        reader.getPixels(0, 0, width, height, format, pixels, 0, width);
       });
   }
 }
