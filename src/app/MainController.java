@@ -25,6 +25,8 @@ public class MainController {
   @FXML private MenuItem quitMenuItem;
   //}}}
   //}}}
+  // 中央のレイ・アウト//{{{
+  @FXML private SplitPane splitPane;
   // ファイルリスト//{{{
   @FXML private TitledPane fileListTitledPane;
   @FXML private ListView<File> fileListView;
@@ -46,6 +48,7 @@ public class MainController {
   // 出力画像パネル//{{{
   @FXML private TitledPane outputImageTitledPane;
   @FXML private GridPane outputImageGridPane;
+  //}}}
   //}}}
   //}}}
   // 出力画像パネル
@@ -78,7 +81,16 @@ public class MainController {
   // イベントメソッド//{{{
   // メニューバー//{{{
   @FXML private void quitMenuItemOnAction() {//{{{
-    Platform.exit();
+    // Dividerとウィンドウサイズの測定のために一時的にコメントアウト
+    //Platform.exit();
+    double[] positions = splitPane.getDividerPositions();
+    System.out.println("pos.length: " + positions.length);
+    System.out.println("pos[0]: " + positions[0]);
+
+    double width = clearListButton.getScene().getWindow().getWidth();
+    double height = clearListButton.getScene().getWindow().getHeight();
+    System.out.println("width: " + width);
+    System.out.println("height: " + height);
   }//}}}
   //}}}
   // ファイルリスト//{{{
@@ -106,4 +118,7 @@ public class MainController {
   }//}}}
   //}}}
   //}}}
+  void setDividerPosition(double position) {//{{{
+    splitPane.setDividerPosition(0, position);
+  }//}}}
 }
