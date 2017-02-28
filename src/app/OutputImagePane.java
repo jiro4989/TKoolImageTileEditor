@@ -12,7 +12,7 @@ import javafx.scene.layout.*;
  */
 class OutputImagePane {
   private final GridPane outputImageGridPane;
-  private List<StackImageView> stackImageViewList;
+  private static List<StackImageView> stackImageViewList;
 
   OutputImagePane(GridPane aGridPane) {//{{{
     outputImageGridPane = aGridPane;
@@ -22,7 +22,7 @@ class OutputImagePane {
   /**
    * Propertiesの設定によってレイ・アウトを変更する。
    */
-  void setGridCells() {//{{{
+  void changeGridCells() {//{{{
     Properties prop = MainController.prop;
     int row    = Integer.parseInt(prop.getProperty("row"));
     int column = Integer.parseInt(prop.getProperty("column"));
@@ -66,14 +66,12 @@ class OutputImagePane {
         stackImageViewList.get(i).setImage(trimmingImage);
       });
   }//}}}
+
   /**
-   * 選択した２つのImageViewの画像を交換する。
+   * StackImageViewのすべての選択状態をクリアする。
    */
-  void exchangeImage() {//{{{
-    Properties prop = MainController.prop;
-    int size = Integer.parseInt(prop.getProperty("size"));
-    Image image1 = stackImageViewList.get(0).getImage();
-    Image image2 = stackImageViewList.get(1).getImage();
-    Image tmpImage = new WritableImage(size, size);
-  }//}}}
+  static void clearSelectedStackImageView() {
+    stackImageViewList.stream()
+      .forEach(siv -> siv.setSelection(false));
+  }
 }

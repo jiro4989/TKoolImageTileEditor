@@ -71,7 +71,7 @@ public class MainController {
     prop = new Properties();
     try (InputStream is = new FileInputStream(new File("presets/MV.properties"))) {
       prop.load(new InputStreamReader(is, "UTF-8"));
-      outputImagePane.setGridCells();
+      outputImagePane.changeGridCells();
     } catch (IOException e) {
       e.printStackTrace();
     }

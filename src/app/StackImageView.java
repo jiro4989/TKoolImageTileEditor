@@ -13,10 +13,19 @@ import javafx.scene.layout.*;
  * ンの色が微妙に変化し、選択状態を表現する。
  */
 class StackImageView extends StackPane {
-  private final Label label;
-  private final ImageView imageView;
-  private final Button button;
+  // パネルの選択状態
   private boolean isSelected = false;
+  // 選択されたパネルのインデックスのリスト
+  private static List<StackImageView> selectedInstanceList = new ArrayList<>();
+
+  // コンポーネント//{{{
+  // 番号を表示するLabel
+  private final Label label;
+  // 画像を表示するImageView
+  private final ImageView imageView;
+  // クリック動作を実行するための透明なボタン
+  private final Button button;
+  //}}}
 
   StackImageView(int index, double size) {//{{{
     label     = new Label("" + index);
@@ -40,29 +49,50 @@ class StackImageView extends StackPane {
     this.getChildren().add(button);
   }//}}}
 
-  private List<Integer> buttonIndexList = new ArrayList<>();
+  /**
+   * パネルの選択状態を切り替える。
+   * 選択されたパネルの数が2つに達すると、画像の入れ替えを実行し、パネルの選択状 
+   * を初期化する。
+   */
   private void buttonOnAction() {//{{{
-    isSelected = !isSelected;
-    button.setOpacity(isSelected ? 0.25 : 0.0);
+    setSelection(!isSelected);
 
-    int number = Integer.parseInt(label.getText());
-    buttonIndexList.add(number);
-    for (int i : buttonIndexList) {
-      System.out.print("list: " + i + " ");
-    }
-    System.out.println("");
-    if (2 <= buttonIndexList.size()) {
-      reverse();
-      buttonIndexList.clear();
+    selectedInstanceList.add(this);
+    if (2 <= selectedInstanceList.size()) {
+      exchangeImage();
+      selectedInstanceList.clear();
+      OutputImagePane.clearSelectedStackImageView();
     }
   }//}}}
-  private void reverse() {//{{{
-    System.out.println("reverse.");
+  /**
+   * 選択状態の２つのImageViewの画像を交換する。
+   */
+  void exchangeImage() {//{{{
+    Properties prop = MainController.prop;
+    int size = Integer.parseInt(prop.getProperty("size"));
+
+    Image image1   = selectedInstanceList.get(0).getImage();
+    Image image2   = selectedInstanceList.get(1).getImage();
+    Image tmpImage = new WritableImage(size, size);
+
+    tmpImage = image1;
+    image1   = image2;
+    image2   = tmpImage;
+
+    selectedInstanceList.get(0).setImage(image1);
+    selectedInstanceList.get(1).setImage(image2);
   }//}}}
   Image getImage() {//{{{
     return imageView.getImage();
   }//}}}
+  static List<StackImageView> getSelectedImageList() {//{{{
+    return selectedInstanceList;
+  }//}}}
   void setImage(Image image) {//{{{
     imageView.setImage(image);
+  }//}}}
+  void setSelection(boolean selection) {//{{{
+    isSelected = selection;
+    button.setOpacity(isSelected ? 0.25 : 0.0);
   }//}}}
 }
