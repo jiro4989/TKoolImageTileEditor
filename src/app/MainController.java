@@ -1,5 +1,6 @@
 package app;
 
+import app.strategy.*;
 import java.io.*;
 import java.util.*;
 import java.util.Properties;
@@ -13,6 +14,7 @@ import javafx.application.Platform;
 
 public class MainController {
   public static Properties prop;
+  public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
   // FXMLで指定するコンポーネント{{{
   // メニューバー {{{
   // ファイルメニュー//{{{
@@ -56,6 +58,9 @@ public class MainController {
 
   @FXML private void initialize() {//{{{
     outputImagePane = new OutputImagePane(outputImageGridPane);
+
+    deleteModeRadioButton .setOnAction(e -> strategy = new DeleteStrategy());
+    sortModeRadioButton   .setOnAction(e -> strategy = new SortStrategy());
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
     File file1 = new MyFile("input/Actor1.png");
@@ -78,7 +83,7 @@ public class MainController {
     //}}}
     //}}}
   }//}}}
-  // イベントメソッド//{{{
+  // FXMLイベントメソッド//{{{
   // メニューバー//{{{
   @FXML private void quitMenuItemOnAction() {//{{{
     Platform.exit();

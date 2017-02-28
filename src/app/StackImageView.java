@@ -1,5 +1,7 @@
 package app;
 
+import app.strategy.DeleteStrategy;
+import app.strategy.SortStrategy;
 import java.util.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -12,7 +14,7 @@ import javafx.scene.layout.*;
  * 透明なボタンという順序で構成される。透明なボタンをクリックすると、透明なボタ
  * ンの色が微妙に変化し、選択状態を表現する。
  */
-class StackImageView extends StackPane {
+public class StackImageView extends StackPane {
   // パネルの選択状態
   private boolean isSelected = false;
   // 選択されたパネルのインデックスのリスト
@@ -56,13 +58,16 @@ class StackImageView extends StackPane {
    */
   private void buttonOnAction() {//{{{
     setSelection(!isSelected);
-
     selectedInstanceList.add(this);
-    if (2 <= selectedInstanceList.size()) {
-      exchangeImage();
-      selectedInstanceList.clear();
-      OutputImagePane.clearSelectedStackImageView();
-    }
+
+    MainController.strategy.invoke(selectedInstanceList);
+    //if (2 <= selectedInstanceList.size()) {
+    //  //exchangeImage();
+    //  new DeleteStrategy().invoke(selectedInstanceList);
+    //  selectedInstanceList.clear();
+    //  OutputImagePane.clearSelectedStackImageView();
+    //}
+
   }//}}}
   /**
    * 選択状態の２つのImageViewの画像を交換する。
@@ -82,13 +87,13 @@ class StackImageView extends StackPane {
     selectedInstanceList.get(0).setImage(image1);
     selectedInstanceList.get(1).setImage(image2);
   }//}}}
-  Image getImage() {//{{{
+  public Image getImage() {//{{{
     return imageView.getImage();
   }//}}}
   static List<StackImageView> getSelectedImageList() {//{{{
     return selectedInstanceList;
   }//}}}
-  void setImage(Image image) {//{{{
+  public void setImage(Image image) {//{{{
     imageView.setImage(image);
   }//}}}
   void setSelection(boolean selection) {//{{{

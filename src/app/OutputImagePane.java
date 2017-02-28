@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 /**
  * 出力画像ペインの処理やフィールドをラップしたクラス。
  */
-class OutputImagePane {
+public class OutputImagePane {
   private final GridPane outputImageGridPane;
   private static List<StackImageView> stackImageViewList;
 
@@ -66,12 +66,11 @@ class OutputImagePane {
         stackImageViewList.get(i).setImage(trimmingImage);
       });
   }//}}}
-
   /**
    * StackImageViewのすべての選択状態をクリアする。
    */
-  static void clearSelectedStackImageView() {
+  public static void clearSelectedStackImageView() {//{{{
     stackImageViewList.stream()
       .forEach(siv -> siv.setSelection(false));
-  }
+  }//}}}
 }
