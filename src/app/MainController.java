@@ -80,7 +80,7 @@ public class MainController {
   @FXML private void quitMenuItemOnAction() {//{{{
     Platform.exit();
   }//}}}
-  ////}}}
+  //}}}
   // ファイルリスト//{{{
   @FXML private void clearImagesButtonOnAction() {//{{{
   }//}}}
@@ -104,6 +104,6 @@ public class MainController {
   @FXML private void fileListViewOnDragDropped(DragEvent event) {//{{{
     System.out.println("dragover.");
   }//}}}
-  ////}}}
+  //}}}
   //}}}
 }
