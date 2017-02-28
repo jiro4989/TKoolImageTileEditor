@@ -81,16 +81,7 @@ public class MainController {
   // イベントメソッド//{{{
   // メニューバー//{{{
   @FXML private void quitMenuItemOnAction() {//{{{
-    // Dividerとウィンドウサイズの測定のために一時的にコメントアウト
-    //Platform.exit();
-    double[] positions = splitPane.getDividerPositions();
-    System.out.println("pos.length: " + positions.length);
-    System.out.println("pos[0]: " + positions[0]);
-
-    double width = clearListButton.getScene().getWindow().getWidth();
-    double height = clearListButton.getScene().getWindow().getHeight();
-    System.out.println("width: " + width);
-    System.out.println("height: " + height);
+    Platform.exit();
   }//}}}
   //}}}
   // ファイルリスト//{{{
