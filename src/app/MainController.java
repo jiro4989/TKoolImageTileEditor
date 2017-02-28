@@ -9,12 +9,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.application.Platform;
 
 public class MainController {
   public static Properties prop;
   // FXMLで指定するコンポーネント{{{
   // メニューバー {{{
-  @FXML private MenuItem fileMenuItem;
+  // ファイルメニュー//{{{
+  @FXML private Menu fileMenu;
+  @FXML private MenuItem openMenuItem;
+  @FXML private Menu openRecentMenu;
+  @FXML private MenuItem saveMenuItem;
+  @FXML private MenuItem saveAsMenuItem;
+  @FXML private MenuItem preferencesMenuItem;
+  @FXML private MenuItem quitMenuItem;
+  //}}}
   //}}}
   // ファイルリスト//{{{
   @FXML private TitledPane fileListTitledPane;
@@ -41,10 +50,9 @@ public class MainController {
   //}}}
   // 出力画像パネル
   private OutputImagePane outputImagePane;
-  
+
   @FXML private void initialize() {//{{{
     outputImagePane = new OutputImagePane(outputImageGridPane);
-
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
     File file1 = new MyFile("input/Actor1.png");
@@ -67,6 +75,13 @@ public class MainController {
     //}}}
     //}}}
   }//}}}
+  // イベントメソッド//{{{
+  // メニューバー//{{{
+  @FXML private void quitMenuItemOnAction() {//{{{
+    Platform.exit();
+  }//}}}
+  ////}}}
+  // ファイルリスト//{{{
   @FXML private void clearImagesButtonOnAction() {//{{{
   }//}}}
   @FXML private void deleteListButtonOnAction() {//{{{
@@ -89,4 +104,6 @@ public class MainController {
   @FXML private void fileListViewOnDragDropped(DragEvent event) {//{{{
     System.out.println("dragover.");
   }//}}}
+  ////}}}
+  //}}}
 }
