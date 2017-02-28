@@ -1,6 +1,5 @@
-package app.strategy;
+package app.image;
 
-import app.StackImageView;
 import java.util.List;
 
 /**

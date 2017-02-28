@@ -1,7 +1,5 @@
-package app.strategy;
+package app.image;
 
-import app.OutputImagePane;
-import app.StackImageView;
 import java.util.List;
 import javafx.scene.image.WritableImage;
 

@@ -1,8 +1,6 @@
-package app.strategy;
+package app.image;
 
 import app.MainController;
-import app.OutputImagePane;
-import app.StackImageView;
 import java.util.List;
 import java.util.Properties;
 import javafx.scene.image.Image;

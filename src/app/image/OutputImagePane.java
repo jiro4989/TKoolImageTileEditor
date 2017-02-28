@@ -1,5 +1,6 @@
-package app;
+package app.image;
 
+import app.MainController;
 import java.io.File;
 import java.util.*;
 import java.util.stream.*;
@@ -12,9 +13,9 @@ import javafx.scene.layout.*;
  */
 public class OutputImagePane {
   private final GridPane outputImageGridPane;
-  private static List<StackImageView> stackImageViewList;
+  static List<StackImageView> stackImageViewList;
 
-  OutputImagePane(GridPane aGridPane) {//{{{
+  public OutputImagePane(GridPane aGridPane) {//{{{
     outputImageGridPane = aGridPane;
     stackImageViewList = new ArrayList<>(8);
   }//}}}
@@ -22,7 +23,7 @@ public class OutputImagePane {
   /**
    * Propertiesの設定によってレイ・アウトを変更する。
    */
-  void changeGridCells() {//{{{
+  public void changeGridCells() {//{{{
     Properties prop = MainController.prop;
     int row    = Integer.parseInt(prop.getProperty("row"));
     int column = Integer.parseInt(prop.getProperty("column"));
@@ -48,7 +49,7 @@ public class OutputImagePane {
    *
    * @param imageFile 画像
    */
-  void setImage(File imageFile) {//{{{
+  public void setImage(File imageFile) {//{{{
     Image image = new Image("file:" + imageFile.getAbsolutePath());
     PixelReader pixel = image.getPixelReader();
 
@@ -69,7 +70,7 @@ public class OutputImagePane {
   /**
    * StackImageViewのすべての選択状態をクリアする。
    */
-  public static void clearSelectedStackImageView() {//{{{
+  static void clearSelectedStackImageView() {//{{{
     stackImageViewList.stream()
       .forEach(siv -> siv.setSelection(false));
   }//}}}

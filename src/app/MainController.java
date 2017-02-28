@@ -1,9 +1,8 @@
 package app;
 
-import app.strategy.*;
+import app.image.*;
 import java.io.*;
 import java.util.*;
-import java.util.Properties;
 import java.util.stream.IntStream;
 import javafx.collections.*;
 import javafx.fxml.FXML;
@@ -13,8 +12,12 @@ import javafx.scene.layout.*;
 import javafx.application.Platform;
 
 public class MainController {
+  // 環境設定
   public static Properties prop;
+  // 出力画像ペインのクリック時の動作を決定するインスタンス
   public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
+  // 出力画像パネル
+  private OutputImagePane outputImagePane;
   // FXMLで指定するコンポーネント{{{
   // メニューバー {{{
   // ファイルメニュー//{{{
@@ -53,14 +56,13 @@ public class MainController {
   //}}}
   //}}}
   //}}}
-  // 出力画像パネル
-  private OutputImagePane outputImagePane;
 
   @FXML private void initialize() {//{{{
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
-    deleteModeRadioButton .setOnAction(e -> strategy = new DeleteStrategy());
-    sortModeRadioButton   .setOnAction(e -> strategy = new SortStrategy());
+    deleteModeRadioButton         .setOnAction( e -> strategy = new DeleteStrategy(         ) );
+    deleteNonEmptyModeRadioButton .setOnAction( e -> strategy = new DeleteNonEmptyStrategy( ) );
+    sortModeRadioButton           .setOnAction( e -> strategy = new SortStrategy(           ) );
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
     File file1 = new MyFile("input/Actor1.png");
