@@ -58,26 +58,7 @@ class StackImageView extends StackPane {
   private void buttonOnAction() {//{{{
     setSelection(!isSelected);
     selectedInstanceList.add(this);
-
     MainController.strategy.invoke(selectedInstanceList);
-  }//}}}
-  /**
-   * 選択状態の２つのImageViewの画像を交換する。
-   */
-  void exchangeImage() {//{{{
-    Properties prop = MainController.prop;
-    int size = Integer.parseInt(prop.getProperty("size"));
-
-    Image image1   = selectedInstanceList.get(0).getImage();
-    Image image2   = selectedInstanceList.get(1).getImage();
-    Image tmpImage = new WritableImage(size, size);
-
-    tmpImage = image1;
-    image1   = image2;
-    image2   = tmpImage;
-
-    selectedInstanceList.get(0).setImage(image1);
-    selectedInstanceList.get(1).setImage(image2);
   }//}}}
   Image getImage() {//{{{
     return imageView.getImage();

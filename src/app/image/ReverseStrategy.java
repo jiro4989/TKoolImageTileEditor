@@ -16,7 +16,6 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
    */
   @Override
   public void invoke(List<StackImageView> list) {
-
     list.stream()
       .forEach(siv -> {
         Image image = siv.getImage();
@@ -28,7 +27,10 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
         WritableImage wImage = writePixels(reversedPixels, width, height);
 
         siv.setImage(wImage);
+
       });
+    list.clear();
+    OutputImagePane.clearSelectedStackImageView();
   }
 
   /**

@@ -70,8 +70,9 @@ public class OutputImagePane {
   /**
    * StackImageViewのすべての選択状態をクリアする。
    */
-  static void clearSelectedStackImageView() {//{{{
+  public static void clearSelectedStackImageView() {//{{{
     stackImageViewList.stream()
       .forEach(siv -> siv.setSelection(false));
+    StackImageView.getSelectedImageList().clear();
   }//}}}
 }
