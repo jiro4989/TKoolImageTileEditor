@@ -1,5 +1,6 @@
 package app;
 
+import util.RecentFiles;
 import app.image.*;
 import jiro.lib.javafx.stage.FileChooserManager;
 import java.io.*;
@@ -7,6 +8,7 @@ import java.nio.file.*;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.collections.*;
 import javafx.fxml.FXML;
@@ -22,8 +24,6 @@ public class MainController {
   public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
   // 出力画像パネル
   private OutputImagePane outputImagePane;
-  // 最近開いたファイルとして記録する上限数
-  private int max = 20;
 
   // FXMLで指定するコンポーネント
   // メニューバー 
@@ -87,33 +87,19 @@ public class MainController {
     });//}}}
     //}}}
 
-    File logDir = new File("log");
-    logDir.mkdirs();
+    // 最近開いたファイルの情報からRecentMenuItemを更新する。
+    RecentFiles.createRecentOpenedMenuItems().ifPresent(list -> {
+      list.stream().forEach(menuItem -> {
+        openRecentMenu.getItems().add(menuItem);
 
-    // 最近開いたファイルの読み込み
-    File logFile = new File("log/recent.log");
-    if (logFile.exists()) {
-      Path path = logFile.toPath();
-      try (BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
-        br.lines().forEach(line -> {
-          MenuItem item = new MenuItem(line);
-          openRecentMenu.getItems().add(item);
-
-          item.setOnAction(e -> {
-            MyFile myFile = new MyFile(item.getText());
-            fileListView.getItems().add(myFile);
-          });
+        menuItem.setOnAction(e -> {
+          String path = menuItem.getText();
+          MyFile myFile = new MyFile(path);
+          fileListView.getItems().add(myFile);
         });
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    } else {
-      try {
-        logFile.createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+
+      });
+    });
 
     // TEST_CODE
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
@@ -127,6 +113,49 @@ public class MainController {
     //}}}
   }//}}}
 
+  /**
+   * 最近開いたファイルをOpenRecentMenuに登録する。 log/recent.logから１行ずつの
+   * ファイルパスとして取得する。ファイルが存在しなかった場合はセットしない。ま
+   * た、
+   */
+  private void setOpenRecentMenuItems() {//{{{
+    File logDir = new File("log");
+    logDir.mkdirs();
+
+    File logFile = new File("log/recent.log");
+    if (logFile.exists()) {
+      Path path = logFile.toPath();
+      try (BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
+        br.lines()
+          .collect(Collectors.toCollection(LinkedHashSet::new))
+          .stream()
+          .forEach(line -> {
+            setOpenRecentMenuItem(line);
+          });
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } else {
+      try {
+        logFile.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }//}}}
+  private void setOpenRecentMenuItem(String path) {//{{{
+    File file = new File(path);
+    if (file.exists()) {
+      MenuItem item = new MenuItem(path);
+      openRecentMenu.getItems().add(item);
+
+      item.setOnAction(e -> {
+        MyFile myFile = new MyFile(item.getText());
+        fileListView.getItems().add(myFile);
+      });
+    }
+  }//}}}
+
   // FXMLイベントメソッド
   // メニューバー 
   @FXML private void openMenuItemOnAction() {//{{{
@@ -134,28 +163,26 @@ public class MainController {
     Optional<List<File>> filesOpt = fcm.openFiles();
     filesOpt.ifPresent(files -> {
       for (File file : files) {
+
         MyFile myFile = new MyFile(file.getPath());
         fileListView.getItems().add(myFile);
+
+        String path = file.getAbsolutePath();
+        path = path.replaceAll("\\\\", "/");
+
+        MenuItem item = new MenuItem(path);
+        openRecentMenu.getItems().add(0, item);
+
       }
-      writeOpenRecentLog(files);
     });
   }//}}}
-  @FXML private void writeOpenRecentLog(List<File> files) {//{{{
-    File logFile = new File("log/recent.log");
-
-    Path path = logFile.toPath();
-    try (BufferedWriter br = Files.newBufferedWriter(path, Charset.forName("UTF-8"), StandardOpenOption.APPEND)) {
-      for (File file : files) {
-        String text = file.getAbsolutePath();
-        text = text.replaceAll("\\\\", "\\\\\\\\");
-        br.write(text + System.lineSeparator());
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }//}}}
   @FXML private void quitMenuItemOnAction() {//{{{
+
+    ObservableList<MenuItem> recentFiles = openRecentMenu.getItems();
+    RecentFiles.writeRecentOpenedFile(recentFiles);
+
     Platform.exit();
+
   }//}}}
 
   // ファイルリスト
