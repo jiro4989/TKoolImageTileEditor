@@ -1,0 +1,79 @@
+Buildfile: C:\Workspace\java\project\TKoolFacetileEditor\build.xml
+
+clean:
+
+compile:
+    [javac] Compiling 11 source files to C:\Workspace\java\project\TKoolFacetileEditor\classes
+     [copy] Copying 4 files to C:\Workspace\java\project\TKoolFacetileEditor\classes
+     [java] Exception in thread "JavaFX Application Thread" java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+     [java] 	at javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1774)
+     [java] 	at javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1657)
+     [java] 	at com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+     [java] 	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238)
+     [java] 	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+     [java] 	at com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+     [java] 	at com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+     [java] 	at com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+     [java] 	at javafx.event.Event.fireEvent(Event.java:198)
+     [java] 	at javafx.scene.Scene$ClickGenerator.postProcess(Scene.java:3470)
+     [java] 	at javafx.scene.Scene$ClickGenerator.access$8100(Scene.java:3398)
+     [java] 	at javafx.scene.Scene$MouseHandler.process(Scene.java:3766)
+     [java] 	at javafx.scene.Scene$MouseHandler.access$1500(Scene.java:3485)
+     [java] 	at javafx.scene.Scene.impl_processMouseEvent(Scene.java:1762)
+     [java] 	at javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2494)
+     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:381)
+     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:295)
+     [java] 	at java.security.AccessController.doPrivileged(Native Method)
+     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$354(GlassViewEventHandler.java:417)
+     [java] 	at com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:389)
+     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:416)
+     [java] 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
+     [java] 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
+     [java] 	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+     [java] 	at com.sun.glass.ui.win.WinApplication.lambda$null$148(WinApplication.java:191)
+     [java] 	at java.lang.Thread.run(Thread.java:745)
+     [java] Caused by: java.lang.reflect.InvocationTargetException
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:498)
+     [java] 	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
+     [java] 	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:498)
+     [java] 	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
+     [java] 	at javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1769)
+     [java] 	... 35 more
+     [java] Caused by: java.lang.IndexOutOfBoundsException: 576, 0
+     [java] 	at com.sun.prism.Image$BaseAccessor.getIndex(Image.java:933)
+     [java] 	at com.sun.prism.Image$BaseAccessor.getPixels(Image.java:991)
+     [java] 	at com.sun.prism.Image.getPixels(Image.java:657)
+     [java] 	at javafx.scene.image.Image$2.getPixels(Image.java:1210)
+     [java] 	at com.sun.prism.Image$ByteAccess.setPixels(Image.java:1083)
+     [java] 	at com.sun.prism.Image.setPixels(Image.java:714)
+     [java] 	at javafx.scene.image.WritableImage$2.setPixels(WritableImage.java:230)
+     [java] 	at javafx.scene.image.WritableImage.<init>(WritableImage.java:133)
+     [java] 	at app.image.OutputImagePane.lambda$setImage$1(OutputImagePane.java:66)
+     [java] 	at java.util.stream.Streams$RangeIntSpliterator.forEachRemaining(Streams.java:110)
+     [java] 	at java.util.stream.IntPipeline$Head.forEach(IntPipeline.java:557)
+     [java] 	at app.image.OutputImagePane.setImage(OutputImagePane.java:63)
+     [java] 	at app.MainController.fileListViewOnMouseClicked(MainController.java:120)
+     [java] 	... 45 more
+
+jar:
+      [jar] Building jar: C:\Workspace\java\project\TKoolFacetileEditor\tkfe.jar
+
+default:
+
+BUILD SUCCESSFUL
+Total time: 4 seconds

@@ -3,6 +3,31 @@
   -fx-font-family: "Meiryo";
 }
 
+/* 出力画像パネルのレイヤーボタン */
 #opacity-button:hover {
-  -fx-opacity: 0.25;
+  -fx-background-color: -fx-cell-focus-inner-border;
+  -fx-opacity: 0.30;
+}
+
+/* 操作モード変更ラジオボタン {{{*/
+.radio-button {
+  -fx-background-radius: 3.0;
+}
+
+.radio-button:selected,
+.radio-button:hover {
+  -fx-background-color: -fx-cell-focus-inner-border;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+/*}}}*/
+
+.list-view .list-cell:filled:hover {
+  -fx-background-color: -fx-cell-focus-inner-border, -fx-selection-bar  ;
+  -fx-background-insets: 0, 0 0 1 0 ;
+  -fx-background: -fx-selection-bar ;
+}
+
+.titled-pane .title {
+  -fx-font-weight: bold;
 }

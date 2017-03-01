@@ -58,6 +58,7 @@ public class MainController {
   @FXML private void initialize() {//{{{
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
+    // イベント登録{{{
     deleteModeRadioButton.setOnAction(e -> {
       strategy = new DeleteStrategy();
       OutputImagePane.clearSelectedStackImageView();
@@ -74,16 +75,18 @@ public class MainController {
       strategy = new ReverseStrategy();
       OutputImagePane.clearSelectedStackImageView();
     }) ;
-
+    //}}}
     // TEST_CODE//{{{
     // ファイルをリストビューに追加する//{{{
     File file1 = new MyFile("input/actor1.png");
     File file2 = new MyFile("input/actor2.png");
     File file3 = new MyFile("input/actor3.png");
+    File file4 = new MyFile("input/actor4.png");
 
     fileListView.getItems().add(file1);
     fileListView.getItems().add(file2);
     fileListView.getItems().add(file3);
+    fileListView.getItems().add(file4);
 
     //}}}
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{

@@ -37,7 +37,6 @@ class StackImageView extends StackPane {
 
     button.setId("opacity-button");
     button.setOpacity(0.0);
-    button.setStyle("-fx-background-color: blue");
     button.setOnAction(e -> buttonOnAction());
 
     imageView.setImage(new WritableImage(144, 144));
