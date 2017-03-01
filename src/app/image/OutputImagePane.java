@@ -75,4 +75,13 @@ public class OutputImagePane {
       .forEach(siv -> siv.setSelection(false));
     StackImageView.getSelectedImageList().clear();
   }//}}}
+  public static void clearImages() {//{{{
+    StackImageView.getSelectedImageList().clear();
+
+    stackImageViewList.stream()
+      .forEach(siv -> {
+        siv.setSelection(false);
+        siv.clearImage();
+      });
+  }//}}}
 }

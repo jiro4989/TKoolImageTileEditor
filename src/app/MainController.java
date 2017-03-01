@@ -3,6 +3,8 @@ package app;
 import app.image.*;
 import jiro.lib.javafx.stage.FileChooserManager;
 import java.io.*;
+import java.nio.file.*;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.IntStream;
 import javafx.application.Platform;
@@ -20,6 +22,8 @@ public class MainController {
   public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
   // 出力画像パネル
   private OutputImagePane outputImagePane;
+  // 最近開いたファイルとして記録する上限数
+  private int max = 20;
 
   // FXMLで指定するコンポーネント
   // メニューバー 
@@ -83,35 +87,77 @@ public class MainController {
     });//}}}
     //}}}
 
+    File logDir = new File("log");
+    logDir.mkdirs();
+
+    // 最近開いたファイルの読み込み
+    File logFile = new File("log/recent.log");
+    if (logFile.exists()) {
+      Path path = logFile.toPath();
+      try (BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
+        br.lines().forEach(line -> {
+          MenuItem item = new MenuItem(line);
+          openRecentMenu.getItems().add(item);
+
+          item.setOnAction(e -> {
+            MyFile myFile = new MyFile(item.getText());
+            fileListView.getItems().add(myFile);
+          });
+        });
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } else {
+      try {
+        logFile.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
     // TEST_CODE
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
     prop = new Properties();
-    try (InputStream is = new FileInputStream(new File("presets/mv.properties"))) {
-      prop.load(new InputStreamReader(is, "UTF-8"));
+    try (InputStream in = new FileInputStream(new File("presets/mv.properties"))) {
+      prop.load(new InputStreamReader(in, "UTF-8"));
       outputImagePane.changeGridCells();
     } catch (IOException e) {
       e.printStackTrace();
     }
     //}}}
   }//}}}
-  
+
   // FXMLイベントメソッド
   // メニューバー 
   @FXML private void openMenuItemOnAction() {//{{{
     FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
     Optional<List<File>> filesOpt = fcm.openFiles();
     filesOpt.ifPresent(files -> {
-      files.stream()
-        .forEach(file -> {
-          MyFile myFile = new MyFile(file.getPath());
-          fileListView.getItems().add(myFile);
-        });
+      for (File file : files) {
+        MyFile myFile = new MyFile(file.getPath());
+        fileListView.getItems().add(myFile);
+      }
+      writeOpenRecentLog(files);
     });
+  }//}}}
+  @FXML private void writeOpenRecentLog(List<File> files) {//{{{
+    File logFile = new File("log/recent.log");
+
+    Path path = logFile.toPath();
+    try (BufferedWriter br = Files.newBufferedWriter(path, Charset.forName("UTF-8"), StandardOpenOption.APPEND)) {
+      for (File file : files) {
+        String text = file.getAbsolutePath();
+        text = text.replaceAll("\\\\", "\\\\\\\\");
+        br.write(text + System.lineSeparator());
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }//}}}
   @FXML private void quitMenuItemOnAction() {//{{{
     Platform.exit();
   }//}}}
-  
+
   // ファイルリスト
   @FXML private void clearImagesButtonOnAction() {//{{{
   }//}}}
@@ -132,9 +178,14 @@ public class MainController {
   @FXML private void deleteListButtonOnAction() {//{{{
     ObservableList<File> selectedItems = fileListView.getSelectionModel().getSelectedItems();
     fileListView.getItems().removeAll(selectedItems);
+
+    if (fileListView.getItems().isEmpty()) {
+      OutputImagePane.clearImages();
+    }
   }//}}}
   @FXML private void clearListButtonOnAction() {//{{{
     fileListView.getItems().clear();
+    OutputImagePane.clearImages();
   }//}}}
   @FXML private void fileListViewOnDragOver(DragEvent event) {//{{{
     System.out.println("dragover.");
