@@ -30,12 +30,15 @@ public class MainController {
 
   // FXMLで指定するコンポーネント
   // メニューバー 
+
   // ファイルメニュー//{{{
   @FXML private Menu fileMenu;
   @FXML private MenuItem openMenuItem;
   @FXML private Menu openRecentMenu;
   @FXML private MenuItem saveMenuItem;
   @FXML private MenuItem saveAsMenuItem;
+  @FXML private MenuItem newPresetMenuItem;
+  @FXML private MenuItem editPresetMenuItem;
   @FXML private MenuItem preferencesMenuItem;
   @FXML private MenuItem quitMenuItem;
   //}}}
@@ -69,6 +72,8 @@ public class MainController {
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
     // イベント登録{{{
+
+    // モード切替のラジオボタン
     deleteModeRadioButton.setOnAction(e -> {//{{{
       strategy = new DeleteStrategy();
       OutputImagePane.clearSelectedStackImageView();
@@ -85,12 +90,15 @@ public class MainController {
       strategy = new ReverseStrategy();
       OutputImagePane.clearSelectedStackImageView();
     }) ;//}}}
+
+    // ファイルリストの選択アイテムの変更
     fileListView.getSelectionModel().selectedItemProperty().addListener(item -> {//{{{
       drawSelectedFile();
     });//}}}
+
     //}}}
 
-    // 最近開いたファイルの情報からRecentMenuItemを更新する。
+    // 最近開いたファイルの情報からRecentMenuItemを更新する。//{{{
     RecentFiles.createRecentOpenedMenuItems().ifPresent(list -> {
       list.stream().forEach(menuItem -> {
         openRecentMenu.getItems().add(menuItem);
@@ -103,9 +111,11 @@ public class MainController {
 
       });
     });
+    //}}}
 
     imageStandard = new ImageStandard("vxace.properties");
     outputImagePane.changeGridCells();
+
   }//}}}
 
   /**
@@ -170,6 +180,10 @@ public class MainController {
 
       }
     });
+  }//}}}
+  @FXML private void newPresetMenuItemOnAction() {//{{{
+  }//}}}
+  @FXML private void editPresetMenuItemOnAction() {//{{{
   }//}}}
   @FXML private void quitMenuItemOnAction() {//{{{
 

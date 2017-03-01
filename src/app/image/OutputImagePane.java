@@ -52,10 +52,14 @@ public class OutputImagePane {
    * @param imageFile 画像
    */
   public void setImage(File imageFile) {//{{{
+
     Image image = new Image("file:" + imageFile.getAbsolutePath());
     PixelReader pixel = image.getPixelReader();
 
     ImageStandard standard = MainController.imageStandard;
+    int standardWidth = standard.imageWidth;
+    int standardHeight = standard.imageHeight;
+
     int row    = standard.row;
     int column = standard.column;
     int size   = standard.size;
@@ -68,6 +72,7 @@ public class OutputImagePane {
         WritableImage trimmingImage = new WritableImage(pixel, x, y, size, size);
         stackImageViewList.get(i).setImage(trimmingImage);
       });
+
   }//}}}
   /**
    * StackImageViewのすべての選択状態をクリアする。
