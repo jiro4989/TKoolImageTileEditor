@@ -2,3 +2,7 @@
   -fx-font-size: 10.0pt;
   -fx-font-family: "Meiryo";
 }
+
+#opacity-button:hover {
+  -fx-opacity: 0.25;
+}

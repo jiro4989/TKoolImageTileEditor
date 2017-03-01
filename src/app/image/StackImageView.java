@@ -35,9 +35,12 @@ class StackImageView extends StackPane {
 
     label.setAlignment(Pos.CENTER);
 
+    button.setId("opacity-button");
     button.setOpacity(0.0);
     button.setStyle("-fx-background-color: blue");
     button.setOnAction(e -> buttonOnAction());
+
+    imageView.setImage(new WritableImage(144, 144));
 
     this      .setPrefSize(size, size);
     label     .setPrefSize(size, size);
@@ -63,6 +66,9 @@ class StackImageView extends StackPane {
   Image getImage() {//{{{
     return imageView.getImage();
   }//}}}
+  int getNumber() {//{{{
+    return Integer.parseInt(label.getText());
+  }//}}}
   static List<StackImageView> getSelectedImageList() {//{{{
     return selectedInstanceList;
   }//}}}
@@ -72,8 +78,5 @@ class StackImageView extends StackPane {
   void setSelection(boolean selection) {//{{{
     isSelected = selection;
     button.setOpacity(isSelected ? 0.25 : 0.0);
-  }//}}}
-  int getNumber() {//{{{
-    return Integer.parseInt(label.getText());
   }//}}}
 }

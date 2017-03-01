@@ -46,9 +46,7 @@ public class MainController {
   @FXML private RadioButton deleteModeRadioButton;
   @FXML private RadioButton deleteNonEmptyModeRadioButton;
   @FXML private RadioButton sortModeRadioButton;
-  @FXML private Button sortExecuteButton;
   @FXML private RadioButton reverseModeRadioButton;
-  @FXML private Button reverseExecuteButton;
   //}}}
   // 出力画像パネル//{{{
   @FXML private TitledPane outputImageTitledPane;
