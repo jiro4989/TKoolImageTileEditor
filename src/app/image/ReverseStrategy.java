@@ -28,6 +28,18 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
         WritablePixelFormat<IntBuffer> format = WritablePixelFormat.getIntArgbInstance();
         int[] pixels = new int[width * height];
         reader.getPixels(0, 0, width, height, format, pixels, 0, width);
+
+        // pixelの左右反転処理//{{{
+        int[] reversedPixels = new int[pixels.length];
+        for (int i=0; i<pixels.length; i++) {
+          int a = (i + width) / width * width;
+          int reverseIndex = a + (i / width * width) - i - 1;
+          reversedPixels[reverseIndex] = pixels[i];
+        }
+        //}}}
+
+        writer.setPixels(0, 0, width, height, format, reversedPixels, 0, width);
+        siv.setImage(wImage);
       });
   }
 }
