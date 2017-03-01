@@ -73,9 +73,12 @@ public class RecentFiles {
         .map(text -> text.replaceAll("\\\\", "/"))
         .distinct()
         .collect(Collectors.toList());
+
+      int i = 1;
       for (String text : list) {
         br.write(text + System.lineSeparator());
-        System.out.println("test");
+        if (MAX <= i) break;
+        i++;
       }
 
     } catch (IOException e) {
