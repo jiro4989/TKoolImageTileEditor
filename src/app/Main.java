@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import util.ResourceBundleWithUtf8;
 
 public class Main extends Application {
-  public static final String TITLE = "TKoolFacetileEditor";
+  public static final String TITLE = "TKool Facetile Editor";
   private MainController mainController;
 
   @Override

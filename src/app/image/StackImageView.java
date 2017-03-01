@@ -2,7 +2,6 @@ package app.image;
 
 import app.MainController;
 import java.util.*;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
@@ -33,12 +32,10 @@ class StackImageView extends StackPane {
     imageView = new ImageView();
     button    = new Button();
 
-    label.setAlignment(Pos.CENTER);
-
+    label.setId("number-label");
     button.setId("opacity-button");
-    button.setOpacity(0.0);
-    button.setOnAction(e -> buttonOnAction());
 
+    button.setOnAction(e -> buttonOnAction());
     imageView.setImage(new WritableImage(144, 144));
 
     this      .setPrefSize(size, size);

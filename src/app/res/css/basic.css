@@ -3,15 +3,9 @@
   -fx-font-family: "Meiryo";
 }
 
-/* 出力画像パネルのレイヤーボタン */
-#opacity-button:hover {
-  -fx-background-color: -fx-cell-focus-inner-border;
-  -fx-opacity: 0.30;
-}
-
 /* 操作モード変更ラジオボタン {{{*/
 .radio-button {
-  -fx-background-radius: 3.0;
+  -fx-background-radius: 4.0;
 }
 
 .radio-button:selected,
@@ -20,6 +14,25 @@
   -fx-text-fill: white;
   -fx-font-weight: bold;
 }
+/*}}}*/
+/* 出力画像パネル *//*{{{*/
+/* レイヤー透明ボタン *//*{{{*/
+#opacity-button {
+  -fx-opacity: 0.0;
+}
+
+#opacity-button:hover {
+  -fx-background-color: -fx-cell-focus-inner-border;
+  -fx-opacity: 0.30;
+}
+/*}}}*/
+/* レイヤー番号ラベル *//*{{{*/
+#number-label {
+  -fx-alignment: center;
+  -fx-font-size: 20.0;
+  -fx-font-weight: bold;
+}
+/*}}}*/
 /*}}}*/
 
 .list-view .list-cell:filled:hover {

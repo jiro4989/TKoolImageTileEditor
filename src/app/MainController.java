@@ -1,16 +1,17 @@
 package app;
 
-import jiro.lib.javafx.stage.FileChooserManager;
 import app.image.*;
+import jiro.lib.javafx.stage.FileChooserManager;
 import java.io.*;
 import java.util.*;
 import java.util.stream.IntStream;
+import javafx.application.Platform;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class MainController {
   // 環境設定
@@ -20,8 +21,8 @@ public class MainController {
   // 出力画像パネル
   private OutputImagePane outputImagePane;
 
-  // FXMLで指定するコンポーネント{{{
-  // メニューバー {{{
+  // FXMLで指定するコンポーネント
+  // メニューバー 
   // ファイルメニュー//{{{
   @FXML private Menu fileMenu;
   @FXML private MenuItem openMenuItem;
@@ -31,8 +32,8 @@ public class MainController {
   @FXML private MenuItem preferencesMenuItem;
   @FXML private MenuItem quitMenuItem;
   //}}}
-  //}}}
-  // 中央のレイ・アウト//{{{
+
+  // 中央のレイ・アウト
   @FXML private SplitPane splitPane;
   // ファイルリスト//{{{
   @FXML private TitledPane fileListTitledPane;
@@ -55,9 +56,8 @@ public class MainController {
   @FXML private TitledPane outputImageTitledPane;
   @FXML private GridPane outputImageGridPane;
   //}}}
-  //}}}
-  //}}}
 
+  // 初期化処理
   @FXML private void initialize() {//{{{
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
@@ -82,7 +82,8 @@ public class MainController {
       drawSelectedFile();
     });//}}}
     //}}}
-    // TEST_CODE//{{{
+
+    // TEST_CODE
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
     prop = new Properties();
     try (InputStream is = new FileInputStream(new File("presets/mv.properties"))) {
@@ -92,10 +93,10 @@ public class MainController {
       e.printStackTrace();
     }
     //}}}
-    //}}}
   }//}}}
-  // FXMLイベントメソッド//{{{
-  // メニューバー {{{
+  
+  // FXMLイベントメソッド
+  // メニューバー 
   @FXML private void openMenuItemOnAction() {//{{{
     FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
     Optional<List<File>> filesOpt = fcm.openFiles();
@@ -110,8 +111,8 @@ public class MainController {
   @FXML private void quitMenuItemOnAction() {//{{{
     Platform.exit();
   }//}}}
-  //}}}
-  // ファイルリスト//{{{
+  
+  // ファイルリスト
   @FXML private void clearImagesButtonOnAction() {//{{{
   }//}}}
   @FXML private void reloadButtonOnAction() {//{{{
@@ -122,6 +123,10 @@ public class MainController {
     if (!model.isEmpty()) {
       File imageFile = model.getSelectedItem();
       outputImagePane.setImage(imageFile);
+
+      String fileName = imageFile.getName();
+      Stage stage = (Stage) fileListView.getScene().getWindow();
+      stage.setTitle(fileName + " - " + Main.TITLE);
     }
   }//}}}
   @FXML private void deleteListButtonOnAction() {//{{{
@@ -137,8 +142,8 @@ public class MainController {
   @FXML private void fileListViewOnDragDropped(DragEvent event) {//{{{
     System.out.println("dragover.");
   }//}}}
-  //}}}
-  //}}}
+
+  // Setter
   void setDividerPosition(double position) {//{{{
     splitPane.setDividerPosition(0, position);
   }//}}}
