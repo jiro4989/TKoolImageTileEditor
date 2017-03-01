@@ -1,5 +1,6 @@
 package app;
 
+import jiro.lib.javafx.stage.FileChooserManager;
 import app.image.*;
 import java.io.*;
 import java.util.*;
@@ -77,18 +78,6 @@ public class MainController {
     }) ;
     //}}}
     // TEST_CODE//{{{
-    // ファイルをリストビューに追加する//{{{
-    File file1 = new MyFile("input/actor1.png");
-    File file2 = new MyFile("input/actor2.png");
-    File file3 = new MyFile("input/actor3.png");
-    File file4 = new MyFile("input/actor4.png");
-
-    fileListView.getItems().add(file1);
-    fileListView.getItems().add(file2);
-    fileListView.getItems().add(file3);
-    fileListView.getItems().add(file4);
-
-    //}}}
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
     prop = new Properties();
     try (InputStream is = new FileInputStream(new File("presets/mv.properties"))) {
@@ -102,6 +91,21 @@ public class MainController {
   }//}}}
   // FXMLイベントメソッド//{{{
   // メニューバー//{{{
+  @FXML private void openMenuItemOnAction() {//{{{
+
+    // ファイルをリストビューに追加する//{{{
+    File file1 = new MyFile("input/actor1.png");
+    File file2 = new MyFile("input/actor2.png");
+    File file3 = new MyFile("input/actor3.png");
+    File file4 = new MyFile("input/actor4.png");
+
+    fileListView.getItems().add(file1);
+    fileListView.getItems().add(file2);
+    fileListView.getItems().add(file3);
+    fileListView.getItems().add(file4);
+
+    //}}}
+  }//}}}
   @FXML private void quitMenuItemOnAction() {//{{{
     Platform.exit();
   }//}}}
