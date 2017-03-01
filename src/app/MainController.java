@@ -18,10 +18,13 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class MainController {
+
   // 環境設定
-  public static Properties prop;
+  public static ImageStandard imageStandard;
+
   // 出力画像ペインのクリック時の動作を決定するインスタンス
   public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
+
   // 出力画像パネル
   private OutputImagePane outputImagePane;
 
@@ -63,6 +66,7 @@ public class MainController {
 
   // 初期化処理
   @FXML private void initialize() {//{{{
+    imageStandard = new ImageStandard("mv.properties");
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
     // イベント登録{{{
@@ -100,17 +104,6 @@ public class MainController {
 
       });
     });
-
-    // TEST_CODE
-    // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
-    prop = new Properties();
-    try (InputStream in = new FileInputStream(new File("presets/mv.properties"))) {
-      prop.load(new InputStreamReader(in, "UTF-8"));
-      outputImagePane.changeGridCells();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    //}}}
   }//}}}
 
   /**

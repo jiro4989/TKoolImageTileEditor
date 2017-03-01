@@ -1,6 +1,7 @@
 package app.image;
 
 import app.MainController;
+import app.ImageStandard;
 import java.io.File;
 import java.util.*;
 import java.util.stream.*;
@@ -24,14 +25,15 @@ public class OutputImagePane {
    * Propertiesの設定によってレイ・アウトを変更する。
    */
   public void changeGridCells() {//{{{
-    Properties prop = MainController.prop;
-    int row    = Integer.parseInt(prop.getProperty("row"));
-    int column = Integer.parseInt(prop.getProperty("column"));
-    int size   = Integer.parseInt(prop.getProperty("size"));
+
+    ImageStandard standard = MainController.imageStandard;
+    int row    = standard.row;
+    int column = standard.column;
+    int size   = standard.size;
     int count  = row * column;
 
-    double gridWidth  = (double) (size * column);
-    double gridHeight = (double) (size * row);
+    double gridWidth  = (double) (standard.imageWidth);
+    double gridHeight = (double) (standard.imageHeight);
     outputImageGridPane.setPrefSize(gridWidth, gridHeight);
 
     IntStream.range(0, count)
@@ -53,10 +55,10 @@ public class OutputImagePane {
     Image image = new Image("file:" + imageFile.getAbsolutePath());
     PixelReader pixel = image.getPixelReader();
 
-    Properties prop = MainController.prop;
-    int row    = Integer.parseInt(prop.getProperty("row"));
-    int column = Integer.parseInt(prop.getProperty("column"));
-    int size   = Integer.parseInt(prop.getProperty("size"));
+    ImageStandard standard = MainController.imageStandard;
+    int row    = standard.row;
+    int column = standard.column;
+    int size   = standard.size;
     int count  = row * column;
 
     IntStream.range(0, count)

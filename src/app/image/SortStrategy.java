@@ -13,8 +13,8 @@ public class SortStrategy implements ControlOutputPaneStrategy {
   @Override
   public void invoke(List<StackImageView> list) {
     if (2 <= list.size()) {
-      Properties prop = MainController.prop;
-      int size = Integer.parseInt(prop.getProperty("size"));
+
+      int size = MainController.imageStandard.size;
 
       Image image1   = list.get(0).getImage();
       Image image2   = list.get(1).getImage();
