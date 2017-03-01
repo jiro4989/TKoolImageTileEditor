@@ -66,7 +66,6 @@ public class MainController {
 
   // 初期化処理
   @FXML private void initialize() {//{{{
-    imageStandard = new ImageStandard("mv.properties");
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
     // イベント登録{{{
@@ -104,6 +103,9 @@ public class MainController {
 
       });
     });
+
+    imageStandard = new ImageStandard("vxace.properties");
+    outputImagePane.changeGridCells();
   }//}}}
 
   /**
