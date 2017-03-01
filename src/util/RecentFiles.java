@@ -66,12 +66,16 @@ public class RecentFiles {
   public static void writeRecentOpenedFile(ObservableList<MenuItem> recentList) {//{{{
 
     Path path = LOG_FILE.toPath();
-    try (BufferedWriter br = Files.newBufferedWriter(path, Charset.forName("UTF-8"), StandardOpenOption.APPEND)) {
+    try (BufferedWriter br = Files.newBufferedWriter(path, Charset.forName("UTF-8"), StandardOpenOption.WRITE)) {
 
-      for (MenuItem item : recentList) {
-        String text = item.getText();
-        text = text.replaceAll("\\\\", "/");
+      List<String> list = recentList.stream()
+        .map(item -> item.getText())
+        .map(text -> text.replaceAll("\\\\", "/"))
+        .distinct()
+        .collect(Collectors.toList());
+      for (String text : list) {
         br.write(text + System.lineSeparator());
+        System.out.println("test");
       }
 
     } catch (IOException e) {
