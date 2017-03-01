@@ -30,7 +30,7 @@
       <menus>
         <Menu fx:id="fileMenu" mnemonicParsing="false" text="%fileMenu">
           <items>
-            <MenuItem fx:id="openMenuItem" mnemonicParsing="false" text="%openMenuItem" />
+            <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openMenuItemOnAction" text="%openMenuItem" />
             <Menu fx:id="openRecentMenu" mnemonicParsing="false" text="%openRecentMenu" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="%saveMenuItem" />
@@ -72,7 +72,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ListView fx:id="fileListView" onDragDropped="#fileListViewOnDragDropped" onDragOver="#fileListViewOnDragOver" onMouseClicked="#fileListViewOnMouseClicked" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="fileListView" onDragDropped="#fileListViewOnDragDropped" onDragOver="#fileListViewOnDragOver" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
                                     <GridPane vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,8 +87,9 @@
                                       </rowConstraints>
                                        <children>
                                           <Button fx:id="clearImagesButton" mnemonicParsing="false" onAction="#clearImagesButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearImagesButton" />
-                                          <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="1" />
-                                          <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="2" />
+                                          <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="2" />
+                                          <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="3" />
+                                          <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#reloadButtonOnAction" prefHeight="105.0" prefWidth="286.0" text="%reloadButton" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                  </children>

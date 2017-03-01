@@ -9,11 +9,13 @@
   <property name="build.classes.dir" value="classes"/>
   <property name="jar.name" value="tkfe.jar"/>
   <!--}}}-->
+  <!-- 外部ライブラリのパス --><!--{{{-->
   <path id="lib">
     <fileset dir="lib">
       <include name="*.jar"/>
     </fileset>
   </path>
+<!--}}}-->
 
   <target name="default" depends="clean,compile,jar"/>
   <target name="clean"><!--{{{-->
@@ -49,8 +51,12 @@
     </copy>
     <!--}}}-->
     <!-- 実行 --><!--{{{-->
-    <java fork="true" jvm="${env.JAVA_HOME}\bin\java"
-      classname="app.Main" classpath="${build.classes.dir}">
+    <java fork="true"
+      jvm="${env.JAVA_HOME}\bin\java"
+      classname="app.Main"
+      classpath="${build.classes.dir}"
+      classpathref="lib"
+      >
       <sysproperty key="app.preferences.id" value="TKoolFacetileEditorID"/>
     </java>
     <!--}}}-->

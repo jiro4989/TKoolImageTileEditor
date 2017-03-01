@@ -19,6 +19,7 @@ public class MainController {
   public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
   // 出力画像パネル
   private OutputImagePane outputImagePane;
+
   // FXMLで指定するコンポーネント{{{
   // メニューバー {{{
   // ファイルメニュー//{{{
@@ -37,6 +38,7 @@ public class MainController {
   @FXML private TitledPane fileListTitledPane;
   @FXML private ListView<File> fileListView;
   @FXML private Button clearImagesButton;
+  @FXML private Button reloadButton;
   @FXML private Button deleteListButton;
   @FXML private Button clearListButton;
   //}}}
@@ -60,22 +62,25 @@ public class MainController {
     outputImagePane = new OutputImagePane(outputImageGridPane);
 
     // イベント登録{{{
-    deleteModeRadioButton.setOnAction(e -> {
+    deleteModeRadioButton.setOnAction(e -> {//{{{
       strategy = new DeleteStrategy();
       OutputImagePane.clearSelectedStackImageView();
-    }) ;
-    deleteNonEmptyModeRadioButton.setOnAction(e -> {
+    }) ;//}}}
+    deleteNonEmptyModeRadioButton.setOnAction(e -> {//{{{
       strategy = new DeleteNonEmptyStrategy();
       OutputImagePane.clearSelectedStackImageView();
-    }) ;
-    sortModeRadioButton.setOnAction(e -> {
+    }) ;//}}}
+    sortModeRadioButton.setOnAction(e -> {//{{{
       strategy = new SortStrategy();
       OutputImagePane.clearSelectedStackImageView();
-    }) ;
-    reverseModeRadioButton.setOnAction(e -> {
+    }) ;//}}}
+    reverseModeRadioButton.setOnAction(e -> {//{{{
       strategy = new ReverseStrategy();
       OutputImagePane.clearSelectedStackImageView();
-    }) ;
+    }) ;//}}}
+    fileListView.getSelectionModel().selectedItemProperty().addListener(item -> {//{{{
+      drawSelectedFile();
+    });//}}}
     //}}}
     // TEST_CODE//{{{
     // プリセットファイルから出力画像のレイ・アウトを変更する。//{{{
@@ -90,21 +95,17 @@ public class MainController {
     //}}}
   }//}}}
   // FXMLイベントメソッド//{{{
-  // メニューバー//{{{
+  // メニューバー {{{
   @FXML private void openMenuItemOnAction() {//{{{
-
-    // ファイルをリストビューに追加する//{{{
-    File file1 = new MyFile("input/actor1.png");
-    File file2 = new MyFile("input/actor2.png");
-    File file3 = new MyFile("input/actor3.png");
-    File file4 = new MyFile("input/actor4.png");
-
-    fileListView.getItems().add(file1);
-    fileListView.getItems().add(file2);
-    fileListView.getItems().add(file3);
-    fileListView.getItems().add(file4);
-
-    //}}}
+    FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
+    Optional<List<File>> filesOpt = fcm.openFiles();
+    filesOpt.ifPresent(files -> {
+      files.stream()
+        .forEach(file -> {
+          MyFile myFile = new MyFile(file.getPath());
+          fileListView.getItems().add(myFile);
+        });
+    });
   }//}}}
   @FXML private void quitMenuItemOnAction() {//{{{
     Platform.exit();
@@ -113,19 +114,22 @@ public class MainController {
   // ファイルリスト//{{{
   @FXML private void clearImagesButtonOnAction() {//{{{
   }//}}}
+  @FXML private void reloadButtonOnAction() {//{{{
+    drawSelectedFile();
+  }//}}}
+  private void drawSelectedFile() {//{{{
+    SelectionModel<File> model = fileListView.getSelectionModel();
+    if (!model.isEmpty()) {
+      File imageFile = model.getSelectedItem();
+      outputImagePane.setImage(imageFile);
+    }
+  }//}}}
   @FXML private void deleteListButtonOnAction() {//{{{
     ObservableList<File> selectedItems = fileListView.getSelectionModel().getSelectedItems();
     fileListView.getItems().removeAll(selectedItems);
   }//}}}
   @FXML private void clearListButtonOnAction() {//{{{
     fileListView.getItems().clear();
-  }//}}}
-  @FXML private void fileListViewOnMouseClicked(MouseEvent event) {//{{{
-    SelectionModel<File> model = fileListView.getSelectionModel();
-    if (!model.isEmpty()) {
-      File imageFile = model.getSelectedItem();
-      outputImagePane.setImage(imageFile);
-    }
   }//}}}
   @FXML private void fileListViewOnDragOver(DragEvent event) {//{{{
     System.out.println("dragover.");
