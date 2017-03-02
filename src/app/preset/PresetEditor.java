@@ -1,6 +1,12 @@
 package app.preset;
 
+import util.ResourceBundleWithUtf8;
+
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -12,13 +18,20 @@ public class PresetEditor extends Stage {
 
   public PresetEditor() {
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("preset_editor.fxml"));
+    URL location = getClass().getResource("preset_editor.fxml");
+    ResourceBundle resources = ResourceBundle.getBundle(
+        "app.res.langs.preset_editor"
+        , Locale.getDefault()
+        , ResourceBundleWithUtf8.UTF8_ENCODING_CONTROL
+        );
+    FXMLLoader loader = new FXMLLoader(location, resources);
+
     try {
 
       GridPane root = (GridPane) loader.load();
       myController = (PresetEditorController) loader.getController();
 
-      Scene scene = new Scene(root, 600, 450);
+      Scene scene = new Scene(root, 1000, 450);
       scene.getStylesheets().add(getClass().getResource("/app/res/css/basic.css").toExternalForm());
       setScene(scene);
 
