@@ -1,5 +1,8 @@
 package app;
 
+import util.RecentFiles;
+import util.MyProperties;
+
 import app.image.*;
 import app.preset.PresetEditor;
 import java.io.*;
@@ -15,12 +18,19 @@ import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import jiro.lib.javafx.stage.FileChooserManager;
-import util.RecentFiles;
 
 public class MainController {
 
-  // 環境設定
+  // 環境設定ファイル
+  private MyProperties preferences;
+  private static final String PREFERENCES = "properties/preferences.xml";
+  private static final String INITIAL_PRESET = "presets/mv.xml";
+
+  // 画像規格
   public static ImageStandard imageStandard;
 
   // 出力画像ペインのクリック時の動作を決定するインスタンス
@@ -29,10 +39,9 @@ public class MainController {
   // 出力画像パネル
   private OutputImagePane outputImagePane;
 
-  // FXMLで指定するコンポーネント
-  // メニューバー 
+  // FXMLで指定するコンポーネント//{{{
 
-  // ファイルメニュー//{{{
+  // ファイルメニュー
   @FXML private Menu fileMenu;
   @FXML private MenuItem openMenuItem;
   @FXML private Menu openRecentMenu;
@@ -42,19 +51,19 @@ public class MainController {
   @FXML private MenuItem editPresetMenuItem;
   @FXML private MenuItem preferencesMenuItem;
   @FXML private MenuItem quitMenuItem;
-  //}}}
 
   // 中央のレイ・アウト
   @FXML private SplitPane splitPane;
-  // ファイルリスト//{{{
+
+  // ファイルリスト
   @FXML private TitledPane fileListTitledPane;
   @FXML private ListView<File> fileListView;
   @FXML private Button clearImagesButton;
   @FXML private Button reloadButton;
   @FXML private Button deleteListButton;
   @FXML private Button clearListButton;
-  //}}}
-  // パネル操作変更//{{{
+
+  // パネル操作変更
   @FXML private TitledPane controlPanelTitledPane;
 
   @FXML private ToggleGroup toggleGroup;
@@ -62,15 +71,15 @@ public class MainController {
   @FXML private RadioButton deleteNonEmptyModeRadioButton;
   @FXML private RadioButton sortModeRadioButton;
   @FXML private RadioButton reverseModeRadioButton;
-  //}}}
-  // 出力画像パネル//{{{
+
+  // 出力画像パネル
   @FXML private TitledPane outputImageTitledPane;
   @FXML private GridPane outputImageGridPane;
+
   //}}}
 
   // 初期化処理
   @FXML private void initialize() {//{{{
-    outputImagePane = new OutputImagePane(outputImageGridPane);
 
     // イベント登録{{{
 
@@ -100,6 +109,7 @@ public class MainController {
     //}}}
 
     // 最近開いたファイルの情報からRecentMenuItemを更新する。//{{{
+
     RecentFiles.createRecentOpenedMenuItems().ifPresent(list -> {
       list.stream().forEach(menuItem -> {
         openRecentMenu.getItems().add(menuItem);
@@ -112,17 +122,73 @@ public class MainController {
 
       });
     });
+
     //}}}
 
-    imageStandard = new ImageStandard("vxace.properties");
+    // 環境設定プロパティファイルを読み取り、画像規格を設定する。//{{{
+    // ファイルが存在しなかった場合は各種プリセットを生成し、mv.xmlを規格に設定
+    // する。
+
+    preferences = new MyProperties(PREFERENCES);
+    if (preferences.load()) {
+
+      imageStandard = new ImageStandard(preferences.getProperty("presetPath"));
+      setOutputImageTitleText();
+
+    } else {
+
+      new File("presets")   .mkdirs();
+      new File("properties").mkdirs();
+      createInitialFiles();
+      imageStandard = new ImageStandard("./presets/mv.xml");
+      setOutputImageTitleText();
+
+    }
+
+    //}}}
+
+    outputImagePane = new OutputImagePane(outputImageGridPane);
     outputImagePane.changeGridCells();
 
   }//}}}
 
+  private void createInitialFiles() {//{{{
+
+    MyProperties mv      = new MyProperties("presets/mv.xml");
+    MyProperties vxace   = new MyProperties("presets/vxace.xml");
+    MyProperties iconset = new MyProperties("presets/iconset.xml");
+
+    createInitialFile(mv      , 2  , 4  , 144);
+    createInitialFile(vxace   , 2  , 4  , 96);
+    createInitialFile(iconset , 20 , 16 , 32);
+
+  }//}}}
+
+  private void createInitialFile(MyProperties mp, int row, int column, int size) {//{{{
+
+    if (!mp.exists()) {
+
+      mp.setProperty("row"    , "" + row);
+      mp.setProperty("column" , "" + column);
+      mp.setProperty("size"   , "" + size);
+      mp.store();
+
+    }
+
+  }//}}}
+
+  private void setOutputImageTitleText() {//{{{
+
+    String name = imageStandard.getPresetName();
+    String outputTitle = outputImageTitledPane.getText();
+    outputImageTitledPane.setText(outputTitle + " - " + name);
+
+  }//}}}
+
   /**
-   * 最近開いたファイルをOpenRecentMenuに登録する。 log/recent.logから１行ずつの
-   * ファイルパスとして取得する。ファイルが存在しなかった場合はセットしない。ま
-   * た、
+   * 最近開いたファイルをOpenRecentMenuに登録する。
+   * log/recent.logから１行ずつのファイルパスとして取得する。ファイルが存在しな
+   * かった場合はセットしない。
    */
   private void setOpenRecentMenuItems() {//{{{
     File logDir = new File("log");
@@ -149,6 +215,7 @@ public class MainController {
       }
     }
   }//}}}
+
   private void setOpenRecentMenuItem(String path) {//{{{
     File file = new File(path);
     if (file.exists()) {
@@ -182,17 +249,29 @@ public class MainController {
       }
     });
   }//}}}
+
   @FXML private void newPresetMenuItemOnAction() {//{{{
-    PresetEditor editor = new PresetEditor();
-    editor.showAndWait();
+
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter("Preset Files", "*.xml"));
+    fc.setInitialDirectory(new File("presets"));
+    fc.setInitialFileName("new_preset");
+
+    File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
+    if (file != null) {
+
+      PresetEditor editor = new PresetEditor();
+      editor.showAndWait();
+
+    }
+
   }//}}}
+
   @FXML private void editPresetMenuItemOnAction() {//{{{
   }//}}}
   @FXML private void quitMenuItemOnAction() {//{{{
 
-    ObservableList<MenuItem> recentFiles = openRecentMenu.getItems();
-    RecentFiles.writeRecentOpenedFile(recentFiles);
-
+    closeRequest();
     Platform.exit();
 
   }//}}}
@@ -233,8 +312,34 @@ public class MainController {
     System.out.println("dragover.");
   }//}}}
 
-  // Setter
-  void setDividerPosition(double position) {//{{{
-    splitPane.setDividerPosition(0, position);
+  /**
+   * アプリケーション終了時に実行される処理。
+   * 各種設定ファイルを保存する。
+   */
+  void closeRequest() {//{{{
+
+    ObservableList<MenuItem> recentFiles = openRecentMenu.getItems();
+    RecentFiles.writeRecentOpenedFile(recentFiles);
+
+    MyProperties mainMp = new MyProperties("properties/main.xml");
+    mainMp.setProperties(clearImagesButton);
+    mainMp.store();
+
+    double[] poses = splitPane.getDividerPositions();
+    preferences.setProperty("splitPane.divider.pos" , "" + poses[0]);
+    preferences.setProperty("presetPath", imageStandard.getPresetPath());
+    preferences.store();
+
   }//}}}
+
+  // Setter
+  void setDividerPosition() {//{{{
+
+    String val = preferences.getProperty("splitPane.divider.pos");
+    val = val == null ? "0.366" : val;
+    double pos = Double.parseDouble(val);
+    splitPane.setDividerPosition(0, pos);
+
+  }//}}}
+
 }

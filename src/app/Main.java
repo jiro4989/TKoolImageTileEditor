@@ -1,16 +1,18 @@
 package app;
 
+import util.ResourceBundleWithUtf8;
+import util.MyProperties;
+
 import java.io.*;
 import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import util.ResourceBundleWithUtf8;
 
 public class Main extends Application {
   public static final String TITLE = "TKool Facetile Editor";
@@ -27,31 +29,26 @@ public class Main extends Application {
         );
     FXMLLoader loader = new FXMLLoader(location, resources);
 
-    double width = 952.0;
-    double height = 565.0;
-    double dividerPosition = 0.366;
-    try (InputStream is = new FileInputStream(new File("properties/preferences.properties"))) {
-      Properties prop = new Properties();
-      prop.load(new InputStreamReader(is, "UTF-8"));
-      width = Double.parseDouble(prop.getProperty("primaryStage.width"));
-      height = Double.parseDouble(prop.getProperty("primaryStage.height"));
-      dividerPosition = Double.parseDouble(prop.getProperty("splitPane.divider.pos"));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
     try {
+
       VBox root = (VBox) loader.load();
       mainController = (MainController) loader.getController();
-      Scene scene = new Scene(root, width, height);
+
+      Scene scene = new Scene(root, 950, 550);
       scene.getStylesheets().add(getClass().getResource("res/css/basic.css").toExternalForm());
+
       primaryStage.setScene(scene);
       primaryStage.setTitle(TITLE);
       primaryStage.setMinWidth(480);
       primaryStage.setMinHeight(270);
+      primaryStage.setOnCloseRequest(e -> { mainController.closeRequest(); });
+
+      MyProperties mainMp = new MyProperties("properties/main.xml");
+      if (mainMp.load()) mainMp.customStage(primaryStage);
 
       primaryStage.show();
-      mainController.setDividerPosition(dividerPosition);
+      mainController.setDividerPosition();
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -60,4 +57,5 @@ public class Main extends Application {
   public static void main(String... args) {
     launch(args);
   }
+
 }

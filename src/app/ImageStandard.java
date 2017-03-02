@@ -1,7 +1,7 @@
 package app;
 
+import util.MyProperties;
 import java.io.*;
-import java.util.Properties;
 
 /**
  * 画像の規格を保持するクラス。
@@ -23,41 +23,33 @@ public class ImageStandard {
   /** パネル画像をまとめたイメージ全体の縦幅 */
   public final int imageHeight;
 
-  /**
-   * 画像規格の生成。
-   *
-   * @param aRow    行数
-   * @param aColumn 列数
-   * @param aSize   パネルあたりの幅
-   */
-  ImageStandard(int aRow, int aColumn, int aSize) {//{{{
-    row         = aRow;
-    column      = aColumn;
-    size        = aSize;
-    imageWidth  = size * column;
-    imageHeight = size * row;
-  }//}}}
+  /** 画像規格を取得するプリセットファイル */
+  private final File presetFile;
 
   /**
    * プリセットファイルから値を読み取ってインスタンスを生成する。
    *
-   * @param presetName プリセットファイル名
+   * @param presetPath プリセットのパス
    */
-  ImageStandard(String presetName) {//{{{
+  ImageStandard(String presetPath) {//{{{
+
+    this(new File(presetPath));
+
+  }//}}}
+
+  ImageStandard(File aPresetFile) {//{{{
 
     int r = 2;
     int c = 4;
     int s = 144;
 
-    Properties prop = new Properties();
-    File presetFile = new File("presets/" + presetName);
-    try (InputStream in = new FileInputStream(presetFile)) {
-      prop.load(new InputStreamReader(in, "UTF-8"));
-      r = Integer.parseInt(prop.getProperty("row"));
-      c = Integer.parseInt(prop.getProperty("column"));
-      s = Integer.parseInt(prop.getProperty("size"));
-    } catch (IOException e) {
-      e.printStackTrace();
+    MyProperties mp = new MyProperties(aPresetFile);
+    if (mp.load()) {
+
+      r = Integer.parseInt(mp.getProperty("row"));
+      c = Integer.parseInt(mp.getProperty("column"));
+      s = Integer.parseInt(mp.getProperty("size"));
+
     }
 
     row         = r;
@@ -65,11 +57,21 @@ public class ImageStandard {
     size        = s;
     imageWidth  = size * column;
     imageHeight = size * row;
+    presetFile = aPresetFile;
 
   }//}}}
 
+  public String getPresetPath() {//{{{
+    return presetFile.getPath();
+  }//}}}
+
+  public String getPresetName() {//{{{
+    return presetFile.getName();
+  }//}}}
+
   @Override
-  public String toString() {
+  public String toString() {//{{{
+
     return String.format(
         "row: %d, column: %d, size: %d, imageWidth: %d, imageHeight: %d"
         , row
@@ -78,5 +80,7 @@ public class ImageStandard {
         , imageWidth
         , imageHeight
         );
-  }
+
+  }//}}}
+
 }

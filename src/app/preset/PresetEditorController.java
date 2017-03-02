@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 
 public class PresetEditorController {
 
@@ -18,9 +20,6 @@ public class PresetEditorController {
   // 設定入力//{{{
 
   @FXML private TitledPane customizeTitledPane;
-
-  @FXML private Label            presetLabel;
-  @FXML private ComboBox<String> presetComboBox;
 
   // 行
   @FXML private Label     rowLabel;
@@ -249,6 +248,8 @@ public class PresetEditorController {
   }//}}}
 
   @FXML private void okButtonOnAction() {//{{{
+
+    cancelButton.getScene().getWindow().hide();
 
   }//}}}
 

@@ -39,13 +39,6 @@
               <content>
                 <VBox spacing="5.0">
                   <children>
-                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                      <children>
-                        <Label fx:id="presetLabel" text="%presetLabel" />
-                        <ComboBox fx:id="presetComboBox" editable="true" promptText="%presetComboBox" />
-                      </children>
-                    </HBox>
-                    <Separator />
                     <AnchorPane>
                       <children>
                         <GridPane hgap="5.0" layoutY="3.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
