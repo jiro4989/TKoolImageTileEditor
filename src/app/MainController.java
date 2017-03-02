@@ -1,14 +1,13 @@
 package app;
 
-import util.RecentFiles;
 import app.image.*;
-import jiro.lib.javafx.stage.FileChooserManager;
+import app.preset.PresetEditor;
 import java.io.*;
-import java.nio.file.*;
 import java.nio.charset.Charset;
+import java.nio.file.*;
 import java.util.*;
-import java.util.stream.IntStream;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.collections.*;
 import javafx.fxml.FXML;
@@ -16,6 +15,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import jiro.lib.javafx.stage.FileChooserManager;
+import util.RecentFiles;
 
 public class MainController {
 
@@ -182,6 +183,8 @@ public class MainController {
     });
   }//}}}
   @FXML private void newPresetMenuItemOnAction() {//{{{
+    PresetEditor editor = new PresetEditor();
+    editor.showAndWait();
   }//}}}
   @FXML private void editPresetMenuItemOnAction() {//{{{
   }//}}}
