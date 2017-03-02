@@ -35,6 +35,7 @@ public class PresetEditor extends Stage {
       scene.getStylesheets().add(getClass().getResource("/app/res/css/basic.css").toExternalForm());
       setScene(scene);
 
+      setTitle(resources.getString("title"));
       initStyle(StageStyle.UTILITY);
       initModality(Modality.APPLICATION_MODAL);
 

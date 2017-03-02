@@ -61,7 +61,8 @@ public class PresetEditorController {
 
   @FXML private void initialize() {//{{{
 
-    // TEST CODE
+    // TEST CODE//{{{
+
     Image image = new Image("file:./input/mv.png");
     int width  = (int) image.getWidth();
     int height = (int) image.getHeight();
@@ -79,6 +80,28 @@ public class PresetEditorController {
     gridPane.addRow(1, row1);
 
     imageView.setImage(image);
+
+    //}}}
+
+    // イベント登録//{{{
+
+    rowUpButton    . setOnAction(e -> incrementValueOf(rowTextField    , 1));
+    columnUpButton . setOnAction(e -> incrementValueOf(columnTextField , 1));
+    sizeUpButton   . setOnAction(e -> incrementValueOf(sizeTextField   , 1));
+
+    rowDownButton    . setOnAction(e -> incrementValueOf(rowTextField    , -1));
+    columnDownButton . setOnAction(e -> incrementValueOf(columnTextField , -1));
+    sizeDownButton   . setOnAction(e -> incrementValueOf(sizeTextField   , -1));
+
+    //}}}
+
+  }//}}}
+
+  private void incrementValueOf(TextField textField, int gain) {//{{{
+    String text = textField.getText();
+    int value = Integer.parseInt(text);
+    value += gain;
+    textField.setText("" + value);
   }//}}}
 
   private Pane createEmptyPane(int width) {//{{{
