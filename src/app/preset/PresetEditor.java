@@ -1,6 +1,7 @@
 package app.preset;
 
 import util.ResourceBundleWithUtf8;
+import util.MyProperties;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +15,7 @@ import javafx.stage.*;
 
 public class PresetEditor extends Stage {
 
-  private PresetEditorController myController;
+  private PresetEditorController controller;
 
   public PresetEditor() {
 
@@ -29,19 +30,23 @@ public class PresetEditor extends Stage {
     try {
 
       GridPane root = (GridPane) loader.load();
-      myController = (PresetEditorController) loader.getController();
+      controller = (PresetEditorController) loader.getController();
 
       final int WIDTH = 1000;
       final int HEIGHT = 600;
       Scene scene = new Scene(root, WIDTH, HEIGHT);
       scene.getStylesheets().add(getClass().getResource("/app/res/css/basic.css").toExternalForm());
 
+      setScene(scene);
       setMinWidth(WIDTH);
       setMinHeight(HEIGHT);
-      setScene(scene);
       setTitle(resources.getString("title"));
       initStyle(StageStyle.UTILITY);
       initModality(Modality.APPLICATION_MODAL);
+      setOnCloseRequest(e -> { controller.closeRequest(); });
+
+      MyProperties mp = new MyProperties("properties/preview_editor.xml");
+      if (mp.load()) mp.customStage(this);
 
     } catch (IOException e) {
       e.printStackTrace();

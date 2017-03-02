@@ -2,6 +2,7 @@ package app.preset;
 
 import jiro.lib.javafx.stage.FileChooserManager;
 import util.JavaFXCustomizeUtils;
+import util.MyProperties;
 
 import java.io.File;
 import java.util.Optional;
@@ -191,6 +192,14 @@ public class PresetEditorController {
     pane.setPrefWidth(width);
     pane.setPrefHeight(width);
     return pane;
+  }//}}}
+
+  void closeRequest() {//{{{
+
+    MyProperties mp = new MyProperties("properties/preset_editor.xml");
+    mp.setProperties(okButton);
+    mp.store();
+
   }//}}}
 
   @FXML private void fileChooserButtonOnAction() {//{{{

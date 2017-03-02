@@ -268,7 +268,21 @@ public class MainController {
   }//}}}
 
   @FXML private void editPresetMenuItemOnAction() {//{{{
+
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter("Preset Files", "*.xml"));
+    fc.setInitialDirectory(new File("presets"));
+
+    File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
+    if (file != null) {
+
+      PresetEditor editor = new PresetEditor();
+      editor.showAndWait();
+
+    }
+
   }//}}}
+
   @FXML private void quitMenuItemOnAction() {//{{{
 
     closeRequest();
