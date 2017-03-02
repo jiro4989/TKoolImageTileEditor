@@ -1,7 +1,10 @@
 package app.preset;
 
+import jiro.lib.javafx.stage.FileChooserManager;
 import util.JavaFXCustomizeUtils;
 
+import java.io.File;
+import java.util.Optional;
 import java.util.stream.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -45,15 +48,28 @@ public class PresetEditorController {
   @FXML private Label     imageHeightLabel;
   @FXML private TextField imageHeightTextField;
 
+  // プレビュー画像選択
+  @FXML private Button    fileChooserButton;
+  @FXML private TextField imageFileTextField;
+
+  // プレビュー画像の横幅
+  @FXML private Label     previewImageWidthLabel;
+  @FXML private TextField previewImageWidthTextField;
+
+  // プレビュー画像の縦幅
+  @FXML private Label     previewImageHeightLabel;
+  @FXML private TextField previewImageHeightTextField;
+
   // サイズ補完ボタン
   @FXML private Button resizeButton;
+  @FXML private Button reRowColumnButton;
 
   //}}}
 
   @FXML private TitledPane previewTitledPane;
 
   // 画像描画
-  @FXML private StackPane stackPane;
+  @FXML private AnchorPane anchorPane;
   @FXML private ImageView imageView;
 
   // 終了ボタン
@@ -65,14 +81,6 @@ public class PresetEditorController {
   @FXML private void initialize() {//{{{
 
     // TEST CODE//{{{
-
-    Image image = new Image("file:./input/icon_set.png");
-    int width  = (int) image.getWidth();
-    int height = (int) image.getHeight();
-    imageView.setFitWidth(width);
-    imageView.setFitHeight(height);
-
-    imageView.setImage(image);
 
     //}}}
 
@@ -89,9 +97,13 @@ public class PresetEditorController {
     customizeTextField(rowTextField);
     customizeTextField(columnTextField);
     customizeTextField(sizeTextField, 1, 1000);
-    sizeTextField.setText("" + 144);
 
     //}}}
+
+    sizeTextField.setText("" + 144);
+    changeGridCells();
+    setImageWidth();
+    setImageHeight();
 
   }//}}}
 
@@ -101,6 +113,8 @@ public class PresetEditorController {
     textField.textProperty().addListener((obs, oldVal, newVal) -> {
       JavaFXCustomizeUtils.setNumberOnly(textField, oldVal, newVal);
       changeGridCells();
+      setImageWidth();
+      setImageHeight();
     });
     JavaFXCustomizeUtils.setMaxDigitOption(textField, min, max);
     JavaFXCustomizeUtils.setScrollValueOption(textField, 5, 10);
@@ -114,8 +128,11 @@ public class PresetEditorController {
   private void changeGridCells() {//{{{
 
     clearGridPane();
+
     GridPane gridPane = new GridPane();
     gridPane.setGridLinesVisible(true);
+    AnchorPane.setTopAnchor(gridPane, 0.0);
+    AnchorPane.setLeftAnchor(gridPane, 0.0);
 
     int row    = Integer . parseInt(rowTextField    . getText());
     int column = Integer . parseInt(columnTextField . getText());
@@ -132,16 +149,34 @@ public class PresetEditorController {
 
     });
 
-    stackPane.getChildren().add(gridPane);
+    anchorPane.getChildren().add(gridPane);
 
   }//}}}
 
   private void clearGridPane() {//{{{
 
-    int size = stackPane.getChildren().size();
+    int size = anchorPane.getChildren().size();
     if (2 <= size) {
-      stackPane.getChildren().remove(1, 2);
+      anchorPane.getChildren().remove(1, 2);
     }
+
+  }//}}}
+
+  private void setImageWidth() {//{{{
+
+    int column = Integer.parseInt(columnTextField.getText());
+    int size   = Integer.parseInt(sizeTextField.getText());
+    int value = column * size;
+    imageWidthTextField.setText("" + value);
+
+  }//}}}
+
+  private void setImageHeight() {//{{{
+
+    int row  = Integer.parseInt(rowTextField.getText());
+    int size = Integer.parseInt(sizeTextField.getText());
+    int value = row * size;
+    imageHeightTextField.setText("" +  value);
 
   }//}}}
 
@@ -157,6 +192,70 @@ public class PresetEditorController {
     pane.setPrefWidth(width);
     pane.setPrefHeight(width);
     return pane;
+  }//}}}
+
+  @FXML private void fileChooserButtonOnAction() {//{{{
+
+    FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
+    Optional<File> fileOpt = fcm.openFile();
+    fileOpt.ifPresent(file -> {
+
+      Image image = new Image("file:" + file.getPath());
+      int width  = (int) image.getWidth();
+      int height = (int) image.getHeight();
+      imageView.setFitWidth(width);
+      imageView.setFitHeight(height);
+      imageView.setImage(image);
+
+      imageFileTextField.setText(file.getName());
+      previewImageWidthTextField  . setText("" + width);
+      previewImageHeightTextField . setText("" + height);
+
+      resizeButton      . setDisable(false);
+      reRowColumnButton . setDisable(false);
+
+    });
+
+  }//}}}
+
+  @FXML private void resizeButtonOnAction() {//{{{
+
+    String w   = previewImageWidthTextField  . getText();
+    int width  = Integer.parseInt(w);
+
+    String c   = columnTextField.getText();
+    int column = Integer.parseInt(c);
+
+    int size = width / column;
+    sizeTextField.setText("" + size);
+
+  }//}}}
+
+  @FXML private void reRowColumnButtonOnAction() {//{{{
+
+    String s   = sizeTextField.getText();
+    int size   = Integer.parseInt(s);
+
+    String w   = previewImageWidthTextField.getText();
+    String h   = previewImageHeightTextField.getText();
+    int width  = Integer.parseInt(w);
+    int height = Integer.parseInt(h);
+
+    int row    = height / size;
+    int column = width / size;
+    rowTextField.setText("" + row);
+    columnTextField.setText("" + column);
+
+  }//}}}
+
+  @FXML private void okButtonOnAction() {//{{{
+
+  }//}}}
+
+  @FXML private void cancelButtonOnAction() {//{{{
+
+    cancelButton.getScene().getWindow().hide();
+
   }//}}}
 
 }

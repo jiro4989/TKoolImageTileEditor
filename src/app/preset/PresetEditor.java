@@ -31,10 +31,14 @@ public class PresetEditor extends Stage {
       GridPane root = (GridPane) loader.load();
       myController = (PresetEditorController) loader.getController();
 
-      Scene scene = new Scene(root, 1000, 450);
+      final int WIDTH = 1000;
+      final int HEIGHT = 600;
+      Scene scene = new Scene(root, WIDTH, HEIGHT);
       scene.getStylesheets().add(getClass().getResource("/app/res/css/basic.css").toExternalForm());
-      setScene(scene);
 
+      setMinWidth(WIDTH);
+      setMinHeight(HEIGHT);
+      setScene(scene);
       setTitle(resources.getString("title"));
       initStyle(StageStyle.UTILITY);
       initModality(Modality.APPLICATION_MODAL);
