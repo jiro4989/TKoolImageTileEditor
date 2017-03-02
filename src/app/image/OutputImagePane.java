@@ -46,6 +46,7 @@ public class OutputImagePane {
       });
 
   }//}}}
+
   /**
    * 画像をImageViewに貼り付ける。
    *
@@ -74,6 +75,7 @@ public class OutputImagePane {
       });
 
   }//}}}
+
   /**
    * StackImageViewのすべての選択状態をクリアする。
    */
@@ -82,6 +84,7 @@ public class OutputImagePane {
       .forEach(siv -> siv.setSelection(false));
     StackImageView.getSelectedImageList().clear();
   }//}}}
+
   public static void clearImages() {//{{{
     StackImageView.getSelectedImageList().clear();
 

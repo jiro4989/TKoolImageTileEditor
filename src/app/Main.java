@@ -18,6 +18,7 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+
     URL location = getClass().getResource("main.fxml");
     ResourceBundle resources = ResourceBundle.getBundle(
         "app.res.langs.main"

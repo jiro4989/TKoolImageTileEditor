@@ -1,5 +1,8 @@
 package app.preset;
 
+import util.JavaFXCustomizeUtils;
+
+import java.util.stream.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -50,8 +53,8 @@ public class PresetEditorController {
   @FXML private TitledPane previewTitledPane;
 
   // 画像描画
+  @FXML private StackPane stackPane;
   @FXML private ImageView imageView;
-  @FXML private GridPane gridPane;
 
   // 終了ボタン
   @FXML private Button okButton;
@@ -63,21 +66,11 @@ public class PresetEditorController {
 
     // TEST CODE//{{{
 
-    Image image = new Image("file:./input/mv.png");
+    Image image = new Image("file:./input/icon_set.png");
     int width  = (int) image.getWidth();
     int height = (int) image.getHeight();
     imageView.setFitWidth(width);
     imageView.setFitHeight(height);
-
-    Pane col1 = createEmptyPane(144);
-    Pane col2 = createEmptyPane(144);
-    Pane col3 = createEmptyPane(144);
-    gridPane.addColumn(1, col1);
-    gridPane.addColumn(2, col2);
-    gridPane.addColumn(3, col3);
-
-    Pane row1 = createEmptyPane(144);
-    gridPane.addRow(1, row1);
 
     imageView.setImage(image);
 
@@ -93,7 +86,62 @@ public class PresetEditorController {
     columnDownButton . setOnAction(e -> incrementValueOf(columnTextField , -1));
     sizeDownButton   . setOnAction(e -> incrementValueOf(sizeTextField   , -1));
 
+    customizeTextField(rowTextField);
+    customizeTextField(columnTextField);
+    customizeTextField(sizeTextField, 1, 1000);
+    sizeTextField.setText("" + 144);
+
     //}}}
+
+  }//}}}
+
+  private void customizeTextField(TextField textField, int min, int max) {//{{{
+
+    textField.setText("" + min);
+    textField.textProperty().addListener((obs, oldVal, newVal) -> {
+      JavaFXCustomizeUtils.setNumberOnly(textField, oldVal, newVal);
+      changeGridCells();
+    });
+    JavaFXCustomizeUtils.setMaxDigitOption(textField, min, max);
+    JavaFXCustomizeUtils.setScrollValueOption(textField, 5, 10);
+
+  }//}}}
+
+  private void customizeTextField(TextField textField) {//{{{
+    customizeTextField(textField, 1, 100);
+  }//}}}
+
+  private void changeGridCells() {//{{{
+
+    clearGridPane();
+    GridPane gridPane = new GridPane();
+    gridPane.setGridLinesVisible(true);
+
+    int row    = Integer . parseInt(rowTextField    . getText());
+    int column = Integer . parseInt(columnTextField . getText());
+    int size   = Integer . parseInt(sizeTextField   . getText());
+
+    IntStream.range(0, row).forEach(r -> {
+
+      IntStream.range(0, column).forEach(c -> {
+
+        Pane pane = createEmptyPane(size);
+        gridPane.add(pane, c, r);
+
+      });
+
+    });
+
+    stackPane.getChildren().add(gridPane);
+
+  }//}}}
+
+  private void clearGridPane() {//{{{
+
+    int size = stackPane.getChildren().size();
+    if (2 <= size) {
+      stackPane.getChildren().remove(1, 2);
+    }
 
   }//}}}
 
