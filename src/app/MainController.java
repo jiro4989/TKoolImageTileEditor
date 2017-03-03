@@ -187,7 +187,9 @@ public class MainController {
 
     String name = imageStandard.getPresetName();
     String outputTitle = outputImageTitledPane.getText();
+    outputTitle = outputTitle.split(" - ")[0];
     outputImageTitledPane.setText(outputTitle + " - " + name);
+
     outputImagePane.changeGridCells();
 
   }//}}}

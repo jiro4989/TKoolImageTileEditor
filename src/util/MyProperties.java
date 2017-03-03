@@ -101,16 +101,6 @@ public class MyProperties {
     prop.setProperty(key, value);
   }//}}}
 
-  public void setProperties(ImageStandard is) {//{{{
-
-    prop.setProperty("row"         , "" + is.row);
-    prop.setProperty("column"      , "" + is.column);
-    prop.setProperty("size"        , "" + is.size);
-    prop.setProperty("imageWidth"  , "" + is.imageWidth);
-    prop.setProperty("imageHeight" , "" + is.imageHeight);
-
-  }//}}}
-
   public void setProperties(Node node) {//{{{
     Stage stage = (Stage) node.getScene().getWindow();
     setProperties(stage);

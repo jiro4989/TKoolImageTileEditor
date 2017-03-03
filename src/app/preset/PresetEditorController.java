@@ -3,6 +3,7 @@ package app.preset;
 import app.ImageStandard;
 import util.JavaFXCustomizeUtils;
 import util.MyProperties;
+import util.PropertiesFiles;
 
 import java.io.File;
 import java.util.Optional;
@@ -111,11 +112,14 @@ public class PresetEditorController {
   private void customizeTextField(TextField textField, int min, int max) {//{{{
 
     textField.textProperty().addListener((obs, oldVal, newVal) -> {
+
       JavaFXCustomizeUtils.setNumberOnly(textField, oldVal, newVal);
       changeGridCells();
       setImageWidth();
       setImageHeight();
+
     });
+
     JavaFXCustomizeUtils.setMaxDigitOption(textField, min, max);
     JavaFXCustomizeUtils.setScrollValueOption(textField, 5, 10);
 
@@ -196,7 +200,7 @@ public class PresetEditorController {
 
   void closeRequest() {//{{{
 
-    MyProperties mp = new MyProperties("properties/preset_editor.xml");
+    MyProperties mp = new MyProperties(PropertiesFiles.PREVIEW_EDITOR.FILE);
     mp.setProperties(okButton);
     mp.store();
 
@@ -204,17 +208,14 @@ public class PresetEditorController {
 
   private void storePreset() {//{{{
 
-    int row         = Integer . parseInt(rowTextField         . getText());
-    int column      = Integer . parseInt(columnTextField      . getText());
-    int size        = Integer . parseInt(sizeTextField        . getText());
-    int imageWidth  = Integer . parseInt(imageWidthTextField  . getText());
-    int imageHeight = Integer . parseInt(imageHeightTextField . getText());
-
     MyProperties preset = new MyProperties(presetFile);
-    ImageStandard is    = new ImageStandard(
-        row, column, size, imageWidth, imageHeight, presetFile
-        );
-    preset.setProperties(is);
+
+    preset.setProperty(ImageStandard.Key.ROW.TEXT          , rowTextField         . getText());
+    preset.setProperty(ImageStandard.Key.COLUMN.TEXT       , columnTextField      . getText());
+    preset.setProperty(ImageStandard.Key.SIZE.TEXT         , sizeTextField        . getText());
+    preset.setProperty(ImageStandard.Key.IMAGE_WIDTH.TEXT  , imageWidthTextField  . getText());
+    preset.setProperty(ImageStandard.Key.IMAGE_HEIGHT.TEXT , imageHeightTextField . getText());
+
     preset.store();
 
   }//}}}
@@ -222,6 +223,17 @@ public class PresetEditorController {
   void setPresetFile(File file) {//{{{
 
     presetFile = file;
+
+    MyProperties mp = new MyProperties(presetFile);
+    if (mp.load()) {
+
+      rowTextField         . setText(mp . getProperty(ImageStandard . Key . ROW          . TEXT));
+      columnTextField      . setText(mp . getProperty(ImageStandard . Key . COLUMN       . TEXT));
+      sizeTextField        . setText(mp . getProperty(ImageStandard . Key . SIZE         . TEXT));
+      imageWidthTextField  . setText(mp . getProperty(ImageStandard . Key . IMAGE_WIDTH  . TEXT));
+      imageHeightTextField . setText(mp . getProperty(ImageStandard . Key . IMAGE_HEIGHT . TEXT));
+
+    }
 
   }//}}}
 
