@@ -44,6 +44,8 @@ public class OutputImagePane {
     GridPane grid = new GridPane();
     grid.setGridLinesVisible(true);
     grid.setPrefSize(gridWidth, gridHeight);
+    AnchorPane.setTopAnchor(grid, 5.0);
+    AnchorPane.setLeftAnchor(grid, 5.0);
 
     IntStream.range(0, count)
       .forEach(i -> {
@@ -108,13 +110,10 @@ public class OutputImagePane {
   }//}}}
 
   public static void clearImages() {//{{{
-    StackImageView.getSelectedImageList().clear();
 
-    stackImageViewList.stream()
-      .forEach(siv -> {
-        siv.setSelection(false);
-        siv.clearImage();
-      });
+    StackImageView.getSelectedImageList().clear();
+    stackImageViewList = new ArrayList<>(8);
+
   }//}}}
 
 }

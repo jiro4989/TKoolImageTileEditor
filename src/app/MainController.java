@@ -371,6 +371,7 @@ public class MainController {
     if (fileListView.getItems().isEmpty()) {
 
       OutputImagePane.clearImages();
+      outputImagePane.changeGridCells();
 
     }
 
@@ -380,6 +381,7 @@ public class MainController {
 
     fileListView.getItems().clear();
     OutputImagePane.clearImages();
+    outputImagePane.changeGridCells();
 
   }//}}}
 
