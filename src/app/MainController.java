@@ -1,10 +1,13 @@
 package app;
 
-import util.RecentFiles;
-import util.MyProperties;
+import jiro.lib.javafx.stage.FileChooserManager;
 
 import app.image.*;
 import app.preset.PresetEditor;
+import util.MyProperties;
+import util.RecentFiles;
+import util.PresetFiles;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
@@ -17,18 +20,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import jiro.lib.javafx.stage.FileChooserManager;
 
 public class MainController {
 
   // 環境設定ファイル
   private MyProperties preferences;
   private static final String PREFERENCES = "properties/preferences.xml";
-  private static final String INITIAL_PRESET = "presets/mv.xml";
 
   // 画像規格
   public static ImageStandard imageStandard;
@@ -88,14 +89,17 @@ public class MainController {
       strategy = new DeleteStrategy();
       OutputImagePane.clearSelectedStackImageView();
     }) ;//}}}
+
     deleteNonEmptyModeRadioButton.setOnAction(e -> {//{{{
       strategy = new DeleteNonEmptyStrategy();
       OutputImagePane.clearSelectedStackImageView();
     }) ;//}}}
+
     sortModeRadioButton.setOnAction(e -> {//{{{
       strategy = new SortStrategy();
       OutputImagePane.clearSelectedStackImageView();
     }) ;//}}}
+
     reverseModeRadioButton.setOnAction(e -> {//{{{
       strategy = new ReverseStrategy();
       OutputImagePane.clearSelectedStackImageView();
@@ -111,6 +115,7 @@ public class MainController {
     // 最近開いたファイルの情報からRecentMenuItemを更新する。//{{{
 
     RecentFiles.createRecentOpenedMenuItems().ifPresent(list -> {
+
       list.stream().forEach(menuItem -> {
         openRecentMenu.getItems().add(menuItem);
 
@@ -121,6 +126,7 @@ public class MainController {
         });
 
       });
+
     });
 
     //}}}
@@ -137,10 +143,10 @@ public class MainController {
 
     } else {
 
-      new File("presets")   .mkdirs();
+      PresetFiles.DIR.FILE  .mkdirs();
       new File("properties").mkdirs();
       createInitialFiles();
-      imageStandard = new ImageStandard("./presets/mv.xml");
+      imageStandard = new ImageStandard(PresetFiles.MV.FILE.getName());
       setOutputImageTitleText();
 
     }
@@ -154,9 +160,9 @@ public class MainController {
 
   private void createInitialFiles() {//{{{
 
-    MyProperties mv      = new MyProperties("presets/mv.xml");
-    MyProperties vxace   = new MyProperties("presets/vxace.xml");
-    MyProperties iconset = new MyProperties("presets/iconset.xml");
+    MyProperties mv      = new MyProperties(PresetFiles.MV.FILE.getName());
+    MyProperties vxace   = new MyProperties(PresetFiles.VXACE.FILE.getName());
+    MyProperties iconset = new MyProperties(PresetFiles.ICONSET.FILE.getName());
 
     createInitialFile(mv      , 2  , 4  , 144);
     createInitialFile(vxace   , 2  , 4  , 96);
@@ -191,34 +197,44 @@ public class MainController {
    * かった場合はセットしない。
    */
   private void setOpenRecentMenuItems() {//{{{
+
     File logDir = new File("log");
     logDir.mkdirs();
 
     File logFile = new File("log/recent.log");
     if (logFile.exists()) {
+
       Path path = logFile.toPath();
       try (BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
+
         br.lines()
           .collect(Collectors.toCollection(LinkedHashSet::new))
           .stream()
           .forEach(line -> {
             setOpenRecentMenuItem(line);
           });
+
       } catch (IOException e) {
         e.printStackTrace();
       }
+
     } else {
+
       try {
         logFile.createNewFile();
       } catch (IOException e) {
         e.printStackTrace();
       }
+
     }
+
   }//}}}
 
   private void setOpenRecentMenuItem(String path) {//{{{
+
     File file = new File(path);
     if (file.exists()) {
+
       MenuItem item = new MenuItem(path);
       openRecentMenu.getItems().add(item);
 
@@ -226,12 +242,15 @@ public class MainController {
         MyFile myFile = new MyFile(item.getText());
         fileListView.getItems().add(myFile);
       });
+
     }
+
   }//}}}
 
   // FXMLイベントメソッド
   // メニューバー 
   @FXML private void openMenuItemOnAction() {//{{{
+
     FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
     Optional<List<File>> filesOpt = fcm.openFiles();
     filesOpt.ifPresent(files -> {
@@ -248,13 +267,14 @@ public class MainController {
 
       }
     });
+
   }//}}}
 
   @FXML private void newPresetMenuItemOnAction() {//{{{
 
     FileChooser fc = new FileChooser();
     fc.getExtensionFilters().add(new ExtensionFilter("Preset Files", "*.xml"));
-    fc.setInitialDirectory(new File("presets"));
+    fc.setInitialDirectory(PresetFiles.DIR.FILE);
     fc.setInitialFileName("new_preset");
 
     File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
@@ -271,7 +291,7 @@ public class MainController {
 
     FileChooser fc = new FileChooser();
     fc.getExtensionFilters().add(new ExtensionFilter("Preset Files", "*.xml"));
-    fc.setInitialDirectory(new File("presets"));
+    fc.setInitialDirectory(PresetFiles.DIR.FILE);
 
     File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
     if (file != null) {
@@ -293,37 +313,59 @@ public class MainController {
   // ファイルリスト
   @FXML private void clearImagesButtonOnAction() {//{{{
   }//}}}
+
   @FXML private void reloadButtonOnAction() {//{{{
+
     drawSelectedFile();
+
   }//}}}
+
   private void drawSelectedFile() {//{{{
+
     SelectionModel<File> model = fileListView.getSelectionModel();
     if (!model.isEmpty()) {
+
       File imageFile = model.getSelectedItem();
       outputImagePane.setImage(imageFile);
 
       String fileName = imageFile.getName();
       Stage stage = (Stage) fileListView.getScene().getWindow();
       stage.setTitle(fileName + " - " + Main.TITLE);
+
     }
+
   }//}}}
+
   @FXML private void deleteListButtonOnAction() {//{{{
+
     ObservableList<File> selectedItems = fileListView.getSelectionModel().getSelectedItems();
     fileListView.getItems().removeAll(selectedItems);
 
     if (fileListView.getItems().isEmpty()) {
+
       OutputImagePane.clearImages();
+
     }
+
   }//}}}
+
   @FXML private void clearListButtonOnAction() {//{{{
+
     fileListView.getItems().clear();
     OutputImagePane.clearImages();
+
   }//}}}
+
   @FXML private void fileListViewOnDragOver(DragEvent event) {//{{{
+
     System.out.println("dragover.");
+
   }//}}}
+
   @FXML private void fileListViewOnDragDropped(DragEvent event) {//{{{
+
     System.out.println("dragover.");
+
   }//}}}
 
   /**
