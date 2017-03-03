@@ -32,12 +32,12 @@
           <items>
             <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openMenuItemOnAction" text="%openMenuItem" />
             <Menu fx:id="openRecentMenu" mnemonicParsing="false" text="%openRecentMenu" />
-                  <MenuItem fx:id="openJoiningMenuItem" mnemonicParsing="false" onAction="#openJoiningMenuItemOnAction" text="%openJoiningMenuItem" />
+            <MenuItem fx:id="openJoiningMenuItem" mnemonicParsing="false" onAction="#openJoiningMenuItemOnAction" text="%openJoiningMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveMenuItemOnAction" text="%saveMenuItem" />
             <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#saveAsMenuItemOnAction" text="%saveAsMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="openPresetMenuItem" mnemonicParsing="false" onAction="#openPresetMenuItemOnAction" text="%openPresetMenuItem" />
+            <MenuItem fx:id="openPresetMenuItem" mnemonicParsing="false" onAction="#openPresetMenuItemOnAction" text="%openPresetMenuItem" />
             <MenuItem fx:id="newPresetMenuItem" mnemonicParsing="false" onAction="#newPresetMenuItemOnAction" text="%newPresetMenuItem" />
             <MenuItem fx:id="editPresetMenuItem" mnemonicParsing="false" onAction="#editPresetMenuItemOnAction" text="%editPresetMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -46,18 +46,11 @@
             <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#quitMenuItemOnAction" text="%quitMenuItem" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu fx:id="editMenu" mnemonicParsing="false" text="%editMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem fx:id="reloadMenuItem" mnemonicParsing="false" onAction="#reloadButtonOnAction" text="%reloadMenuItem" />
+            <MenuItem fx:id="deleteListMenuItem" mnemonicParsing="false" onAction="#deleteListButtonOnAction" text="%deleteListMenuItem" />
+            <MenuItem fx:id="clearListMenuItem" mnemonicParsing="false" onAction="#clearListButtonOnAction" text="%clearListMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

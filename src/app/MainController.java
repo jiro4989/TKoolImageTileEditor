@@ -48,7 +48,7 @@ public class MainController {
   // FXMLで指定するコンポーネント//{{{
 
   // ファイルメニュー
-  @FXML private Menu fileMenu;
+  @FXML private Menu     fileMenu;
   @FXML private MenuItem openMenuItem;
   @FXML private Menu     openRecentMenu;
   @FXML private MenuItem openJoiningMenuItem;
@@ -59,6 +59,12 @@ public class MainController {
   @FXML private MenuItem editPresetMenuItem;
   @FXML private MenuItem preferencesMenuItem;
   @FXML private MenuItem quitMenuItem;
+
+  // 編集メニュー
+  @FXML private Menu     editMenu;
+  @FXML private MenuItem reloadMenuItem;
+  @FXML private MenuItem deleteListMenuItem;
+  @FXML private MenuItem clearListMenuItem;
 
   // 中央のレイ・アウト
   @FXML private SplitPane splitPane;
@@ -91,25 +97,10 @@ public class MainController {
     // イベント登録{{{
 
     // モード切替のラジオボタン
-    deleteModeRadioButton.setOnAction(e -> {//{{{
-      strategy = new DeleteStrategy();
-      OutputImagePane.clearSelectedStackImageView();
-    }) ;//}}}
-
-    deleteNonEmptyModeRadioButton.setOnAction(e -> {//{{{
-      strategy = new DeleteNonEmptyStrategy();
-      OutputImagePane.clearSelectedStackImageView();
-    }) ;//}}}
-
-    sortModeRadioButton.setOnAction(e -> {//{{{
-      strategy = new SortStrategy();
-      OutputImagePane.clearSelectedStackImageView();
-    }) ;//}}}
-
-    reverseModeRadioButton.setOnAction(e -> {//{{{
-      strategy = new ReverseStrategy();
-      OutputImagePane.clearSelectedStackImageView();
-    }) ;//}}}
+    deleteModeRadioButton         . setOnAction ( e -> changeMode ( new DeleteStrategy         ( ) ) ) ;
+    deleteNonEmptyModeRadioButton . setOnAction ( e -> changeMode ( new DeleteNonEmptyStrategy ( ) ) ) ;
+    sortModeRadioButton           . setOnAction ( e -> changeMode ( new SortStrategy           ( ) ) ) ;
+    reverseModeRadioButton        . setOnAction ( e -> changeMode ( new ReverseStrategy        ( ) ) ) ;
 
     // ファイルリストの選択アイテムの変更
     fileListView.getSelectionModel().selectedItemProperty().addListener(item -> {//{{{
@@ -163,6 +154,13 @@ public class MainController {
 
     outputImagePane = new OutputImagePane(outputAnchorPane);
     updateOutputImageTitlePane();
+
+  }//}}}
+
+  private void changeMode(ControlOutputPaneStrategy aStrategy) {//{{{
+
+    strategy = aStrategy;
+    OutputImagePane.clearSelectedStackImageView();
 
   }//}}}
 
@@ -263,7 +261,7 @@ public class MainController {
 
   // FXMLイベントメソッド
 
-  // メニューバー 
+  // ファイルメニュー
 
   @FXML private void openMenuItemOnAction() {//{{{
 
@@ -405,7 +403,7 @@ public class MainController {
     if (file != null) {
 
       File selectedFile = fileListView.getSelectionModel().getSelectedItem();
-        PresetEditor editor = new PresetEditor(imageStandard.presetFile, selectedFile);
+      PresetEditor editor = new PresetEditor(imageStandard.presetFile, selectedFile);
       editor.showAndWait();
       imageStandard = new ImageStandard(file.getPath());
       updateOutputImageTitlePane();
