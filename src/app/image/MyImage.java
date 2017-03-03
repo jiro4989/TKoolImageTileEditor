@@ -1,4 +1,4 @@
-package app;
+package app.image;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 /**
  * Imageクラスをラップしたクラス。
  */
-public class MyImage {
+class MyImage {
 
   /** 画像 */
   public final Image image;
@@ -64,6 +64,12 @@ public class MyImage {
     writer.setPixels(0, 0, width, height, FORMAT, newPixels, 0, width);
 
     return new MyImage(wImage);
+
+  }//}}}
+
+  public MyImage write(int x, int y, Image img) {//{{{
+
+    return write(x, y, new MyImage(img));
 
   }//}}}
 

@@ -53,9 +53,9 @@
             <MenuItem fx:id="clearListMenuItem" mnemonicParsing="false" onAction="#clearListButtonOnAction" text="%clearListMenuItem" />
           </items>
         </Menu>
-        <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+        <Menu fx:id="helpMenu" mnemonicParsing="false" text="%helpMenu">
           <items>
-            <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
+            <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="%aboutMenuItem" />
           </items>
         </Menu>
       </menus>

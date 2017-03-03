@@ -70,7 +70,6 @@ public class OutputImagePane {
   public void outputImageFile(File outputFile) {//{{{
 
     ImageStandard is = MainController.imageStandard;
-    int row          = is.row;
     int column       = is.column;
     int size         = is.size;
     int outputWidth  = is.imageWidth;
