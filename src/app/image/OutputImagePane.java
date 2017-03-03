@@ -26,8 +26,12 @@ public class OutputImagePane {
    */
   public void changeGridCells() {//{{{
 
-    if (1 <= outputAnchorPane.getChildren().size())
+    if (1 <= outputAnchorPane.getChildren().size()) {
+
       outputAnchorPane.getChildren().remove(0, 1);
+      clearImages();
+
+    }
 
     ImageStandard standard = MainController.imageStandard;
     int row    = standard.row;
