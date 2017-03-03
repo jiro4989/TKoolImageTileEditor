@@ -286,7 +286,16 @@ public class MainController {
 
   @FXML private void saveAsMenuItemOnAction() {//{{{
 
-    outputImagePane.outputImageFile();
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
+    fc.setInitialDirectory(new File("."));
+
+    File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
+    if (file != null) {
+
+      outputImagePane.outputImageFile(file);
+
+    }
 
   }//}}}
 

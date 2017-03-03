@@ -25,7 +25,9 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
 
       int[] pixels         = readPixels(image, width, height);
       int[] reversedPixels = createReversedPixels(pixels, width);
-      WritableImage wImage = writePixels(width, height, reversedPixels);
+
+      WritableImage wImage = new WritableImage(width, height);
+      writePixels(wImage, width, height, reversedPixels);
 
       siv.setImage(wImage);
 

@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.stream.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Alert;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser.ExtensionFilter;

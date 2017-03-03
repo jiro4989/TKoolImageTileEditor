@@ -1,7 +1,12 @@
 package util;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.nio.IntBuffer;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.*;
+import javax.imageio.ImageIO;
 
 /**
  * 画像処理用のユーティリティクラス。
@@ -73,29 +78,50 @@ public class ImageUtils {
    * @param width 画像の横幅
    * @param height 画像の縦幅
    * @param pixels 書き込むpixel画素
-   * @return pixelが書き込まれた新しい画像
    */
-  public static WritableImage writePixels(int x, int y, int width, int height, int[] pixels) {//{{{
+  public static void writePixels(WritableImage wImage, int x, int y, int width , int height, int[] pixels) {//{{{
 
-    WritableImage wImage = new WritableImage(width, height);
-    PixelWriter writer   = wImage.getPixelWriter();
+    PixelWriter writer = wImage.getPixelWriter();
     writer.setPixels(x, y, width, height, FORMAT, pixels, 0, width);
-    return wImage;
 
   }//}}}
 
   /**
    * 渡したpixel配列を書き込んだ新しい画像を返す。
-   * 渡した画像の書き込む位置は x=0, y=0 からとなる。
+   * 座標はx=0, y=0から書き込む。
    *
-   * @param width 画像の横幅
-   * @param height 画像の縦幅
-   * @param pixels 書き込むpixel画素
-   * @return pixelが書き込まれた新しい画像
+   * @param wImage 書き込む対象
+   * @param width ピクセル横幅
+   * @param height ピクセル縦幅
+   * @param pixels 書き込むピクセル画素
    */
-  public static WritableImage writePixels(int width, int height, int[] pixels) {//{{{
+  public static void writePixels(WritableImage wImage, int width , int height, int[] pixels) {//{{{
 
-    return writePixels(0, 0, width, height, pixels);
+    PixelWriter writer = wImage.getPixelWriter();
+    writer.setPixels(0, 0, width, height, FORMAT, pixels, 0, width);
+
+  }//}}}
+
+  /**
+   * 画像をファイル出力し、成否を返す。
+   *
+   * @param image 出力画像
+   * @param outputFile 出力するファイル
+   * @return 成否
+   */
+  public static boolean write(Image image, File outputFile) {//{{{
+
+    BufferedImage newImage = SwingFXUtils.fromFXImage(image, null);
+    try {
+
+      ImageIO.write(newImage, "png", outputFile);
+      return true;
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return false;
 
   }//}}}
 

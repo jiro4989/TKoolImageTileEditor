@@ -69,40 +69,34 @@ public class OutputImagePane {
 
   public void outputImageFile(File outputFile) {//{{{
 
-    ImageStandard is = MainController.imageStandard;
-    int row          = is.row;
-    int column       = is.column;
-    int size         = is.size;
-    int outputWidth  = is.imageWidth;
-    int outputHeight = is.imageHeight;
+    int row    = MainController.imageStandard.row;
+    int column = MainController.imageStandard.column;
+    int size   = MainController.imageStandard.size;
+    int outputWidth   = MainController.imageStandard.imageWidth;
+    int outputHeight   = MainController.imageStandard.imageHeight;
 
-    WritableImage outputImage = new WritableImage(outputWidth, outputHeight);
+    WritableImage wImage = new WritableImage(outputWidth, outputHeight);
 
-    // パネルの画像を出力画像に書き込む//{{{
-
-    AtomicInteger atom = new AtomicInteger(0);
+    AtomicInteger atom = new AtomicInteger(-1);
     stackImageViewList.stream().forEach(siv -> {
 
-      int i = atom.getAndIncrement();
-      int x = i % column * size;
-      int y = i / column * size;
+      int i         = atom.getAndIncrement();
+      int columnPos = i % column * size;
+      int rowPos    = i / column * size;
 
       Image image = siv.getImage();
 
       int[] pixels = ImageUtils.readPixels(image, size, size);
-      ImageUtils.writePixels(outputImage, x, y, size, size, pixels);
+      WritableImage wImage = ImageUtils.writePixels(wImage, columnPos, rowPos, width, height, pixels);
+      if (!ImageUtils.write(wImage, outputFile)) {
+
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setHeaderText("ファイルの保存に失敗しました。");
+        alert.showAndWait();
+
+      }
 
     });
-
-    //}}}
-
-    if (!ImageUtils.write(outputImage, outputFile)) {
-
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setHeaderText("ファイルの保存に失敗しました。");
-      alert.showAndWait();
-
-    }
 
   }//}}}
 
