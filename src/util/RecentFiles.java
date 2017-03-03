@@ -35,11 +35,14 @@ public class RecentFiles {
       // しコレクション)に変換して返却する。
       Path path = LOG_FILE.toPath();
       try (BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
+
         List<MenuItem> list = br.lines()
           .distinct()
+          .filter(f -> new File(f).exists())
           .map(MenuItem::new)
           .collect(Collectors.toList());
         return Optional.ofNullable(list);
+
       } catch (IOException e) {
         e.printStackTrace();
       }
