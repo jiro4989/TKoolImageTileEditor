@@ -90,10 +90,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
-                            <Button fx:id="clearImagesButton" mnemonicParsing="false" onAction="#clearImagesButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearImagesButton" />
-                            <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="2" />
-                            <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="3" />
-                            <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#reloadButtonOnAction" prefHeight="105.0" prefWidth="286.0" text="%reloadButton" GridPane.rowIndex="1" />
+                            <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="1" />
+                            <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="2" />
+                            <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#reloadButtonOnAction" prefHeight="105.0" prefWidth="286.0" text="%reloadButton" />
                           </children>
                         </GridPane>
                       </children>

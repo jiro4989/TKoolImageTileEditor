@@ -71,8 +71,8 @@ public class OutputImagePane {
 
     Image image = new Image("file:" + imageFile.getAbsolutePath());
 
-    if (   image.getWidth() == MainController.imageStandard.imageWidth
-        && image.getHeight() == MainController.imageStandard.imageHeight
+    if (    MainController.imageStandard.imageWidth  == image.getWidth()
+        &&  MainController.imageStandard.imageHeight <= image.getHeight()
        )
     {
 

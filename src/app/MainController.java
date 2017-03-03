@@ -58,7 +58,6 @@ public class MainController {
   // ファイルリスト
   @FXML private TitledPane fileListTitledPane;
   @FXML private ListView<File> fileListView;
-  @FXML private Button clearImagesButton;
   @FXML private Button reloadButton;
   @FXML private Button deleteListButton;
   @FXML private Button clearListButton;
@@ -251,7 +250,9 @@ public class MainController {
   }//}}}
 
   // FXMLイベントメソッド
+
   // メニューバー 
+
   @FXML private void openMenuItemOnAction() {//{{{
 
     FileChooser fc = new FileChooser();
@@ -305,9 +306,17 @@ public class MainController {
     File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
     if (file != null) {
 
+      if (!file.exists()) {
+
+        MyProperties newPreset = new MyProperties(file);
+        createInitialFile(newPreset, 2, 4, 144);
+
+      }
+
       PresetEditor editor = new PresetEditor(file);
       editor.showAndWait();
       imageStandard = new ImageStandard(file.getPath());
+      updateOutputImageTitlePane();
 
     }
 
@@ -315,16 +324,13 @@ public class MainController {
 
   @FXML private void editPresetMenuItemOnAction() {//{{{
 
-    FileChooser fc = new FileChooser();
-    fc.getExtensionFilters().add(new ExtensionFilter(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION));
-    fc.setInitialDirectory(PresetFiles.DIR.FILE);
-
-    File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
+    File file = imageStandard.presetFile;
     if (file != null) {
 
       PresetEditor editor = new PresetEditor(imageStandard.presetFile);
       editor.showAndWait();
       imageStandard = new ImageStandard(file.getPath());
+      updateOutputImageTitlePane();
 
     }
 
@@ -338,8 +344,6 @@ public class MainController {
   }//}}}
 
   // ファイルリスト
-  @FXML private void clearImagesButtonOnAction() {//{{{
-  }//}}}
 
   @FXML private void reloadButtonOnAction() {//{{{
 
@@ -407,7 +411,7 @@ public class MainController {
     RecentFiles.writeRecentOpenedFile(recentFiles);
 
     MyProperties mainMp = new MyProperties(PropertiesFiles.MAIN.FILE);
-    mainMp.setProperties(clearImagesButton);
+    mainMp.setProperties(reloadButton);
     mainMp.store();
 
     double[] poses = splitPane.getDividerPositions();
