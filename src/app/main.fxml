@@ -36,6 +36,7 @@
             <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="%saveMenuItem" />
             <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" text="%saveAsMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="openPresetMenuItem" mnemonicParsing="false" onAction="#openPresetMenuItemOnAction" text="%openPresetMenuItem" />
             <MenuItem fx:id="newPresetMenuItem" mnemonicParsing="false" onAction="#newPresetMenuItemOnAction" text="%newPresetMenuItem" />
             <MenuItem fx:id="editPresetMenuItem" mnemonicParsing="false" onAction="#editPresetMenuItemOnAction" text="%editPresetMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -140,18 +141,7 @@
                           <content>
                             <ScrollPane prefViewportHeight="289.0" prefViewportWidth="577.0">
                               <content>
-                                <AnchorPane>
-                                  <children>
-                                    <GridPane fx:id="outputImageGridPane" gridLinesVisible="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="144.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                    </GridPane>
-                                  </children>
-                                </AnchorPane>
+                                <AnchorPane fx:id="outputAnchorPane" />
                               </content>
                             </ScrollPane>
                           </content>

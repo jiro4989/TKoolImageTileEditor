@@ -1,7 +1,5 @@
 package app;
 
-import jiro.lib.javafx.stage.FileChooserManager;
-
 import app.image.*;
 import app.preset.PresetEditor;
 import util.MyProperties;
@@ -48,6 +46,7 @@ public class MainController {
   @FXML private Menu openRecentMenu;
   @FXML private MenuItem saveMenuItem;
   @FXML private MenuItem saveAsMenuItem;
+  @FXML private MenuItem openPresetMenuItem;
   @FXML private MenuItem newPresetMenuItem;
   @FXML private MenuItem editPresetMenuItem;
   @FXML private MenuItem preferencesMenuItem;
@@ -75,7 +74,7 @@ public class MainController {
 
   // 出力画像パネル
   @FXML private TitledPane outputImageTitledPane;
-  @FXML private GridPane outputImageGridPane;
+  @FXML private AnchorPane outputAnchorPane;
 
   //}}}
 
@@ -139,7 +138,6 @@ public class MainController {
     if (preferences.load()) {
 
       imageStandard = new ImageStandard(preferences.getProperty("presetPath"));
-      setOutputImageTitleText();
 
     } else {
 
@@ -147,14 +145,13 @@ public class MainController {
       PropertiesFiles . DIR . FILE . mkdirs();
       createInitialFiles();
       imageStandard = new ImageStandard(PresetFiles.MV.FILE.getName());
-      setOutputImageTitleText();
 
     }
 
     //}}}
 
-    outputImagePane = new OutputImagePane(outputImageGridPane);
-    outputImagePane.changeGridCells();
+    outputImagePane = new OutputImagePane(outputAnchorPane);
+    updateOutputImageTitlePane();
 
   }//}}}
 
@@ -174,11 +171,11 @@ public class MainController {
 
     if (!mp.exists()) {
 
-      mp.setProperty("row"         , "" + row);
-      mp.setProperty("column"      , "" + column);
-      mp.setProperty("size"        , "" + size);
-      mp.setProperty("imageWidth"  , "" + size * column);
-      mp.setProperty("imageHeight" , "" + size * row);
+      mp . setProperty(ImageStandard . Key . ROW          . TEXT, "" + row);
+      mp . setProperty(ImageStandard . Key . COLUMN       . TEXT, "" + column);
+      mp . setProperty(ImageStandard . Key . SIZE         . TEXT, "" + size);
+      mp . setProperty(ImageStandard . Key . IMAGE_WIDTH  . TEXT, "" + size * column);
+      mp . setProperty(ImageStandard . Key . IMAGE_HEIGHT . TEXT, "" + size * row);
 
       mp.store();
 
@@ -186,11 +183,12 @@ public class MainController {
 
   }//}}}
 
-  private void setOutputImageTitleText() {//{{{
+  private void updateOutputImageTitlePane() {//{{{
 
     String name = imageStandard.getPresetName();
     String outputTitle = outputImageTitledPane.getText();
     outputImageTitledPane.setText(outputTitle + " - " + name);
+    outputImagePane.changeGridCells();
 
   }//}}}
 
@@ -254,29 +252,51 @@ public class MainController {
   // メニューバー 
   @FXML private void openMenuItemOnAction() {//{{{
 
-    FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
-    Optional<List<File>> filesOpt = fcm.openFiles();
-    filesOpt.ifPresent(files -> {
-      for (File file : files) {
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
+    fc.setInitialDirectory(new File("."));
 
-        MyFile myFile = new MyFile(file.getPath());
-        fileListView.getItems().add(myFile);
+    List<File> files = fc.showOpenMultipleDialog(new Stage(StageStyle.UTILITY));
+    if (files != null) {
 
-        String path = file.getAbsolutePath();
-        path = path.replaceAll("\\\\", "/");
+      files.stream()
+        .forEach(file -> {
 
-        MenuItem item = new MenuItem(path);
-        openRecentMenu.getItems().add(0, item);
+          MyFile myFile = new MyFile(file.getPath());
+          fileListView.getItems().add(myFile);
 
-      }
-    });
+          String path = file.getAbsolutePath();
+          path = path.replaceAll("\\\\", "/");
+
+          MenuItem item = new MenuItem(path);
+          openRecentMenu.getItems().add(0, item);
+
+        });
+
+    }
+
+  }//}}}
+
+  @FXML private void openPresetMenuItemOnAction() {//{{{
+
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION));
+    fc.setInitialDirectory(PresetFiles.DIR.FILE);
+
+    File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
+    if (file != null) {
+
+      imageStandard = new ImageStandard(file);
+      updateOutputImageTitlePane();
+
+    }
 
   }//}}}
 
   @FXML private void newPresetMenuItemOnAction() {//{{{
 
     FileChooser fc = new FileChooser();
-    fc.getExtensionFilters().add(new ExtensionFilter("Preset Files", "*.xml"));
+    fc.getExtensionFilters().add(new ExtensionFilter(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION));
     fc.setInitialDirectory(PresetFiles.DIR.FILE);
     fc.setInitialFileName("new_preset");
 
@@ -294,7 +314,7 @@ public class MainController {
   @FXML private void editPresetMenuItemOnAction() {//{{{
 
     FileChooser fc = new FileChooser();
-    fc.getExtensionFilters().add(new ExtensionFilter("Preset Files", "*.xml"));
+    fc.getExtensionFilters().add(new ExtensionFilter(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION));
     fc.setInitialDirectory(PresetFiles.DIR.FILE);
 
     File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));

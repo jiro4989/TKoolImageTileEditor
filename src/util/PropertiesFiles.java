@@ -11,6 +11,9 @@ public enum PropertiesFiles {
 
   public final File FILE;
 
+  public static final String DESCRIPTION = "Properties Files";
+  public static final String EXTENSION   = "*.xml";
+
   private PropertiesFiles(String fileName) {
     FILE = new File(fileName);
   }

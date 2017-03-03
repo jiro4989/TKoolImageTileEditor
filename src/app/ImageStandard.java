@@ -23,6 +23,25 @@ public class ImageStandard {
   /** パネル画像をまとめたイメージ全体の縦幅 */
   public final int imageHeight;
 
+  /** 画像規格のキー */
+  public static enum Key {//{{{
+
+    ROW          ( "row"         ) ,
+    COLUMN       ( "column"      ) ,
+    SIZE         ( "size"        ) ,
+    IMAGE_WIDTH  ( "imageWidth"  ) ,
+    IMAGE_HEIGHT ( "imageHeight" );
+
+    public final String TEXT;
+
+    private Key(String aKey) {
+
+      TEXT = aKey;
+
+    }
+
+  }//}}}
+
   /** 画像規格を取得するプリセットファイル */
   final File presetFile;
 
@@ -61,11 +80,11 @@ public class ImageStandard {
     MyProperties mp = new MyProperties(aPresetFile);
     if (mp.load()) {
 
-      r = Integer.parseInt(mp.getProperty("row"));
-      c = Integer.parseInt(mp.getProperty("column"));
-      s = Integer.parseInt(mp.getProperty("size"));
-      w = Integer.parseInt(mp.getProperty("imageWidth"));
-      h = Integer.parseInt(mp.getProperty("image.height"));
+      r = Integer . parseInt(mp . getProperty(Key . ROW          . TEXT));
+      c = Integer . parseInt(mp . getProperty(Key . COLUMN       . TEXT));
+      s = Integer . parseInt(mp . getProperty(Key . SIZE         . TEXT));
+      w = Integer . parseInt(mp . getProperty(Key . IMAGE_WIDTH  . TEXT));
+      h = Integer . parseInt(mp . getProperty(Key . IMAGE_HEIGHT . TEXT));
 
     }
 

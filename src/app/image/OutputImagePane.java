@@ -13,11 +13,11 @@ import javafx.scene.layout.*;
  * 出力画像ペインの処理やフィールドをラップしたクラス。
  */
 public class OutputImagePane {
-  private final GridPane outputImageGridPane;
+  private final AnchorPane outputAnchorPane;
   static List<StackImageView> stackImageViewList;
 
-  public OutputImagePane(GridPane aGridPane) {//{{{
-    outputImageGridPane = aGridPane;
+  public OutputImagePane(AnchorPane anchorPane) {//{{{
+    outputAnchorPane = anchorPane;
     stackImageViewList = new ArrayList<>(8);
   }//}}}
 
@@ -25,6 +25,9 @@ public class OutputImagePane {
    * Propertiesの設定によってレイ・アウトを変更する。
    */
   public void changeGridCells() {//{{{
+
+    if (1 <= outputAnchorPane.getChildren().size())
+      outputAnchorPane.getChildren().remove(0, 1);
 
     ImageStandard standard = MainController.imageStandard;
     int row    = standard.row;
@@ -34,16 +37,22 @@ public class OutputImagePane {
 
     double gridWidth  = (double) (standard.imageWidth);
     double gridHeight = (double) (standard.imageHeight);
-    outputImageGridPane.setPrefSize(gridWidth, gridHeight);
+    GridPane grid = new GridPane();
+    grid.setGridLinesVisible(true);
+    grid.setPrefSize(gridWidth, gridHeight);
 
     IntStream.range(0, count)
       .forEach(i -> {
+
         final StackImageView siv = new StackImageView(i+1, size);
         stackImageViewList.add(siv);
         final int c = i % column;
         final int r = i / column;
-        outputImageGridPane.add(siv, c, r);
+        grid.add(siv, c, r);
+
       });
+
+    outputAnchorPane.getChildren().add(grid);
 
   }//}}}
 
@@ -55,24 +64,33 @@ public class OutputImagePane {
   public void setImage(File imageFile) {//{{{
 
     Image image = new Image("file:" + imageFile.getAbsolutePath());
-    PixelReader pixel = image.getPixelReader();
 
-    ImageStandard standard = MainController.imageStandard;
-    int standardWidth = standard.imageWidth;
-    int standardHeight = standard.imageHeight;
+    if (   image.getWidth() == MainController.imageStandard.imageWidth
+        && image.getHeight() == MainController.imageStandard.imageHeight
+       )
+    {
 
-    int row    = standard.row;
-    int column = standard.column;
-    int size   = standard.size;
-    int count  = row * column;
+      PixelReader pixel = image.getPixelReader();
 
-    IntStream.range(0, count)
-      .forEach(i -> {
+      ImageStandard standard = MainController.imageStandard;
+      int standardWidth = standard.imageWidth;
+      int standardHeight = standard.imageHeight;
+
+      int row    = standard.row;
+      int column = standard.column;
+      int size   = standard.size;
+      int count  = row * column;
+
+      IntStream.range(0, count).forEach(i -> {
+
         int x = i % column * size;
         int y = i / column * size;
         WritableImage trimmingImage = new WritableImage(pixel, x, y, size, size);
         stackImageViewList.get(i).setImage(trimmingImage);
+
       });
+
+    }
 
   }//}}}
 
@@ -94,4 +112,5 @@ public class OutputImagePane {
         siv.clearImage();
       });
   }//}}}
+
 }

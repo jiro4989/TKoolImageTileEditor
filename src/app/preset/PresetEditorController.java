@@ -1,7 +1,5 @@
 package app.preset;
 
-import jiro.lib.javafx.stage.FileChooserManager;
-
 import app.ImageStandard;
 import util.JavaFXCustomizeUtils;
 import util.MyProperties;
@@ -15,6 +13,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PresetEditorController {
 
@@ -227,9 +229,12 @@ public class PresetEditorController {
 
   @FXML private void fileChooserButtonOnAction() {//{{{
 
-    FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
-    Optional<File> fileOpt = fcm.openFile();
-    fileOpt.ifPresent(file -> {
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
+    //fc.setInitialDirectory(PropertiesFiles.DIR.FILE);
+
+    File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
+    if (file != null) {
 
       Image image = new Image("file:" + file.getPath());
       int width  = (int) image.getWidth();
@@ -245,7 +250,7 @@ public class PresetEditorController {
       resizeButton      . setDisable(false);
       reRowColumnButton . setDisable(false);
 
-    });
+    }
 
   }//}}}
 
