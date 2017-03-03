@@ -13,26 +13,33 @@ import javafx.scene.layout.*;
  * ンの色が微妙に変化し、選択状態を表現する。
  */
 class StackImageView extends StackPane {
+
   // パネルの選択状態
   private boolean isSelected = false;
+
   // 選択されたパネルのインデックスのリスト
   private static List<StackImageView> selectedInstanceList = new ArrayList<>();
 
   // コンポーネント//{{{
+
   // 番号を表示するLabel
   private final Label label;
+
   // 画像を表示するImageView
   private final ImageView imageView;
+
   // クリック動作を実行するための透明なボタン
   private final Button button;
+
   //}}}
 
   StackImageView(int index, double size) {//{{{
+
     label     = new Label("" + index);
     imageView = new ImageView();
     button    = new Button();
 
-    label.setId("number-label");
+    label .setId("number-label");
     button.setId("opacity-button");
 
     button.setOnAction(e -> buttonOnAction());
@@ -47,6 +54,7 @@ class StackImageView extends StackPane {
     this.getChildren().add(label);
     this.getChildren().add(imageView);
     this.getChildren().add(button);
+
   }//}}}
 
   /**
@@ -55,27 +63,48 @@ class StackImageView extends StackPane {
    * を初期化する。
    */
   private void buttonOnAction() {//{{{
+
     setSelection(!isSelected);
     selectedInstanceList.add(this);
     MainController.strategy.invoke(selectedInstanceList);
+
   }//}}}
+
   void clearImage() {//{{{
+
     imageView.setImage(new WritableImage(144, 144));
+
   }//}}}
+
   Image getImage() {//{{{
+
     return imageView.getImage();
+
   }//}}}
+
   int getNumber() {//{{{
+
     return Integer.parseInt(label.getText());
+
   }//}}}
+
   static List<StackImageView> getSelectedImageList() {//{{{
+
     return selectedInstanceList;
+
   }//}}}
+
   void setImage(Image image) {//{{{
+
     imageView.setImage(image);
+
   }//}}}
+
   void setSelection(boolean selection) {//{{{
+
     isSelected = selection;
     button.setOpacity(isSelected ? 0.25 : 0.0);
+
   }//}}}
+
 }

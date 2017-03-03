@@ -280,6 +280,16 @@ public class MainController {
 
   }//}}}
 
+  @FXML private void saveMenuItemOnAction() {//{{{
+
+  }//}}}
+
+  @FXML private void saveAsMenuItemOnAction() {//{{{
+
+    outputImagePane.outputImageFile();
+
+  }//}}}
+
   @FXML private void openPresetMenuItemOnAction() {//{{{
 
     FileChooser fc = new FileChooser();

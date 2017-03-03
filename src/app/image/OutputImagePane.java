@@ -1,7 +1,9 @@
 package app.image;
 
-import app.MainController;
 import app.ImageStandard;
+import app.MainController;
+import util.ImageUtils;
+
 import java.io.File;
 import java.util.*;
 import java.util.stream.*;
@@ -62,6 +64,33 @@ public class OutputImagePane {
 
   }//}}}
 
+  public void outputImageFile() {//{{{
+
+    Image image = stackImageViewList.get(0).getImage();
+    int width   = (int) image.getWidth();
+    int height  = (int) image.getHeight();
+
+    int[] pixels = ImageUtils.readPixels(image, width, height);
+    WritableImage newImage = ImageUtils.writePixels(144, 0, width, height, pixels);
+
+  }//}}}
+
+  /**
+   * StackImageViewのすべての選択状態をクリアする。
+   */
+  public static void clearSelectedStackImageView() {//{{{
+    stackImageViewList.stream()
+      .forEach(siv -> siv.setSelection(false));
+    StackImageView.getSelectedImageList().clear();
+  }//}}}
+
+  public static void clearImages() {//{{{
+
+    StackImageView.getSelectedImageList().clear();
+    stackImageViewList = new ArrayList<>(8);
+
+  }//}}}
+
   /**
    * 画像をImageViewに貼り付ける。
    *
@@ -97,22 +126,6 @@ public class OutputImagePane {
       });
 
     }
-
-  }//}}}
-
-  /**
-   * StackImageViewのすべての選択状態をクリアする。
-   */
-  public static void clearSelectedStackImageView() {//{{{
-    stackImageViewList.stream()
-      .forEach(siv -> siv.setSelection(false));
-    StackImageView.getSelectedImageList().clear();
-  }//}}}
-
-  public static void clearImages() {//{{{
-
-    StackImageView.getSelectedImageList().clear();
-    stackImageViewList = new ArrayList<>(8);
 
   }//}}}
 
