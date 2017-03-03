@@ -26,6 +26,9 @@ import javafx.stage.StageStyle;
 
 public class MainController {
 
+  // リストが選択中のファイル。保存対象でも有る。
+  private Optional<File> selectedFileOpt = Optional.empty();
+
   // 環境設定ファイル
   private MyProperties preferences;
 
@@ -282,6 +285,15 @@ public class MainController {
 
   @FXML private void saveMenuItemOnAction() {//{{{
 
+    if (!selectedFileOpt.isPresent())
+      saveAsMenuItemOnAction();
+
+    selectedFileOpt.ifPresent(file -> {
+
+      outputImagePane.outputImageFile(file);
+
+    });
+
   }//}}}
 
   @FXML private void saveAsMenuItemOnAction() {//{{{
@@ -381,6 +393,8 @@ public class MainController {
       String fileName = imageFile.getName();
       Stage stage = (Stage) fileListView.getScene().getWindow();
       stage.setTitle(fileName + " - " + Main.TITLE);
+
+      selectedFileOpt = Optional.ofNullable(imageFile);
 
     }
 

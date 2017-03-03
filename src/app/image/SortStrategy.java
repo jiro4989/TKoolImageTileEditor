@@ -14,8 +14,6 @@ public class SortStrategy implements ControlOutputPaneStrategy {
   public void invoke(List<StackImageView> list) {
     if (2 <= list.size()) {
 
-      System.out.println("Sort !");
-
       int size = MainController.imageStandard.size;
 
       Image image1   = list.get(0).getImage();
