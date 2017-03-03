@@ -6,6 +6,7 @@ import util.MyProperties;
 import util.PresetFiles;
 import util.PropertiesFiles;
 import util.RecentFiles;
+import util.ImageUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -17,6 +18,9 @@ import javafx.application.Platform;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -46,7 +50,8 @@ public class MainController {
   // ファイルメニュー
   @FXML private Menu fileMenu;
   @FXML private MenuItem openMenuItem;
-  @FXML private Menu openRecentMenu;
+  @FXML private Menu     openRecentMenu;
+  @FXML private MenuItem openJoiningMenuItem;
   @FXML private MenuItem saveMenuItem;
   @FXML private MenuItem saveAsMenuItem;
   @FXML private MenuItem openPresetMenuItem;
@@ -118,12 +123,16 @@ public class MainController {
     RecentFiles.createRecentOpenedMenuItems().ifPresent(list -> {
 
       list.stream().forEach(menuItem -> {
+
         openRecentMenu.getItems().add(menuItem);
 
         menuItem.setOnAction(e -> {
+
           String path = menuItem.getText();
           MyFile myFile = new MyFile(path);
           fileListView.getItems().add(myFile);
+          fileListView.getSelectionModel().selectFirst();
+
         });
 
       });
@@ -270,6 +279,7 @@ public class MainController {
 
           MyFile myFile = new MyFile(file.getPath());
           fileListView.getItems().add(myFile);
+          fileListView.getSelectionModel().selectFirst();
 
           String path = file.getAbsolutePath();
           path = path.replaceAll("\\\\", "/");
@@ -278,6 +288,41 @@ public class MainController {
           openRecentMenu.getItems().add(0, item);
 
         });
+
+    }
+
+  }//}}}
+
+  @FXML private void openJoiningMenuItemOnAction() {//{{{
+
+    FileChooser fc = new FileChooser();
+    fc.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
+    fc.setInitialDirectory(new File("."));
+
+    List<File> files = fc.showOpenMultipleDialog(new Stage(StageStyle.UTILITY));
+    if (files != null) {
+
+      fc.setInitialFileName("joined_image");
+      File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
+
+      if (file != null) {
+
+        Image joinedImage = ImageUtils.joinImageFiles(files);
+        if (ImageUtils.write(joinedImage, file)) {
+
+          String s = file.getPath();
+          fileListView.getItems().add(new MyFile(s));
+          fileListView.getSelectionModel().selectFirst();
+
+        } else {
+
+          Alert alert = new Alert(AlertType.ERROR);
+          alert.setHeaderText("ファイルの保存に失敗しました。");
+          alert.showAndWait();
+
+        }
+
+      }
 
     }
 

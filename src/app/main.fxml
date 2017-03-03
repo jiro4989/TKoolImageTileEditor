@@ -32,6 +32,7 @@
           <items>
             <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openMenuItemOnAction" text="%openMenuItem" />
             <Menu fx:id="openRecentMenu" mnemonicParsing="false" text="%openRecentMenu" />
+                  <MenuItem fx:id="openJoiningMenuItem" mnemonicParsing="false" onAction="#openJoiningMenuItemOnAction" text="%openJoiningMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveMenuItemOnAction" text="%saveMenuItem" />
             <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#saveAsMenuItemOnAction" text="%saveAsMenuItem" />

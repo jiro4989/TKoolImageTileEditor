@@ -3,6 +3,9 @@ package util;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.util.stream.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.nio.IntBuffer;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.*;
@@ -122,6 +125,57 @@ public class ImageUtils {
     }
 
     return false;
+
+  }//}}}
+
+  /**
+   * 画像ファイルのリストから連結した一つの画像を生成し返す。
+   * 連結する画像の幅は、それぞれ渡されたリストの先頭の要素を基準とする。
+   *
+   * @param imageList 画像のリスト
+   * @return 連結した画像
+   */
+  public static Image joinImageFiles(List<File> imageList) {//{{{
+
+    // 連結する画像をフィルタリングするための基準値を取得
+    File imageFile = imageList.get(0);
+    Image tmpImage = new Image("file:" + imageFile.getPath());
+    int width  = (int) tmpImage.getWidth();
+    int height = (int) tmpImage.getHeight();
+
+    // 基準値と等しい横幅、縦幅の画像のみを抽出したリストを生成
+    List<Image> filteredImageList = imageList.stream()
+      .map(f -> new Image("file:" + f.getPath()))
+      .filter(img -> {
+
+        int w = (int) img.getWidth();
+        int h = (int) img.getHeight();
+        if (w == width && h == height) {
+          return true;
+        }
+
+        return false;
+
+      })
+    .collect(Collectors.toList());
+
+    // 連結画像書き込み用のイメージの生成
+    int count = filteredImageList.size();
+    WritableImage joinedImage = new WritableImage(width, height * count);
+
+    // 画像の連結
+    AtomicInteger atom = new AtomicInteger(0);
+    filteredImageList.stream().forEach(img -> {
+
+      int i = atom.getAndIncrement();
+      int x = 0;
+      int y = height * i;
+      int[] pixels = readPixels(img);
+      writePixels(joinedImage, x, y, width, height, pixels);
+
+    });
+
+    return joinedImage;
 
   }//}}}
 
