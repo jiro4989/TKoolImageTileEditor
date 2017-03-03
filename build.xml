@@ -2,23 +2,33 @@
 
 <project name="TKoolFacetileEditor" default="default" basedir="."
   xmlns:fx="javafx:com.sun.javafx.tools.ant">
+
   <!-- プロパティ --><!--{{{-->
+
   <property environment="env"/>
   <property name="env.JAVA_HOME" value="${env.JAVA_HOME}"/>
   <property name="build.src.dir" value="src"/>
   <property name="build.classes.dir" value="classes"/>
   <property name="jar.name" value="tkfe.jar"/>
+
   <!--}}}-->
+
   <!-- 外部ライブラリのパス --><!--{{{-->
+
   <path id="lib">
+
     <fileset dir="lib">
       <include name="*.jar"/>
     </fileset>
+
   </path>
+
 <!--}}}-->
 
   <target name="default" depends="clean,compile,jar"/>
+
   <target name="clean"><!--{{{-->
+
     <mkdir dir="${build.classes.dir}"/>
 
     <delete>
@@ -26,9 +36,13 @@
     </delete>
 
   </target>
+
   <!--}}}-->
+
   <target name="compile" depends="clean"><!--{{{-->
+
     <!-- コンパイル --><!--{{{-->
+
     <javac includeantruntime="false"
       classpathref="lib"
       srcdir="${build.src.dir}"
@@ -37,38 +51,63 @@
       executable="${env.JAVA_HOME}/bin/javac"
       encoding="utf-8"
       source="1.8"
-      debug="on">
+      debug="on"
+      >
+
     </javac>
+
     <!--}}}-->
+
     <!-- リソースファイルのコピー --><!--{{{-->
+
     <copy todir="classes">
+
       <fileset dir="src">
+
         <include name="**/*.css"/>
         <include name="**/*.fxml"/>
         <include name="**/*.png"/>
         <include name="**/*.properties"/>
+
       </fileset>
+
     </copy>
+
     <!--}}}-->
+
     <!-- 実行 --><!--{{{-->
+
     <java fork="true"
       jvm="${env.JAVA_HOME}\bin\java"
       classname="app.Main"
       classpath="${build.classes.dir}"
       classpathref="lib"
       >
+
       <sysproperty key="app.preferences.id" value="TKoolFacetileEditorID"/>
+
     </java>
+
     <!--}}}-->
+
   </target>
+
   <!--}}}-->
+
   <target name="jar" depends="compile"><!--{{{-->
+
     <jar destfile="${jar.name}" basedir="classes">
+
       <manifest>
         <attribute name="Main-Class" value="app.Main"/>
       </manifest>
       <zipgroupfileset dir="lib" includes="*.jar"/>
+
     </jar>
+
   </target>
+
   <!--}}}-->
+
 </project>
+
