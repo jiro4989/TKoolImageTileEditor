@@ -43,7 +43,6 @@ class StackImageView extends StackPane {
     button.setId("opacity-button");
 
     button.setOnAction(e -> buttonOnAction());
-    clearImage();
 
     this      .setPrefSize(size, size);
     label     .setPrefSize(size, size);
@@ -67,12 +66,6 @@ class StackImageView extends StackPane {
     setSelection(!isSelected);
     selectedInstanceList.add(this);
     MainController.strategy.invoke(selectedInstanceList);
-
-  }//}}}
-
-  void clearImage() {//{{{
-
-    imageView.setImage(new WritableImage(144, 144));
 
   }//}}}
 

@@ -1,6 +1,7 @@
 package app.image;
 
 import static util.ImageUtils.*;
+import app.MyImage;
 
 import java.nio.IntBuffer;
 import java.util.List;
@@ -19,17 +20,21 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
 
     list.stream().forEach(siv -> {
 
-      Image image = siv.getImage();
-      int width   = (int) image.getWidth();
-      int height  = (int) image.getHeight();
+      MyImage myimg = new MyImage(siv.getImage());
+      Image image = myimg.toReversedImage().image;
+      siv.setImage(image);
 
-      int[] pixels         = readPixels(image, width, height);
-      int[] reversedPixels = createReversedPixels(pixels, width);
+      //Image image = siv.getImage();
+      //int width   = (int) image.getWidth();
+      //int height  = (int) image.getHeight();
 
-      WritableImage wImage = new WritableImage(width, height);
-      writePixels(wImage, width, height, reversedPixels);
+      //int[] pixels         = readPixels(image, width, height);
+      //int[] reversedPixels = createReversedPixels(pixels, width);
 
-      siv.setImage(wImage);
+      //WritableImage wImage = new WritableImage(width, height);
+      //writePixels(wImage, width, height, reversedPixels);
+
+      //siv.setImage(wImage);
 
     });
 

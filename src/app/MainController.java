@@ -66,6 +66,10 @@ public class MainController {
   @FXML private MenuItem deleteListMenuItem;
   @FXML private MenuItem clearListMenuItem;
 
+  // ヘルプメニュー
+  @FXML private Menu     helpMenu;
+  @FXML private MenuItem aboutMenuItem;
+
   // 中央のレイ・アウト
   @FXML private SplitPane splitPane;
 
@@ -416,6 +420,12 @@ public class MainController {
 
     closeRequest();
     Platform.exit();
+
+  }//}}}
+
+  // ヘルプメニュー
+
+  @FXML private void aboutMenuItemOnAction() {//{{{
 
   }//}}}
 
