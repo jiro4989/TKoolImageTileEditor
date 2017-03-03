@@ -58,20 +58,20 @@
                           <children>
                             <Label fx:id="rowLabel" text="%rowLabel" />
                             <Button fx:id="rowDownButton" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="1" />
-                            <TextField fx:id="rowTextField" prefWidth="60.0" GridPane.columnIndex="2" />
+                            <TextField fx:id="rowTextField" prefWidth="60.0" text="2" GridPane.columnIndex="2" />
                             <Button fx:id="rowUpButton" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="3" />
                             <Label fx:id="columnLabel" text="%columnLabel" GridPane.rowIndex="1" />
                             <Label fx:id="sizeLabel" text="%sizeLabel" GridPane.rowIndex="2" />
                             <Label fx:id="imageWidthLabel" text="%imageWidthLabel" GridPane.rowIndex="3" />
                             <Label fx:id="imageHeightLabel" text="%imageHeightLabel" GridPane.rowIndex="4" />
                             <Button fx:id="columnDownButton" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            <TextField fx:id="columnTextField" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <TextField fx:id="columnTextField" prefWidth="50.0" text="4" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                             <Button fx:id="columnUpButton" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                             <Button fx:id="sizeDownButton" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                            <TextField fx:id="sizeTextField" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <TextField fx:id="sizeTextField" prefWidth="50.0" text="144" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                             <Button fx:id="sizeUpButton" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                            <TextField fx:id="imageWidthTextField" editable="false" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                            <TextField fx:id="imageHeightTextField" editable="false" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <TextField fx:id="imageWidthTextField" editable="false" prefWidth="50.0" text="576" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <TextField fx:id="imageHeightTextField" editable="false" prefWidth="50.0" text="288" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                           </children>
                         </GridPane>
                       </children>

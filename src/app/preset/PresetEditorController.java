@@ -102,7 +102,6 @@ public class PresetEditorController {
 
     //}}}
 
-    sizeTextField.setText("" + 144);
     changeGridCells();
     setImageWidth();
     setImageHeight();
@@ -111,7 +110,6 @@ public class PresetEditorController {
 
   private void customizeTextField(TextField textField, int min, int max) {//{{{
 
-    textField.setText("" + min);
     textField.textProperty().addListener((obs, oldVal, newVal) -> {
       JavaFXCustomizeUtils.setNumberOnly(textField, oldVal, newVal);
       changeGridCells();
