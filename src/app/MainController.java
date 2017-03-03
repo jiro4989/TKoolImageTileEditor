@@ -30,17 +30,17 @@ import javafx.stage.StageStyle;
 
 public class MainController {
 
+  /** 画像規格 */
+  public static ImageStandard imageStandard;
+
+  /** 出力画像ペインのクリック時の動作を決定する戦略 */
+  public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
+
   // リストが選択中のファイル。保存対象でも有る。
   private Optional<File> selectedFileOpt = Optional.empty();
 
   // 環境設定ファイル
   private MyProperties preferences;
-
-  // 画像規格
-  public static ImageStandard imageStandard;
-
-  // 出力画像ペインのクリック時の動作を決定するインスタンス
-  public static ControlOutputPaneStrategy strategy = new DeleteStrategy();
 
   // 出力画像パネル
   private OutputImagePane outputImagePane;
@@ -510,6 +510,7 @@ public class MainController {
   }//}}}
 
   // Setter
+
   void setDividerPosition() {//{{{
 
     String val = preferences.getProperty("splitPane.divider.pos");
