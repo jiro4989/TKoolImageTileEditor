@@ -5,8 +5,9 @@ import jiro.lib.javafx.stage.FileChooserManager;
 import app.image.*;
 import app.preset.PresetEditor;
 import util.MyProperties;
-import util.RecentFiles;
 import util.PresetFiles;
+import util.PropertiesFiles;
+import util.RecentFiles;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -29,7 +30,6 @@ public class MainController {
 
   // 環境設定ファイル
   private MyProperties preferences;
-  private static final String PREFERENCES = "properties/preferences.xml";
 
   // 画像規格
   public static ImageStandard imageStandard;
@@ -135,7 +135,7 @@ public class MainController {
     // ファイルが存在しなかった場合は各種プリセットを生成し、mv.xmlを規格に設定
     // する。
 
-    preferences = new MyProperties(PREFERENCES);
+    preferences = new MyProperties(PropertiesFiles.PREFERENCES.FILE);
     if (preferences.load()) {
 
       imageStandard = new ImageStandard(preferences.getProperty("presetPath"));
@@ -143,8 +143,8 @@ public class MainController {
 
     } else {
 
-      PresetFiles.DIR.FILE  .mkdirs();
-      new File("properties").mkdirs();
+      PresetFiles     . DIR . FILE . mkdirs();
+      PropertiesFiles . DIR . FILE . mkdirs();
       createInitialFiles();
       imageStandard = new ImageStandard(PresetFiles.MV.FILE.getName());
       setOutputImageTitleText();
@@ -160,9 +160,9 @@ public class MainController {
 
   private void createInitialFiles() {//{{{
 
-    MyProperties mv      = new MyProperties(PresetFiles.MV.FILE.getName());
-    MyProperties vxace   = new MyProperties(PresetFiles.VXACE.FILE.getName());
-    MyProperties iconset = new MyProperties(PresetFiles.ICONSET.FILE.getName());
+    MyProperties mv      = new MyProperties(PresetFiles.MV.FILE);
+    MyProperties vxace   = new MyProperties(PresetFiles.VXACE.FILE);
+    MyProperties iconset = new MyProperties(PresetFiles.ICONSET.FILE);
 
     createInitialFile(mv      , 2  , 4  , 144);
     createInitialFile(vxace   , 2  , 4  , 96);
@@ -174,9 +174,12 @@ public class MainController {
 
     if (!mp.exists()) {
 
-      mp.setProperty("row"    , "" + row);
-      mp.setProperty("column" , "" + column);
-      mp.setProperty("size"   , "" + size);
+      mp.setProperty("row"         , "" + row);
+      mp.setProperty("column"      , "" + column);
+      mp.setProperty("size"        , "" + size);
+      mp.setProperty("imageWidth"  , "" + size * column);
+      mp.setProperty("imageHeight" , "" + size * row);
+
       mp.store();
 
     }
@@ -280,8 +283,9 @@ public class MainController {
     File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
     if (file != null) {
 
-      PresetEditor editor = new PresetEditor();
+      PresetEditor editor = new PresetEditor(file);
       editor.showAndWait();
+      imageStandard = new ImageStandard(file.getPath());
 
     }
 
@@ -296,8 +300,9 @@ public class MainController {
     File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
     if (file != null) {
 
-      PresetEditor editor = new PresetEditor();
+      PresetEditor editor = new PresetEditor(imageStandard.presetFile);
       editor.showAndWait();
+      imageStandard = new ImageStandard(file.getPath());
 
     }
 
@@ -377,7 +382,7 @@ public class MainController {
     ObservableList<MenuItem> recentFiles = openRecentMenu.getItems();
     RecentFiles.writeRecentOpenedFile(recentFiles);
 
-    MyProperties mainMp = new MyProperties("properties/main.xml");
+    MyProperties mainMp = new MyProperties(PropertiesFiles.MAIN.FILE);
     mainMp.setProperties(clearImagesButton);
     mainMp.store();
 

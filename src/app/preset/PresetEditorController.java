@@ -1,6 +1,8 @@
 package app.preset;
 
 import jiro.lib.javafx.stage.FileChooserManager;
+
+import app.ImageStandard;
 import util.JavaFXCustomizeUtils;
 import util.MyProperties;
 
@@ -9,12 +11,14 @@ import java.util.Optional;
 import java.util.stream.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 
 public class PresetEditorController {
+
+  private File presetFile;
 
   // FXMLコンポーネント{{{
 
@@ -79,10 +83,6 @@ public class PresetEditorController {
   //}}}
 
   @FXML private void initialize() {//{{{
-
-    // TEST CODE//{{{
-
-    //}}}
 
     // イベント登録//{{{
 
@@ -202,6 +202,29 @@ public class PresetEditorController {
 
   }//}}}
 
+  private void storePreset() {//{{{
+
+    int row         = Integer . parseInt(rowTextField         . getText());
+    int column      = Integer . parseInt(columnTextField      . getText());
+    int size        = Integer . parseInt(sizeTextField        . getText());
+    int imageWidth  = Integer . parseInt(imageWidthTextField  . getText());
+    int imageHeight = Integer . parseInt(imageHeightTextField . getText());
+
+    MyProperties preset = new MyProperties(presetFile);
+    ImageStandard is    = new ImageStandard(
+        row, column, size, imageWidth, imageHeight, presetFile
+        );
+    preset.setProperties(is);
+    preset.store();
+
+  }//}}}
+
+  void setPresetFile(File file) {//{{{
+
+    presetFile = file;
+
+  }//}}}
+
   @FXML private void fileChooserButtonOnAction() {//{{{
 
     FileChooserManager fcm = new FileChooserManager("Image Files", "*.png");
@@ -259,6 +282,7 @@ public class PresetEditorController {
   @FXML private void okButtonOnAction() {//{{{
 
     cancelButton.getScene().getWindow().hide();
+    storePreset();
 
   }//}}}
 

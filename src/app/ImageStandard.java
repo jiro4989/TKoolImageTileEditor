@@ -24,13 +24,26 @@ public class ImageStandard {
   public final int imageHeight;
 
   /** 画像規格を取得するプリセットファイル */
-  private final File presetFile;
+  final File presetFile;
 
-  /**
-   * プリセットファイルから値を読み取ってインスタンスを生成する。
-   *
-   * @param presetPath プリセットのパス
-   */
+  public ImageStandard(
+        int  aRow
+      , int  aColumn
+      , int  aSize
+      , int  aImageWidth
+      , int  aImageHeight
+      , File aPresetFile
+      ) {//{{{
+
+    row         = aRow;
+    column      = aColumn;
+    size        = aSize;
+    imageWidth  = aImageWidth;
+    imageHeight = aImageHeight;
+    presetFile  = aPresetFile;
+
+  }//}}}
+
   ImageStandard(String presetPath) {//{{{
 
     this(new File(presetPath));
@@ -42,6 +55,8 @@ public class ImageStandard {
     int r = 2;
     int c = 4;
     int s = 144;
+    int w = s * c;
+    int h = s * r;
 
     MyProperties mp = new MyProperties(aPresetFile);
     if (mp.load()) {
@@ -49,14 +64,16 @@ public class ImageStandard {
       r = Integer.parseInt(mp.getProperty("row"));
       c = Integer.parseInt(mp.getProperty("column"));
       s = Integer.parseInt(mp.getProperty("size"));
+      w = Integer.parseInt(mp.getProperty("imageWidth"));
+      h = Integer.parseInt(mp.getProperty("image.height"));
 
     }
 
     row         = r;
     column      = c;
     size        = s;
-    imageWidth  = size * column;
-    imageHeight = size * row;
+    imageWidth  = w;
+    imageHeight = h;
     presetFile = aPresetFile;
 
   }//}}}

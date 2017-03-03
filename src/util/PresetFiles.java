@@ -3,6 +3,7 @@ package util;
 import java.io.File;
 
 public enum PresetFiles {
+
     MV       ( "presets/mv.xml"      )
     ,VXACE   ( "presets/vxace.xml"   )
     ,ICONSET ( "presets/iconset.xml" )

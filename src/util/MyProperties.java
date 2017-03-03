@@ -1,5 +1,7 @@
 package util;
 
+import app.ImageStandard;
+
 import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
@@ -99,13 +101,13 @@ public class MyProperties {
     prop.setProperty(key, value);
   }//}}}
 
-  public void setProperties(Map<String, String> map) {//{{{
+  public void setProperties(ImageStandard is) {//{{{
 
-    for (Entry<String, String> set : map.entrySet()) {
-
-      prop.setProperty(set.getKey(), set.getValue());
-
-    }
+    prop.setProperty("row"         , "" + is.row);
+    prop.setProperty("column"      , "" + is.column);
+    prop.setProperty("size"        , "" + is.size);
+    prop.setProperty("imageWidth"  , "" + is.imageWidth);
+    prop.setProperty("imageHeight" , "" + is.imageHeight);
 
   }//}}}
 

@@ -4,6 +4,7 @@ import util.ResourceBundleWithUtf8;
 import util.MyProperties;
 
 import java.io.IOException;
+import java.io.File;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -17,7 +18,7 @@ public class PresetEditor extends Stage {
 
   private PresetEditorController controller;
 
-  public PresetEditor() {
+  public PresetEditor(File presetFile) {
 
     URL location = getClass().getResource("preset_editor.fxml");
     ResourceBundle resources = ResourceBundle.getBundle(
@@ -47,6 +48,8 @@ public class PresetEditor extends Stage {
 
       MyProperties mp = new MyProperties("properties/preview_editor.xml");
       if (mp.load()) mp.customStage(this);
+
+      controller.setPresetFile(presetFile);
 
     } catch (IOException e) {
       e.printStackTrace();
