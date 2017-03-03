@@ -6,6 +6,7 @@ import util.MyProperties;
 import util.PropertiesFiles;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.*;
 import javafx.fxml.FXML;
@@ -112,9 +113,23 @@ public class PresetEditorController {
     textField.textProperty().addListener((obs, oldVal, newVal) -> {
 
       JavaFXCustomizeUtils.setNumberOnly(textField, oldVal, newVal);
-      changeGridCells();
-      setImageWidth();
-      setImageHeight();
+
+      String r = rowTextField    . getText();
+      String c = columnTextField . getText();
+      String s = sizeTextField   . getText();
+
+      if (
+             !Objects.equals("", r)
+          && !Objects.equals("", c)
+          && !Objects.equals("", s)
+         )
+      {
+
+        changeGridCells();
+        setImageWidth();
+        setImageHeight();
+
+      }
 
     });
 
@@ -244,21 +259,27 @@ public class PresetEditorController {
     File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
     if (file != null) {
 
-      Image image = new Image("file:" + file.getPath());
-      int width  = (int) image.getWidth();
-      int height = (int) image.getHeight();
-      imageView.setFitWidth(width);
-      imageView.setFitHeight(height);
-      imageView.setImage(image);
-
-      imageFileTextField.setText(file.getName());
-      previewImageWidthTextField  . setText("" + width);
-      previewImageHeightTextField . setText("" + height);
-
-      resizeButton      . setDisable(false);
-      reRowColumnButton . setDisable(false);
+      setPreviewImage(file);
 
     }
+
+  }//}}}
+
+  void setPreviewImage(File file) {//{{{
+
+    Image image = new Image("file:" + file.getPath());
+    int width  = (int) image.getWidth();
+    int height = (int) image.getHeight();
+    imageView.setFitWidth(width);
+    imageView.setFitHeight(height);
+    imageView.setImage(image);
+
+    imageFileTextField.setText(file.getName());
+    previewImageWidthTextField  . setText("" + width);
+    previewImageHeightTextField . setText("" + height);
+
+    resizeButton      . setDisable(false);
+    reRowColumnButton . setDisable(false);
 
   }//}}}
 

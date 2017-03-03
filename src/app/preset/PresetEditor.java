@@ -18,7 +18,7 @@ public class PresetEditor extends Stage {
 
   private PresetEditorController controller;
 
-  public PresetEditor(File presetFile) {
+  public PresetEditor(File presetFile, File previewFile) {//{{{
 
     URL location = getClass().getResource("preset_editor.fxml");
     ResourceBundle resources = ResourceBundle.getBundle(
@@ -50,11 +50,18 @@ public class PresetEditor extends Stage {
       if (mp.load()) mp.customStage(this);
 
       controller.setPresetFile(presetFile);
+      if (previewFile != null) controller.setPreviewImage(previewFile);
 
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-  }
+  }//}}}
+
+  public PresetEditor(File presetFile) {//{{{
+
+    this(presetFile, null);
+
+  }//}}}
 
 }

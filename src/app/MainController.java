@@ -302,9 +302,8 @@ public class MainController {
     List<File> files = fc.showOpenMultipleDialog(new Stage(StageStyle.UTILITY));
     if (files != null) {
 
-      fc.setInitialFileName("joined_image");
+      fc.setInitialFileName("JoinedImage");
       File file = fc.showSaveDialog(new Stage(StageStyle.UTILITY));
-
       if (file != null) {
 
         Image joinedImage = ImageUtils.joinImageFiles(files);
@@ -313,6 +312,7 @@ public class MainController {
           String s = file.getPath();
           fileListView.getItems().add(new MyFile(s));
           fileListView.getSelectionModel().selectFirst();
+          newPresetMenuItemOnAction();
 
         } else {
 
@@ -389,7 +389,8 @@ public class MainController {
 
       }
 
-      PresetEditor editor = new PresetEditor(file);
+      File selectedFile = fileListView.getSelectionModel().getSelectedItem();
+      PresetEditor editor = new PresetEditor(file, selectedFile);
       editor.showAndWait();
       imageStandard = new ImageStandard(file.getPath());
       updateOutputImageTitlePane();
@@ -403,7 +404,8 @@ public class MainController {
     File file = imageStandard.presetFile;
     if (file != null) {
 
-      PresetEditor editor = new PresetEditor(imageStandard.presetFile);
+      File selectedFile = fileListView.getSelectionModel().getSelectedItem();
+        PresetEditor editor = new PresetEditor(imageStandard.presetFile, selectedFile);
       editor.showAndWait();
       imageStandard = new ImageStandard(file.getPath());
       updateOutputImageTitlePane();
