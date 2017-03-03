@@ -241,7 +241,7 @@ public class PresetEditorController {
 
     FileChooser fc = new FileChooser();
     fc.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
-    //fc.setInitialDirectory(PropertiesFiles.DIR.FILE);
+    fc.setInitialDirectory(new File("."));
 
     File file = fc.showOpenDialog(new Stage(StageStyle.UTILITY));
     if (file != null) {
