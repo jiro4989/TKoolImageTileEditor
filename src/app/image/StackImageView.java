@@ -28,6 +28,9 @@ class StackImageView extends StackPane {
   // 画像を表示するImageView
   private final ImageView imageView;
 
+  // 選択状態を表すLabel
+  private final Label selectedLabel;
+
   // クリック動作を実行するための透明なボタン
   private final Button button;
 
@@ -37,26 +40,30 @@ class StackImageView extends StackPane {
 
   StackImageView(int index, double size) {//{{{
 
-    label     = new Label("" + index);
-    imageView = new ImageView();
-    button    = new Button();
+    label         = new Label("" + index);
+    imageView     = new ImageView();
+    selectedLabel = new Label("");
+    button        = new Button();
 
-    label .setId("number-label");
-    button.setId("opacity-button");
+    label         . setId("number-label");
+    button        . setId("opacity-button");
+    selectedLabel . setId("selected-label");
 
     int is = (int) size;
     imageView.setImage(new WritableImage(is, is));
 
     button.setOnAction(e -> buttonOnAction());
 
-    this      .setPrefSize(size, size);
-    label     .setPrefSize(size, size);
-    imageView .setFitWidth(size);
-    imageView .setFitHeight(size);
-    button    .setPrefSize(size, size);
+    this          . setPrefSize(size, size);
+    label         . setPrefSize(size, size);
+    imageView     . setFitWidth(size);
+    imageView     . setFitHeight(size);
+    selectedLabel . setPrefSize(size, size);
+    button        . setPrefSize(size, size);
 
     getChildren().add(label);
     getChildren().add(imageView);
+    getChildren().add(selectedLabel);
     getChildren().add(button);
 
   }//}}}
@@ -101,7 +108,7 @@ class StackImageView extends StackPane {
   void setSelection(boolean selection) {//{{{
 
     isSelected = selection;
-    button.setOpacity(isSelected ? 0.25 : 0.0);
+    selectedLabel.setOpacity(isSelected ? 0.25 : 0.0);
 
   }//}}}
 

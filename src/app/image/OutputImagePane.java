@@ -135,6 +135,8 @@ public class OutputImagePane {
        )
     {
 
+      clearSelectedStackImageView();
+
       PixelReader pixel = image.getPixelReader();
 
       ImageStandard standard = MainController.imageStandard;
