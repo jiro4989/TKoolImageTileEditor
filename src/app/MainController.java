@@ -177,7 +177,7 @@ public class MainController {
       PresetFiles     . DIR . FILE . mkdirs();
       PropertiesFiles . DIR . FILE . mkdirs();
       createInitialFiles();
-      imageStandard = new ImageStandard(PresetFiles.MV.FILE.getName());
+      imageStandard = new ImageStandard(PresetFiles.MV.FILE.getPath());
 
       // フォントサイズを変更し、メニューのラジオメニューも変更する
       String fontSize = "10";

@@ -80,6 +80,10 @@ public class MyProperties {
 
   }//}}}
 
+  public void store() {//{{{
+    store(null);
+  }//}}}
+
   /**
    * ファイルの有無を返す。
    *
@@ -87,10 +91,6 @@ public class MyProperties {
    */
   public boolean exists() {//{{{
     return file.exists();
-  }//}}}
-
-  public void store() {//{{{
-    store(null);
   }//}}}
 
   public String getProperty(String key) {//{{{
