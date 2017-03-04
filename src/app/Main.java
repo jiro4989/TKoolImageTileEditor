@@ -15,14 +15,15 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-  public static final String TITLE = "TKool Facetile Editor";
+  public static final String TITLE = "TKool Image Tile Editor";
   private MainController mainController;
+  static ResourceBundle resources;
 
   @Override
   public void start(Stage primaryStage) {
 
     URL location = getClass().getResource("main.fxml");
-    ResourceBundle resources = ResourceBundle.getBundle(
+    resources = ResourceBundle.getBundle(
         "app.res.langs.main"
         , Locale.getDefault()
         , ResourceBundleWithUtf8.UTF8_ENCODING_CONTROL

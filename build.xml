@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="TKoolFacetileEditor" default="default" basedir="."
+<project name="TKoolImageTileEditor" default="default" basedir="."
   xmlns:fx="javafx:com.sun.javafx.tools.ant">
 
   <!-- プロパティ --><!--{{{-->
@@ -9,7 +9,7 @@
   <property name="env.JAVA_HOME" value="${env.JAVA_HOME}"/>
   <property name="build.src.dir" value="src"/>
   <property name="build.classes.dir" value="classes"/>
-  <property name="jar.name" value="tkfe.jar"/>
+  <property name="jar.name" value="tkite.jar"/>
 
   <!--}}}-->
 
@@ -84,7 +84,7 @@
       classpathref="lib"
       >
 
-      <sysproperty key="app.preferences.id" value="TKoolFacetileEditorID"/>
+      <sysproperty key="app.preferences.id" value="TKoolImageTileEditorID"/>
 
     </java>
 

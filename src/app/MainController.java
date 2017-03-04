@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
@@ -47,6 +48,8 @@ public class MainController {
 
   // FXMLで指定するコンポーネント//{{{
 
+  @FXML private VBox root;
+
   // ファイルメニュー
   @FXML private Menu     fileMenu;
   @FXML private MenuItem openMenuItem;
@@ -59,12 +62,21 @@ public class MainController {
   @FXML private MenuItem editPresetMenuItem;
   @FXML private MenuItem preferencesMenuItem;
   @FXML private MenuItem quitMenuItem;
+  @FXML private MenuItem forceQuitMenuItem;
 
   // 編集メニュー
   @FXML private Menu     editMenu;
   @FXML private MenuItem reloadMenuItem;
   @FXML private MenuItem deleteListMenuItem;
   @FXML private MenuItem clearListMenuItem;
+
+  // フォントサイズ変更メニュー
+  @FXML private Menu     fontMenu;
+  @FXML private MenuItem fontSize8MenuItem;
+  @FXML private MenuItem fontSize9MenuItem;
+  @FXML private MenuItem fontSize10MenuItem;
+  @FXML private MenuItem fontSize11MenuItem;
+  @FXML private MenuItem fontSize12MenuItem;
 
   // ヘルプメニュー
   @FXML private Menu     helpMenu;
@@ -96,6 +108,7 @@ public class MainController {
   //}}}
 
   // 初期化処理
+
   @FXML private void initialize() {//{{{
 
     // イベント登録{{{
@@ -105,6 +118,13 @@ public class MainController {
     deleteNonEmptyModeRadioButton . setOnAction ( e -> changeMode ( new DeleteNonEmptyStrategy ( ) ) ) ;
     sortModeRadioButton           . setOnAction ( e -> changeMode ( new SortStrategy           ( ) ) ) ;
     reverseModeRadioButton        . setOnAction ( e -> changeMode ( new ReverseStrategy        ( ) ) ) ;
+
+    // フォントサイズ変更メニュー
+    fontSize8MenuItem.setOnAction(e -> changeFontSize(fontSize8MenuItem));
+    fontSize9MenuItem.setOnAction(e -> changeFontSize(fontSize9MenuItem));
+    fontSize10MenuItem.setOnAction(e -> changeFontSize(fontSize10MenuItem));
+    fontSize11MenuItem.setOnAction(e -> changeFontSize(fontSize11MenuItem));
+    fontSize12MenuItem.setOnAction(e -> changeFontSize(fontSize12MenuItem));
 
     // ファイルリストの選択アイテムの変更
     fileListView.getSelectionModel().selectedItemProperty().addListener(item -> {//{{{
@@ -153,6 +173,8 @@ public class MainController {
       imageStandard = new ImageStandard(PresetFiles.MV.FILE.getName());
 
     }
+
+    changeFontSize(preferences.getProperty("fontSize"));
 
     //}}}
 
@@ -204,6 +226,19 @@ public class MainController {
     outputImageTitledPane.setText(outputTitle + " - " + name);
 
     outputImagePane.changeGridCells();
+
+  }//}}}
+
+  private void changeFontSize(MenuItem fontSizeMenuItem) {//{{{
+
+    changeFontSize(fontSizeMenuItem.getText());
+
+  }//}}}
+
+  private void changeFontSize(String text) {//{{{
+
+    root.setStyle("-fx-font-size: " + text + "pt;");
+    preferences.setProperty("fontSize", text);
 
   }//}}}
 
@@ -279,7 +314,7 @@ public class MainController {
       files.stream()
         .forEach(file -> {
 
-          MyFile myFile = new MyFile(file.getPath());
+          MyFile myFile = new MyFile(file);
           fileListView.getItems().add(myFile);
           fileListView.getSelectionModel().selectFirst();
 
@@ -311,8 +346,7 @@ public class MainController {
         Image joinedImage = ImageUtils.joinImageFiles(files);
         if (ImageUtils.write(joinedImage, file)) {
 
-          String s = file.getPath();
-          fileListView.getItems().add(new MyFile(s));
+          fileListView.getItems().add(new MyFile(file));
           fileListView.getSelectionModel().selectFirst();
           newPresetMenuItemOnAction();
 
@@ -353,6 +387,8 @@ public class MainController {
     if (file != null) {
 
       outputImagePane.outputImageFile(file);
+      fileListView.getItems().add(new MyFile(file));
+      fileListView.getSelectionModel().selectLast();
 
     }
 
@@ -420,6 +456,27 @@ public class MainController {
 
     closeRequest();
     Platform.exit();
+
+  }//}}}
+
+  @FXML private void forceQuitMenuItemOnAction() {//{{{
+
+    String sp = System.lineSeparator();
+
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setHeaderText(Main.resources.getString("forceQuitHeader"));
+    alert.setContentText(
+        Main.resources.getString("forceQuitContenr1") + sp
+        + Main.resources.getString("forceQuitContenr2")
+        );
+
+    Optional<ButtonType> result = alert.showAndWait();
+    result.ifPresent(r -> {
+
+      if (r == ButtonType.OK)
+        Platform.exit();
+
+    });
 
   }//}}}
 

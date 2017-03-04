@@ -1,89 +1,15 @@
-Buildfile: C:\Workspace\java\project\TKoolFacetileEditor\build.xml
+Buildfile: C:\Workspace\java\project\TKoolImagePanelEditor\build.xml
 
 clean:
 
 compile:
-    [javac] Compiling 16 source files to C:\Workspace\java\project\TKoolFacetileEditor\classes
-     [copy] Copying 7 files to C:\Workspace\java\project\TKoolFacetileEditor\classes
-     [java] javafx.fxml.LoadException: 
-     [java] /C:/Workspace/java/project/TKoolFacetileEditor/classes/app/preset/preset_editor.fxml:90
-     [java] 
-     [java] 	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2601)
-     [java] 	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2579)
-     [java] 	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441)
-     [java] 	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2409)
-     [java] 	at app.preset.PresetEditor.<init>(PresetEditor.java:31)
-     [java] 	at app.MainController.newPresetMenuItemOnAction(MainController.java:186)
-     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-     [java] 	at java.lang.reflect.Method.invoke(Method.java:498)
-     [java] 	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
-     [java] 	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
-     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-     [java] 	at java.lang.reflect.Method.invoke(Method.java:498)
-     [java] 	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
-     [java] 	at javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1771)
-     [java] 	at javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1657)
-     [java] 	at com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-     [java] 	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238)
-     [java] 	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
-     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-     [java] 	at com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-     [java] 	at com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-     [java] 	at javafx.event.Event.fireEvent(Event.java:198)
-     [java] 	at javafx.scene.control.MenuItem.fire(MenuItem.java:462)
-     [java] 	at com.sun.javafx.scene.control.skin.ContextMenuContent$MenuItemContainer.doSelect(ContextMenuContent.java:1405)
-     [java] 	at com.sun.javafx.scene.control.skin.ContextMenuContent$MenuItemContainer.lambda$createChildren$343(ContextMenuContent.java:1358)
-     [java] 	at com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:218)
-     [java] 	at com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-     [java] 	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238)
-     [java] 	at com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
-     [java] 	at com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-     [java] 	at com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-     [java] 	at com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-     [java] 	at com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-     [java] 	at com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-     [java] 	at javafx.event.Event.fireEvent(Event.java:198)
-     [java] 	at javafx.scene.Scene$MouseHandler.process(Scene.java:3757)
-     [java] 	at javafx.scene.Scene$MouseHandler.access$1500(Scene.java:3485)
-     [java] 	at javafx.scene.Scene.impl_processMouseEvent(Scene.java:1762)
-     [java] 	at javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2494)
-     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:381)
-     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:295)
-     [java] 	at java.security.AccessController.doPrivileged(Native Method)
-     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$354(GlassViewEventHandler.java:417)
-     [java] 	at com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:389)
-     [java] 	at com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:416)
-     [java] 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
-     [java] 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
-     [java] 	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-     [java] 	at com.sun.glass.ui.win.WinApplication.lambda$null$148(WinApplication.java:191)
-     [java] 	at java.lang.Thread.run(Thread.java:745)
-     [java] Caused by: java.lang.IllegalArgumentException: Can not set javafx.scene.control.Button field app.preset.PresetEditorController.imageFileTextField to javafx.scene.control.TextField
-     [java] 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
-     [java] 	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
-     [java] 	at sun.reflect.UnsafeObjectFieldAccessorImpl.set(UnsafeObjectFieldAccessorImpl.java:81)
-     [java] 	at java.lang.reflect.Field.set(Field.java:764)
-     [java] 	at javafx.fxml.FXMLLoader.injectFields(FXMLLoader.java:1163)
-     [java] 	at javafx.fxml.FXMLLoader.access$1600(FXMLLoader.java:103)
-     [java] 	at javafx.fxml.FXMLLoader$ValueElement.processValue(FXMLLoader.java:857)
-     [java] 	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:751)
-     [java] 	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2707)
-     [java] 	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2527)
-     [java] 	... 57 more
+    [javac] Compiling 21 source files to C:\Workspace\java\project\TKoolImagePanelEditor\classes
+     [copy] Copying 7 files to C:\Workspace\java\project\TKoolImagePanelEditor\classes
 
 jar:
-      [jar] Building jar: C:\Workspace\java\project\TKoolFacetileEditor\tkfe.jar
+      [jar] Building jar: C:\Workspace\java\project\TKoolImagePanelEditor\tkipe.jar
 
 default:
 
 BUILD SUCCESSFUL
-Total time: 6 seconds
+Total time: 4 seconds

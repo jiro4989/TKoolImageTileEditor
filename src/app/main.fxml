@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainController">
+<VBox fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -41,9 +41,8 @@
             <MenuItem fx:id="newPresetMenuItem" mnemonicParsing="false" onAction="#newPresetMenuItemOnAction" text="%newPresetMenuItem" />
             <MenuItem fx:id="editPresetMenuItem" mnemonicParsing="false" onAction="#editPresetMenuItemOnAction" text="%editPresetMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="preferencesMenuItem" mnemonicParsing="false" text="%preferencesMenuItem" />
-            <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#quitMenuItemOnAction" text="%quitMenuItem" />
+            <MenuItem fx:id="forceQuitMenuItem" mnemonicParsing="false" onAction="#forceQuitMenuItemOnAction" text="%forceQuitMenuItem" />
           </items>
         </Menu>
         <Menu fx:id="editMenu" mnemonicParsing="false" text="%editMenu">
@@ -51,6 +50,15 @@
             <MenuItem fx:id="reloadMenuItem" mnemonicParsing="false" onAction="#reloadButtonOnAction" text="%reloadMenuItem" />
             <MenuItem fx:id="deleteListMenuItem" mnemonicParsing="false" onAction="#deleteListButtonOnAction" text="%deleteListMenuItem" />
             <MenuItem fx:id="clearListMenuItem" mnemonicParsing="false" onAction="#clearListButtonOnAction" text="%clearListMenuItem" />
+          </items>
+        </Menu>
+        <Menu fx:id="fontMenu" mnemonicParsing="false" text="%fontMenu">
+          <items>
+            <MenuItem fx:id="fontSize8MenuItem" mnemonicParsing="false"  text="8" />
+            <MenuItem fx:id="fontSize9MenuItem" mnemonicParsing="false"  text="9" />
+            <MenuItem fx:id="fontSize10MenuItem" mnemonicParsing="false" text="10" />
+            <MenuItem fx:id="fontSize11MenuItem" mnemonicParsing="false" text="11" />
+            <MenuItem fx:id="fontSize12MenuItem" mnemonicParsing="false" text="12" />
           </items>
         </Menu>
         <Menu fx:id="helpMenu" mnemonicParsing="false" text="%helpMenu">
@@ -70,10 +78,10 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                        <ListView fx:id="fileListView" onDragDropped="#fileListViewOnDragDropped" onDragOver="#fileListViewOnDragOver" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="fileListView" onDragDropped="#fileListViewOnDragDropped" onDragOver="#fileListViewOnDragOver" prefHeight="363.0" prefWidth="155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="0.0" />
                         <GridPane vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="125.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -84,9 +92,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
-                            <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%deleteListButton" GridPane.rowIndex="1" />
-                            <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="79.0" prefWidth="200.0" text="%clearListButton" GridPane.rowIndex="2" />
-                            <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#reloadButtonOnAction" prefHeight="105.0" prefWidth="286.0" text="%reloadButton" />
+                            <Button fx:id="reloadButton" mnemonicParsing="false" onAction="#reloadButtonOnAction" prefHeight="400.0" prefWidth="300.0" text="%reloadButton" />
+                            <Button fx:id="deleteListButton" mnemonicParsing="false" onAction="#deleteListButtonOnAction" prefHeight="400.0" prefWidth="300.0" text="%deleteListButton" GridPane.rowIndex="1" />
+                            <Button fx:id="clearListButton" mnemonicParsing="false" onAction="#clearListButtonOnAction" prefHeight="400.0" prefWidth="300.0" text="%clearListButton" GridPane.rowIndex="2" />
                           </children>
                         </GridPane>
                       </children>

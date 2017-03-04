@@ -33,6 +33,8 @@ class StackImageView extends StackPane {
 
   //}}}
 
+  // コンストラクタ
+
   StackImageView(int index, double size) {//{{{
 
     label     = new Label("" + index);
@@ -41,6 +43,9 @@ class StackImageView extends StackPane {
 
     label .setId("number-label");
     button.setId("opacity-button");
+
+    int is = (int) size;
+    imageView.setImage(new WritableImage(is, is));
 
     button.setOnAction(e -> buttonOnAction());
 

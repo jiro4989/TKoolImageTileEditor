@@ -2,5 +2,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <entry key="presetPath">C:\Workspace\java\project\TKoolFacetileEditor\presets\mv.preset</entry>
-<entry key="splitPane.divider.pos">0.4206896551724138</entry>
+<entry key="fontSize">10</entry>
+<entry key="splitPane.divider.pos">0.413022351797862</entry>
 </properties>
