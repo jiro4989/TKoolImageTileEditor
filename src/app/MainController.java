@@ -167,6 +167,11 @@ public class MainController {
 
       imageStandard = new ImageStandard(preferences.getProperty("presetPath"));
 
+      // フォントサイズを変更し、メニューのラジオメニューも変更する
+      String fontSize = preferences.getProperty("fontSize");
+      selectToggleWithIndex(fontSize);
+      changeFontSize(fontSize);
+
     } else {
 
       PresetFiles     . DIR . FILE . mkdirs();
@@ -174,12 +179,12 @@ public class MainController {
       createInitialFiles();
       imageStandard = new ImageStandard(PresetFiles.MV.FILE.getName());
 
-    }
+      // フォントサイズを変更し、メニューのラジオメニューも変更する
+      String fontSize = "10";
+      selectToggleWithIndex(fontSize);
+      changeFontSize(fontSize);
 
-    // フォントサイズを変更し、メニューのラジオメニューも変更する
-    String fontSize = preferences.getProperty("fontSize");
-    selectToggleWithIndex(fontSize);
-    changeFontSize(fontSize);
+    }
 
     //}}}
 
@@ -451,7 +456,6 @@ public class MainController {
 
   }//}}}
 
-  // TODO
   @FXML private void editPresetMenuItemOnAction() {//{{{
 
     File file = imageStandard.presetFile;
