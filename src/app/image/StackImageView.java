@@ -55,9 +55,9 @@ class StackImageView extends StackPane {
     imageView .setFitHeight(size);
     button    .setPrefSize(size, size);
 
-    this.getChildren().add(label);
-    this.getChildren().add(imageView);
-    this.getChildren().add(button);
+    getChildren().add(label);
+    getChildren().add(imageView);
+    getChildren().add(button);
 
   }//}}}
 

@@ -12,6 +12,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.*;
+import java.util.regex.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Platform;
@@ -57,8 +58,8 @@ public class MainController {
   @FXML private MenuItem openJoiningMenuItem;
   @FXML private MenuItem saveMenuItem;
   @FXML private MenuItem saveAsMenuItem;
-  @FXML private MenuItem openPresetMenuItem;
   @FXML private MenuItem newPresetMenuItem;
+  @FXML private MenuItem openPresetMenuItem;
   @FXML private MenuItem editPresetMenuItem;
   @FXML private MenuItem preferencesMenuItem;
   @FXML private MenuItem quitMenuItem;
@@ -72,11 +73,12 @@ public class MainController {
 
   // フォントサイズ変更メニュー
   @FXML private Menu     fontMenu;
-  @FXML private MenuItem fontSize8MenuItem;
-  @FXML private MenuItem fontSize9MenuItem;
-  @FXML private MenuItem fontSize10MenuItem;
-  @FXML private MenuItem fontSize11MenuItem;
-  @FXML private MenuItem fontSize12MenuItem;
+  @FXML private ToggleGroup fontGroup;
+  @FXML private RadioMenuItem fontSize8RadioMenuItem;
+  @FXML private RadioMenuItem fontSize9RadioMenuItem;
+  @FXML private RadioMenuItem fontSize10RadioMenuItem;
+  @FXML private RadioMenuItem fontSize11RadioMenuItem;
+  @FXML private RadioMenuItem fontSize12RadioMenuItem;
 
   // ヘルプメニュー
   @FXML private Menu     helpMenu;
@@ -120,11 +122,11 @@ public class MainController {
     reverseModeRadioButton        . setOnAction ( e -> changeMode ( new ReverseStrategy        ( ) ) ) ;
 
     // フォントサイズ変更メニュー
-    fontSize8MenuItem.setOnAction(e -> changeFontSize(fontSize8MenuItem));
-    fontSize9MenuItem.setOnAction(e -> changeFontSize(fontSize9MenuItem));
-    fontSize10MenuItem.setOnAction(e -> changeFontSize(fontSize10MenuItem));
-    fontSize11MenuItem.setOnAction(e -> changeFontSize(fontSize11MenuItem));
-    fontSize12MenuItem.setOnAction(e -> changeFontSize(fontSize12MenuItem));
+    fontSize8RadioMenuItem.setOnAction(e -> changeFontSize(fontSize8RadioMenuItem));
+    fontSize9RadioMenuItem.setOnAction(e -> changeFontSize(fontSize9RadioMenuItem));
+    fontSize10RadioMenuItem.setOnAction(e -> changeFontSize(fontSize10RadioMenuItem));
+    fontSize11RadioMenuItem.setOnAction(e -> changeFontSize(fontSize11RadioMenuItem));
+    fontSize12RadioMenuItem.setOnAction(e -> changeFontSize(fontSize12RadioMenuItem));
 
     // ファイルリストの選択アイテムの変更
     fileListView.getSelectionModel().selectedItemProperty().addListener(item -> {//{{{
@@ -174,7 +176,10 @@ public class MainController {
 
     }
 
-    changeFontSize(preferences.getProperty("fontSize"));
+    // フォントサイズを変更し、メニューのラジオメニューも変更する
+    String fontSize = preferences.getProperty("fontSize");
+    selectToggleWithIndex(fontSize);
+    changeFontSize(fontSize);
 
     //}}}
 
@@ -229,7 +234,16 @@ public class MainController {
 
   }//}}}
 
-  private void changeFontSize(MenuItem fontSizeMenuItem) {//{{{
+  private void selectToggleWithIndex(String fontSize) {//{{{
+
+    fontGroup.getToggles().stream()
+      .map(t -> (RadioMenuItem) t)
+      .filter(t -> t.getText().equals(fontSize))
+      .forEach(t -> t.setSelected(true));
+
+  }//}}}
+
+  private void changeFontSize(RadioMenuItem fontSizeMenuItem) {//{{{
 
     changeFontSize(fontSizeMenuItem.getText());
 
@@ -437,6 +451,7 @@ public class MainController {
 
   }//}}}
 
+  // TODO
   @FXML private void editPresetMenuItemOnAction() {//{{{
 
     File file = imageStandard.presetFile;
@@ -536,13 +551,32 @@ public class MainController {
 
   @FXML private void fileListViewOnDragOver(DragEvent event) {//{{{
 
-    System.out.println("dragover.");
+    Dragboard board = event.getDragboard();
+    if (board.hasFiles()) {
+
+      event.acceptTransferModes(TransferMode.COPY);
+
+    }
 
   }//}}}
 
   @FXML private void fileListViewOnDragDropped(DragEvent event) {//{{{
 
-    System.out.println("dragover.");
+    Dragboard board = event.getDragboard();
+    if (board.hasFiles()) {
+
+      // 大文字小文字を区別せずにpngファイルのみをファイルリストに追加
+      Pattern p = Pattern.compile("^.*\\.((?i)png)");
+      board.getFiles().stream()
+        .filter(f -> p.matcher(f.getName()).matches())
+        .forEach(file -> {
+
+          fileListView.getItems().add(new MyFile(file));
+          fileListView.getSelectionModel().selectFirst();
+
+        });
+
+    }
 
   }//}}}
 
