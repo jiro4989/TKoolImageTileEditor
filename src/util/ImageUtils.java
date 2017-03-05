@@ -143,14 +143,13 @@ public class ImageUtils {
     int width  = (int) tmpImage.getWidth();
     int height = (int) tmpImage.getHeight();
 
-    // 基準値と等しい横幅、縦幅の画像のみを抽出したリストを生成
+    // 基準値と等しい横幅の画像のみを抽出したリストを生成
     List<Image> filteredImageList = imageList.stream()
       .map(f -> new Image("file:" + f.getPath()))
       .filter(img -> {
 
         int w = (int) img.getWidth();
-        int h = (int) img.getHeight();
-        if (w == width && h == height) {
+        if (w == width) {
           return true;
         }
 

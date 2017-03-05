@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<entry key="presetPath">C:\Workspace\java\project\TKoolImageTileEditor\presets\n2.preset</entry>
+<entry key="presetPath">C:\Workspace\java\project\TKoolImageTileEditor\presets\new.preset</entry>
 <entry key="imageFileChooser.initDir">C:\Workspace\java\project\TKoolImageTileEditor</entry>
 <entry key="presetFileChooser.initDir">C:\Workspace\java\project\TKoolImageTileEditor\presets</entry>
 <entry key="fontSize">10</entry>
