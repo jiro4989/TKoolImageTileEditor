@@ -63,10 +63,13 @@ public class MyProperties {
     double width  = Double.parseDouble(properties.getProperty("width"));
     double height = Double.parseDouble(properties.getProperty("height"));
 
+    boolean isMaximized = Boolean.valueOf(properties.getProperty("isMaximized"));
+
     stage.setX(x);
     stage.setY(y);
     stage.setWidth(width);
     stage.setHeight(height);
+    stage.setMaximized(isMaximized);
 
   }//}}}
 
@@ -116,10 +119,15 @@ public class MyProperties {
 
   public void setProperties(Stage stage) {//{{{
 
-    properties.setProperty("x"      , "" + stage.getX());
-    properties.setProperty("y"      , "" + stage.getY());
-    properties.setProperty("width"  , "" + stage.getWidth());
-    properties.setProperty("height" , "" + stage.getHeight());
+    boolean isMaximized = stage.isMaximized();
+    if (isMaximized)
+      stage.setMaximized(false);
+
+    properties.setProperty("x"           , "" + stage.getX());
+    properties.setProperty("y"           , "" + stage.getY());
+    properties.setProperty("width"       , "" + stage.getWidth());
+    properties.setProperty("height"      , "" + stage.getHeight());
+    properties.setProperty("isMaximized" , "" + isMaximized);
 
   }//}}}
 

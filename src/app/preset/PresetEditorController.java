@@ -315,6 +315,7 @@ public class PresetEditorController {
 
   @FXML private void okButtonOnAction() {//{{{
 
+    closeRequest();
     cancelButton.getScene().getWindow().hide();
     storePreset();
 
@@ -322,6 +323,7 @@ public class PresetEditorController {
 
   @FXML private void cancelButtonOnAction() {//{{{
 
+    closeRequest();
     cancelButton.getScene().getWindow().hide();
 
   }//}}}

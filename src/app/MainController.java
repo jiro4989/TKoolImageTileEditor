@@ -143,7 +143,75 @@ public class MainController {
 
     //}}}
 
-    // 最近開いたファイルの情報からRecentMenuItemを更新する。//{{{
+    // 環境設定プロパティファイルを読み取り、画像規格を設定する。//{{{
+    // ファイルが存在しなかった場合は各種プリセットを生成し、mv.xmlを規格に設定
+    // する。
+
+    String imageInitDir = null;
+    String presetInitDir = null;
+
+    preferences = new MyProperties(PropertiesFiles.PREFERENCES.FILE);
+    if (preferences.load()) {
+
+      imageStandard = new ImageStandard(
+          preferences.getProperty(PRESET_PATH.KEY)
+          .orElse(PresetFiles.MV.FILE.getPath())
+          );
+
+      // フォントサイズを変更し、メニューのラジオメニューも変更する
+      String fontSize = preferences.getProperty(FONT_SIZE.KEY).orElse("10");
+      selectToggleWithIndex(fontSize);
+      changeFontSize(fontSize);
+
+      // FileChooserの初期ディレクトリ
+      imageInitDir = preferences.getProperty(IMAGE_INIT_DIR.KEY).orElse(".");
+      presetInitDir = preferences.getProperty(PRESET_INIT_DIR.KEY).orElse(PresetFiles.MV.FILE.getParent());
+
+    } else {
+
+      // 初回起動時の動作
+
+      PresetFiles     . DIR . FILE . mkdirs();
+      PropertiesFiles . DIR . FILE . mkdirs();
+      createInitialFiles();
+      imageStandard = new ImageStandard(PresetFiles.MV.FILE.getPath());
+
+      // フォントサイズを変更し、メニューのラジオメニューも変更する
+      String fontSize = "10";
+      selectToggleWithIndex(fontSize);
+      changeFontSize(fontSize);
+
+      // FileChooserの初期ディレクトリ
+      imageInitDir = ".";
+      presetInitDir = PresetFiles.MV.FILE.getParent();
+
+    }
+
+    //}}}
+
+    // FileChooserの初期化//{{{
+
+    imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png")
+      .initDir(imageInitDir)
+      .properties(preferences.getProperties()).initDirKey(IMAGE_INIT_DIR.KEY)
+      .build();
+
+    presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
+      .initDir(presetInitDir)
+      .initFileName("new_preset")
+      .properties(preferences.getProperties()).initDirKey(PRESET_INIT_DIR.KEY)
+      .build();
+
+    //}}}
+
+    outputImagePane = new OutputImagePane(outputAnchorPane);
+    updateOutputImageTitlePane();
+
+    updateRecentMenuItems();
+
+  }//}}}
+
+  private void updateRecentMenuItems() {//{{{
 
     RecentFiles.createRecentOpenedMenuItems().ifPresent(list -> {
 
@@ -164,53 +232,9 @@ public class MainController {
 
     });
 
-    //}}}
+  }//}}}
 
-    // 環境設定プロパティファイルを読み取り、画像規格を設定する。//{{{
-    // ファイルが存在しなかった場合は各種プリセットを生成し、mv.xmlを規格に設定
-    // する。
-
-    preferences = new MyProperties(PropertiesFiles.PREFERENCES.FILE);
-    if (preferences.load()) {
-
-      imageStandard = new ImageStandard(
-          preferences.getProperty(PRESET_PATH.KEY)
-          .orElse(PresetFiles.MV.FILE.getPath())
-          );
-
-      // フォントサイズを変更し、メニューのラジオメニューも変更する
-      String fontSize = preferences.getProperty(FONT_SIZE.KEY).orElse("10");
-      selectToggleWithIndex(fontSize);
-      changeFontSize(fontSize);
-
-    } else {
-
-      PresetFiles     . DIR . FILE . mkdirs();
-      PropertiesFiles . DIR . FILE . mkdirs();
-      createInitialFiles();
-      imageStandard = new ImageStandard(PresetFiles.MV.FILE.getPath());
-
-      // フォントサイズを変更し、メニューのラジオメニューも変更する
-      String fontSize = "10";
-      selectToggleWithIndex(fontSize);
-      changeFontSize(fontSize);
-
-    }
-
-    //}}}
-
-    imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png")
-      .properties(preferences.getProperties()).initDirKey(IMAGE_INIT_DIR.KEY)
-      .build();
-
-    presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
-      .initDir(PresetFiles.MV.FILE.getParentFile())
-      .initFileName("new_preset")
-      .properties(preferences.getProperties()).initDirKey(PRESET_INIT_DIR.KEY)
-      .build();
-
-    outputImagePane = new OutputImagePane(outputAnchorPane);
-    updateOutputImageTitlePane();
+  private void initializeImageStandard() {//{{{
 
   }//}}}
 

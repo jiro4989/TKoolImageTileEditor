@@ -154,31 +154,28 @@ public class MyFileChooser {
 
   public Optional<File> openFile() {//{{{
 
+    checkCanShowDialog();
     File file = fc.showOpenDialog(STAGE_UTIL);
-
     setInitDir(file);
-
     return Optional.ofNullable(file);
 
   }//}}}
 
   public Optional<List<File>> openFiles() {//{{{
 
+    checkCanShowDialog();
     List<File> files = fc.showOpenMultipleDialog(STAGE_UTIL);
-
     setInitDir(files);
-
     return Optional.ofNullable(files);
 
   }//}}}
 
   public Optional<File> saveFile() {//{{{
 
+    checkCanShowDialog();
     File file = fc.showSaveDialog(STAGE_UTIL);
-
     setInitDir(file);
     setInitFileName(file);
-
     return Optional.ofNullable(file);
 
   }//}}}
@@ -223,6 +220,14 @@ public class MyFileChooser {
       }
 
     }
+
+  }//}}}
+
+  private void checkCanShowDialog() {//{{{
+
+    File file = fc.getInitialDirectory();
+    if (!file.exists())
+      fc.setInitialDirectory(new File("."));
 
   }//}}}
 
