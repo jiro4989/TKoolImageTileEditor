@@ -15,7 +15,7 @@ import javafx.stage.Window;
  */
 public class MyProperties {
 
-  private final Properties prop;
+  private final Properties properties;
   private final File file;
 
   public MyProperties(String fileName) {//{{{
@@ -23,7 +23,7 @@ public class MyProperties {
   }//}}}
 
   public MyProperties(File aFile) {//{{{
-    prop = new Properties();
+    properties = new Properties();
     file = aFile;
   }//}}}
 
@@ -39,7 +39,7 @@ public class MyProperties {
 
       try (InputStream in = new FileInputStream(file)) {
 
-        prop.loadFromXML(in);
+        properties.loadFromXML(in);
         success = true;
 
       } catch (IOException e) {
@@ -58,10 +58,10 @@ public class MyProperties {
    */
   public void customStage(Stage stage) {//{{{
 
-    double x      = Double.parseDouble(prop.getProperty("x"));
-    double y      = Double.parseDouble(prop.getProperty("y"));
-    double width  = Double.parseDouble(prop.getProperty("width"));
-    double height = Double.parseDouble(prop.getProperty("height"));
+    double x      = Double.parseDouble(properties.getProperty("x"));
+    double y      = Double.parseDouble(properties.getProperty("y"));
+    double width  = Double.parseDouble(properties.getProperty("width"));
+    double height = Double.parseDouble(properties.getProperty("height"));
 
     stage.setX(x);
     stage.setY(y);
@@ -73,7 +73,7 @@ public class MyProperties {
   public void store(String comment) {//{{{
 
     try (FileOutputStream out = new FileOutputStream(file)) {
-      prop.storeToXML(out, comment);
+      properties.storeToXML(out, comment);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -95,12 +95,18 @@ public class MyProperties {
 
   public Optional<String> getProperty(String key) {//{{{
 
-    return Optional.ofNullable(prop.getProperty(key));
+    return Optional.ofNullable(properties.getProperty(key));
+
+  }//}}}
+
+  public Properties getProperties() {//{{{
+
+    return properties;
 
   }//}}}
 
   public void setProperty(String key, String value) {//{{{
-    prop.setProperty(key, value);
+    properties.setProperty(key, value);
   }//}}}
 
   public void setProperties(Node node) {//{{{
@@ -110,10 +116,10 @@ public class MyProperties {
 
   public void setProperties(Stage stage) {//{{{
 
-    prop.setProperty("x"      , "" + stage.getX());
-    prop.setProperty("y"      , "" + stage.getY());
-    prop.setProperty("width"  , "" + stage.getWidth());
-    prop.setProperty("height" , "" + stage.getHeight());
+    properties.setProperty("x"      , "" + stage.getX());
+    properties.setProperty("y"      , "" + stage.getY());
+    properties.setProperty("width"  , "" + stage.getWidth());
+    properties.setProperty("height" , "" + stage.getHeight());
 
   }//}}}
 

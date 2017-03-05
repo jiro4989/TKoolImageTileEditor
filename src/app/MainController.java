@@ -3,13 +3,15 @@ package app;
 import jiro.javafx.stage.MyFileChooser;
 import jiro.javafx.stage.MyFileChooser.Builder;
 
+import static util.PreferencesKeys.*;
+
 import app.image.*;
 import app.preset.PresetEditor;
+import util.ImageUtils;
 import util.MyProperties;
 import util.PresetFiles;
 import util.PropertiesFiles;
 import util.RecentFiles;
-import util.ImageUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -172,12 +174,12 @@ public class MainController {
     if (preferences.load()) {
 
       imageStandard = new ImageStandard(
-          preferences.getProperty("presetPath")
+          preferences.getProperty(PRESET_PATH.KEY)
           .orElse(PresetFiles.MV.FILE.getPath())
           );
 
       // フォントサイズを変更し、メニューのラジオメニューも変更する
-      String fontSize = preferences.getProperty("fontSize").orElse("10");
+      String fontSize = preferences.getProperty(FONT_SIZE.KEY).orElse("10");
       selectToggleWithIndex(fontSize);
       changeFontSize(fontSize);
 
@@ -197,10 +199,14 @@ public class MainController {
 
     //}}}
 
-    imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png").build();
+    imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png")
+      .properties(preferences.getProperties()).initDirKey(IMAGE_INIT_DIR.KEY)
+      .build();
     presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
       .initDir(PresetFiles.MV.FILE.getParentFile())
-      .initFileName("new_preset").build();
+      .initFileName("new_preset")
+      .properties(preferences.getProperties()).initDirKey(PRESET_INIT_DIR.KEY)
+      .build();
 
     outputImagePane = new OutputImagePane(outputAnchorPane);
     updateOutputImageTitlePane();
@@ -271,7 +277,7 @@ public class MainController {
   private void changeFontSize(String text) {//{{{
 
     root.setStyle("-fx-font-size: " + text + "pt;");
-    preferences.setProperty("fontSize", text);
+    preferences.setProperty(FONT_SIZE.KEY, text);
 
   }//}}}
 
@@ -592,10 +598,7 @@ public class MainController {
 
     // preferences.xml に保存
     double[] poses = splitPane.getDividerPositions();
-    preferences.setProperty("splitPane.divider.pos"     , "" + poses[0]);
-    preferences.setProperty("presetPath"                , imageStandard.getPresetPath());
-    preferences.setProperty("imageFileChooser.initDir"  , imageFileChooser.getInitialDirectory().getPath());
-    preferences.setProperty("presetFileChooser.initDir" , presetFileChooser.getInitialDirectory().getPath());
+    preferences.setProperty(DIV_POS.KEY               , "" + poses[0]);
     preferences.store();
 
   }//}}}
@@ -604,7 +607,7 @@ public class MainController {
 
   void setDividerPosition() {//{{{
 
-    String val = preferences.getProperty("splitPane.divider.pos").orElse("0.366");
+    String val = preferences.getProperty(DIV_POS.KEY).orElse("0.366");
     double pos = Double.parseDouble(val);
     splitPane.setDividerPosition(0, pos);
 
