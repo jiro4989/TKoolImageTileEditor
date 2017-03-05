@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
   public static final String TITLE = "TKool Image Tile Editor";
+  public static final String VERSION = "ver 1.0";
   private MainController mainController;
   static ResourceBundle resources;
 

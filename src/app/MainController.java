@@ -1,5 +1,6 @@
 package app;
 
+import jiro.javafx.stage.AboutStage;
 import jiro.javafx.stage.MyFileChooser;
 import jiro.javafx.stage.MyFileChooser.Builder;
 
@@ -524,6 +525,9 @@ public class MainController {
   // ヘルプメニュー
 
   @FXML private void aboutMenuItemOnAction() {//{{{
+
+    AboutStage about = new AboutStage(Main.TITLE, Main.VERSION);
+    about.showAndWait();
 
   }//}}}
 

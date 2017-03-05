@@ -15,14 +15,14 @@
     <HBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="1">
       <children>
         <Pane maxWidth="+Infinity" HBox.hgrow="ALWAYS" />
-        <Button fx:id="okButton" cancelButton="true" minWidth="80.0" mnemonicParsing="false" onAction="#okButtonOnAction" text="%okButton" HBox.hgrow="NEVER">
+        <Button fx:id="okButton" minWidth="80.0" mnemonicParsing="false" onAction="#okButtonOnAction" text="%okButton" HBox.hgrow="NEVER">
           <HBox.margin>
             <Insets />
           </HBox.margin>
         </Button>
         <HBox fx:id="okParent" alignment="CENTER">
           <children>
-            <Button fx:id="cancelButton" minWidth="80.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" text="%cancelButton" HBox.hgrow="NEVER">
+            <Button fx:id="cancelButton" cancelButton="true" minWidth="80.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" text="%cancelButton" HBox.hgrow="NEVER">
               <HBox.margin>
                 <Insets left="14.0" />
               </HBox.margin>
