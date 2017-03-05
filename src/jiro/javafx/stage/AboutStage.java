@@ -16,7 +16,7 @@ public class AboutStage extends Stage {
 
       BorderPane root = (BorderPane) loader.load();
       Scene scene = new Scene(root);
-      scene.getStylesheets().add(getClass().getResource(css).toExternalForm());
+      if (css != null) scene.getStylesheets().add(getClass().getResource(css).toExternalForm());
       setScene(scene);
 
       setResizable(false);

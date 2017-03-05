@@ -159,8 +159,10 @@ public class ImageUtils {
     .collect(Collectors.toList());
 
     // 連結画像書き込み用のイメージの生成
-    int count = filteredImageList.size();
-    WritableImage joinedImage = new WritableImage(width, height * count);
+    int newImageHeight = filteredImageList.stream()
+      .mapToInt(img -> (int) img.getHeight())
+      .sum();
+    WritableImage joinedImage = new WritableImage(width, newImageHeight);
 
     // 画像の連結
     AtomicInteger atom = new AtomicInteger(0);
