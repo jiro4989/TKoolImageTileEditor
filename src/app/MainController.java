@@ -424,6 +424,8 @@ public class MainController {
           fileListView.getSelectionModel().selectFirst();
           newPresetMenuItemOnAction();
 
+          addRecentMenuItem(file);
+
         } else {
 
           Alert alert = new Alert(AlertType.ERROR);
@@ -458,8 +460,16 @@ public class MainController {
       outputImagePane.outputImageFile(file);
       fileListView.getItems().add(new MyFile(file));
       fileListView.getSelectionModel().selectLast();
+      addRecentMenuItem(file);
 
     });
+
+  }//}}}
+
+  private void addRecentMenuItem(File file) {//{{{
+
+    MenuItem item = new MenuItem(file.getAbsolutePath());
+    openRecentMenu.getItems().add(0, item);
 
   }//}}}
 
