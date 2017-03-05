@@ -60,7 +60,7 @@ public class MyFileChooser {
 
     public Builder initDir(File dir) {//{{{
 
-      initDir = dir;
+      if (dir.exists()) initDir = dir;
       return this;
 
     }//}}}
@@ -177,6 +177,14 @@ public class MyFileChooser {
       }
 
     }
+
+  }//}}}
+
+  // Getter
+
+  public File getInitialDirectory() {//{{{
+
+    return fc.getInitialDirectory();
 
   }//}}}
 

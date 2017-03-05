@@ -199,6 +199,7 @@ public class MainController {
 
     imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png").build();
     presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
+      .initDir(PresetFiles.MV.FILE.getParentFile())
       .initFileName("new_preset").build();
 
     outputImagePane = new OutputImagePane(outputAnchorPane);
@@ -427,6 +428,7 @@ public class MainController {
 
       imageStandard = new ImageStandard(file.getPath());
       updateOutputImageTitlePane();
+      drawSelectedFile();
 
     });
 
@@ -438,6 +440,7 @@ public class MainController {
 
       imageStandard = new ImageStandard(file);
       updateOutputImageTitlePane();
+      drawSelectedFile();
 
     });
 
@@ -453,6 +456,7 @@ public class MainController {
       editor.showAndWait();
       imageStandard = new ImageStandard(file.getPath());
       updateOutputImageTitlePane();
+      drawSelectedFile();
 
     }
 
@@ -577,16 +581,21 @@ public class MainController {
    */
   void closeRequest() {//{{{
 
+    // 最近開いた画像を保存
     ObservableList<MenuItem> recentFiles = openRecentMenu.getItems();
     RecentFiles.writeRecentOpenedFile(recentFiles);
 
+    // MainStageの座標、ウィンドウ幅を保存
     MyProperties mainMp = new MyProperties(PropertiesFiles.MAIN.FILE);
     mainMp.setProperties(reloadButton);
     mainMp.store();
 
+    // preferences.xml に保存
     double[] poses = splitPane.getDividerPositions();
-    preferences.setProperty("splitPane.divider.pos" , "" + poses[0]);
-    preferences.setProperty("presetPath", imageStandard.getPresetPath());
+    preferences.setProperty("splitPane.divider.pos"     , "" + poses[0]);
+    preferences.setProperty("presetPath"                , imageStandard.getPresetPath());
+    preferences.setProperty("imageFileChooser.initDir"  , imageFileChooser.getInitialDirectory().getPath());
+    preferences.setProperty("presetFileChooser.initDir" , presetFileChooser.getInitialDirectory().getPath());
     preferences.store();
 
   }//}}}
