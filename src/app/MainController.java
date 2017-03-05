@@ -202,6 +202,7 @@ public class MainController {
     imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png")
       .properties(preferences.getProperties()).initDirKey(IMAGE_INIT_DIR.KEY)
       .build();
+
     presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
       .initDir(PresetFiles.MV.FILE.getParentFile())
       .initFileName("new_preset")

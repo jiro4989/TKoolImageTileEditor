@@ -140,6 +140,14 @@ public class MyFileChooser {
     initDirKey      = builder.initDirKey;
     initFileNameKey = builder.initFileNameKey;
 
+    if (   (properties == null && initDirKey != null)
+        || (properties == null && initFileNameKey != null)
+       )
+    {
+
+      throw new NullPointerException("propertiesが未定義の状態でinitDirKeyまたはinitFileNameKeyを設定することはできません。");
+
+    }
   }//}}}
 
   // ダイアログ表示メソッド
