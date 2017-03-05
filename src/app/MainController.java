@@ -206,7 +206,7 @@ public class MainController {
 
     presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
       .initDir(presetInitDir)
-      .initFileName("new_preset")
+      .initFileName("new")
       .properties(preferences.getProperties()).initDirKey(PRESET_INIT_DIR.KEY)
       .build();
 
@@ -240,10 +240,6 @@ public class MainController {
       });
 
     });
-
-  }//}}}
-
-  private void initializeImageStandard() {//{{{
 
   }//}}}
 
@@ -488,9 +484,12 @@ public class MainController {
       PresetEditor editor = new PresetEditor(file, selectedFile);
       editor.showAndWait();
 
-      imageStandard = new ImageStandard(file.getPath());
+      String path = file.getPath();
+      imageStandard = new ImageStandard(file);
       updateOutputImageTitlePane();
       drawSelectedFile();
+
+      preferences.setProperty(PRESET_PATH.KEY, path);
 
     });
 
@@ -503,6 +502,8 @@ public class MainController {
       imageStandard = new ImageStandard(file);
       updateOutputImageTitlePane();
       drawSelectedFile();
+
+      preferences.setProperty(PRESET_PATH.KEY, file.getPath());
 
     });
 
@@ -682,7 +683,6 @@ public class MainController {
     // preferences.xml に保存
     double[] poses = splitPane.getDividerPositions();
     preferences.setProperty(DIV_POS.KEY , "" + poses[0]);
-    //preferences.setProperty(LANGS.KEY, Locale.getDefault().getLanguage());
     preferences.store();
 
   }//}}}
