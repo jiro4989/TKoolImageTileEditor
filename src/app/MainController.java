@@ -171,10 +171,13 @@ public class MainController {
     preferences = new MyProperties(PropertiesFiles.PREFERENCES.FILE);
     if (preferences.load()) {
 
-      imageStandard = new ImageStandard(preferences.getProperty("presetPath"));
+      imageStandard = new ImageStandard(
+          preferences.getProperty("presetPath")
+          .orElse(PresetFiles.MV.FILE.getPath())
+          );
 
       // フォントサイズを変更し、メニューのラジオメニューも変更する
-      String fontSize = preferences.getProperty("fontSize");
+      String fontSize = preferences.getProperty("fontSize").orElse("10");
       selectToggleWithIndex(fontSize);
       changeFontSize(fontSize);
 
@@ -592,8 +595,7 @@ public class MainController {
 
   void setDividerPosition() {//{{{
 
-    String val = preferences.getProperty("splitPane.divider.pos");
-    val = val == null ? "0.366" : val;
+    String val = preferences.getProperty("splitPane.divider.pos").orElse("0.366");
     double pos = Double.parseDouble(val);
     splitPane.setDividerPosition(0, pos);
 

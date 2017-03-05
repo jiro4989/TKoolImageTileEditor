@@ -93,8 +93,10 @@ public class MyProperties {
     return file.exists();
   }//}}}
 
-  public String getProperty(String key) {//{{{
-    return prop.getProperty(key);
+  public Optional<String> getProperty(String key) {//{{{
+
+    return Optional.ofNullable(prop.getProperty(key));
+
   }//}}}
 
   public void setProperty(String key, String value) {//{{{

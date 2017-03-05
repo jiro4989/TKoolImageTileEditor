@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<entry key="presetPath">presets\mv.preset</entry>
+<entry key="presetPath">C:\Workspace\java\project\TKoolImageTileEditor\presets\iconset.preset</entry>
 <entry key="fontSize">10</entry>
 <entry key="splitPane.divider.pos">0.36603375527426163</entry>
 </properties>

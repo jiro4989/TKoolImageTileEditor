@@ -80,11 +80,11 @@ public class ImageStandard {
     MyProperties mp = new MyProperties(aPresetFile);
     if (mp.load()) {
 
-      r = Integer . parseInt(mp . getProperty(Key . ROW          . TEXT));
-      c = Integer . parseInt(mp . getProperty(Key . COLUMN       . TEXT));
-      s = Integer . parseInt(mp . getProperty(Key . SIZE         . TEXT));
-      w = Integer . parseInt(mp . getProperty(Key . IMAGE_WIDTH  . TEXT));
-      h = Integer . parseInt(mp . getProperty(Key . IMAGE_HEIGHT . TEXT));
+      r = Integer . parseInt(mp . getProperty(Key . ROW          . TEXT).orElse("" + r));
+      c = Integer . parseInt(mp . getProperty(Key . COLUMN       . TEXT).orElse("" + c));
+      s = Integer . parseInt(mp . getProperty(Key . SIZE         . TEXT).orElse("" + s));
+      w = Integer . parseInt(mp . getProperty(Key . IMAGE_WIDTH  . TEXT).orElse("" + w));
+      h = Integer . parseInt(mp . getProperty(Key . IMAGE_HEIGHT . TEXT).orElse("" + h));
 
     }
 

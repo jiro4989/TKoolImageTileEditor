@@ -240,11 +240,11 @@ public class PresetEditorController {
     MyProperties mp = new MyProperties(presetFile);
     if (mp.load()) {
 
-      rowTextField         . setText(mp . getProperty(ImageStandard . Key . ROW          . TEXT));
-      columnTextField      . setText(mp . getProperty(ImageStandard . Key . COLUMN       . TEXT));
-      sizeTextField        . setText(mp . getProperty(ImageStandard . Key . SIZE         . TEXT));
-      imageWidthTextField  . setText(mp . getProperty(ImageStandard . Key . IMAGE_WIDTH  . TEXT));
-      imageHeightTextField . setText(mp . getProperty(ImageStandard . Key . IMAGE_HEIGHT . TEXT));
+      rowTextField         . setText(mp . getProperty(ImageStandard . Key . ROW          . TEXT).orElse("" + 2));
+      columnTextField      . setText(mp . getProperty(ImageStandard . Key . COLUMN       . TEXT).orElse("" + 4));
+      sizeTextField        . setText(mp . getProperty(ImageStandard . Key . SIZE         . TEXT).orElse("" + 144));
+      imageWidthTextField  . setText(mp . getProperty(ImageStandard . Key . IMAGE_WIDTH  . TEXT).orElse("" + 144 * 4));
+      imageHeightTextField . setText(mp . getProperty(ImageStandard . Key . IMAGE_HEIGHT . TEXT).orElse("" + 144 * 2));
 
     }
 
