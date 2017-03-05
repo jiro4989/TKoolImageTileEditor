@@ -395,7 +395,7 @@ public class MainController {
 
         MyFile myFile = new MyFile(file);
         fileListView.getItems().add(myFile);
-        fileListView.getSelectionModel().selectFirst();
+        fileListView.getSelectionModel().selectLast();
 
         String path = file.getAbsolutePath();
         path = path.replaceAll("\\\\", "/");
@@ -421,7 +421,7 @@ public class MainController {
         if (ImageUtils.write(joinedImage, file)) {
 
           fileListView.getItems().add(new MyFile(file));
-          fileListView.getSelectionModel().selectFirst();
+          fileListView.getSelectionModel().selectLast();
           newPresetMenuItemOnAction();
 
           addRecentMenuItem(file);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<entry key="imageFileChooser.initDir">C:\Workspace\java\project\TKoolImageTileEditor</entry>
+<entry key="imageFileChooser.initDir">C:\Workspace\java\project\TKoolImageTileEditor\input</entry>
 <entry key="presetFileChooser.initDir">C:\Workspace\java\project\TKoolImageTileEditor\presets</entry>
-<entry key="fontSize">10</entry>
 <entry key="langs">ja</entry>
+<entry key="fontSize">10</entry>
 <entry key="splitPane.divider.pos">0.38253638253638256</entry>
 </properties>
