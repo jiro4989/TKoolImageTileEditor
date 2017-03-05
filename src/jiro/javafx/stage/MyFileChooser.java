@@ -1,4 +1,4 @@
-package jiro.javafx.util;
+package jiro.javafx.stage;
 
 import java.io.File;
 import java.util.List;
@@ -8,9 +8,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/** 
+ * FileChooserのラッパークラス。
+ * ファイルを開いたあとや保存した後に保存したファイルの親フォルダやファイル名を
+ * 自動でセットするオプションを持つ。これらの設定はデフォルトでtrueになってい
+ * る。
+ */
 public class MyFileChooser {
 
   private final FileChooser fc;
+  private final boolean AUTO_SET_DIR;
+  private final boolean AUTO_SET_FILE_NAME;
   private static final Stage STAGE_UTIL = new Stage(StageStyle.UTILITY);
 
   // Builder クラス
@@ -20,6 +28,8 @@ public class MyFileChooser {
     private final ExtensionFilter extensionFilter;
     private File initDir  = new File(".");
     private String initFileName = "";
+    private boolean autoSetDir      = true;
+    private boolean autoSetFileName = true;
 
     // コンストラクタ
 
@@ -62,6 +72,20 @@ public class MyFileChooser {
 
     }//}}}
 
+    public Builder autoSetDir(boolean bool) {//{{{
+
+      autoSetDir = bool;
+      return this;
+
+    }//}}}
+
+    public Builder autoSetFileName(boolean bool) {//{{{
+
+      autoSetFileName = bool;
+      return this;
+
+    }//}}}
+
     public MyFileChooser build() {//{{{
 
       return new MyFileChooser(this);
@@ -75,14 +99,23 @@ public class MyFileChooser {
   private MyFileChooser(Builder builder) {//{{{
 
     fc = new FileChooser();
+
+    fc.getExtensionFilters().add(builder.extensionFilter);
     fc.setInitialDirectory(builder.initDir);
     fc.setInitialFileName(builder.initFileName);
+    AUTO_SET_DIR = builder.autoSetDir;
+    AUTO_SET_FILE_NAME = builder.autoSetFileName;
 
   }//}}}
+
+  // ダイアログ表示メソッド
 
   public Optional<File> openFile() {//{{{
 
     File file = fc.showOpenDialog(STAGE_UTIL);
+
+    setInitDir(file);
+
     return Optional.ofNullable(file);
 
   }//}}}
@@ -90,6 +123,9 @@ public class MyFileChooser {
   public Optional<List<File>> openFiles() {//{{{
 
     List<File> files = fc.showOpenMultipleDialog(STAGE_UTIL);
+
+    setInitDir(files);
+
     return Optional.ofNullable(files);
 
   }//}}}
@@ -97,7 +133,58 @@ public class MyFileChooser {
   public Optional<File> saveFile() {//{{{
 
     File file = fc.showSaveDialog(STAGE_UTIL);
+
+    setInitDir(file);
+    setInitFileName(file);
+
     return Optional.ofNullable(file);
+
+  }//}}}
+
+  // private メソッド
+
+  private void setInitDir(List<File> files) {//{{{
+
+    if (files != null)
+      setInitDir(files.get(0));
+
+  }//}}}
+
+  private void setInitDir(File file) {//{{{
+
+    if (file != null) {
+
+      if (AUTO_SET_DIR) {
+
+        File parent = file.getParentFile();
+        fc.setInitialDirectory(parent != null ? parent : new File("."));
+
+      }
+
+    }
+
+  }//}}}
+
+  private void setInitFileName(File file) {//{{{
+
+    if (file != null) {
+
+      if (AUTO_SET_FILE_NAME) {
+
+        String fileName = file.getName();
+        fc.setInitialFileName(fileName);
+
+      }
+
+    }
+
+  }//}}}
+
+  // Setter
+
+  public void setInitialFileName(String fileName) {//{{{
+
+    fc.setInitialFileName(fileName);
 
   }//}}}
 

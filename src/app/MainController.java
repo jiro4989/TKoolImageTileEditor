@@ -1,5 +1,8 @@
 package app;
 
+import jiro.javafx.stage.MyFileChooser;
+import jiro.javafx.stage.MyFileChooser.Builder;
+
 import app.image.*;
 import app.preset.PresetEditor;
 import util.MyProperties;
@@ -25,10 +28,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class MainController {
 
@@ -48,10 +48,10 @@ public class MainController {
   private OutputImagePane outputImagePane;
 
   // 画像選択ダイアログ
-  private FileChooser imageFileChooser;
+  private MyFileChooser imageFileChooser;
 
   // プリセット選択ダイアログ
-  private FileChooser presetFileChooser;
+  private MyFileChooser presetFileChooser;
 
   // FXMLで指定するコンポーネント//{{{
 
@@ -115,7 +115,7 @@ public class MainController {
 
   //}}}
 
-  // 初期化処理
+  // 初期化
 
   @FXML private void initialize() {//{{{
 
@@ -194,13 +194,9 @@ public class MainController {
 
     //}}}
 
-    imageFileChooser = new FileChooser();
-    imageFileChooser.setInitialDirectory(new File("."));
-    imageFileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
-
-    presetFileChooser = new FileChooser();
-    presetFileChooser.setInitialDirectory(new File("."));
-    presetFileChooser.getExtensionFilters().add(new ExtensionFilter(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION));
+    imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png").build();
+    presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
+      .initFileName("new_preset").build();
 
     outputImagePane = new OutputImagePane(outputAnchorPane);
     updateOutputImageTitlePane();
@@ -337,39 +333,33 @@ public class MainController {
 
   @FXML private void openMenuItemOnAction() {//{{{
 
-    List<File> files = imageFileChooser.showOpenMultipleDialog(new Stage(StageStyle.UTILITY));
-    if (files != null) {
+    imageFileChooser.openFiles().ifPresent(files -> {
 
-      files.stream()
-        .forEach(file -> {
+      files.stream().forEach(file -> {
 
-          MyFile myFile = new MyFile(file);
-          fileListView.getItems().add(myFile);
-          fileListView.getSelectionModel().selectFirst();
+        MyFile myFile = new MyFile(file);
+        fileListView.getItems().add(myFile);
+        fileListView.getSelectionModel().selectFirst();
 
-          String path = file.getAbsolutePath();
-          path = path.replaceAll("\\\\", "/");
+        String path = file.getAbsolutePath();
+        path = path.replaceAll("\\\\", "/");
 
-          MenuItem item = new MenuItem(path);
-          openRecentMenu.getItems().add(0, item);
+        MenuItem item = new MenuItem(path);
+        openRecentMenu.getItems().add(0, item);
 
-        });
+      });
 
-    }
+    });
 
   }//}}}
 
   @FXML private void openJoiningMenuItemOnAction() {//{{{
 
-    imageFileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
-    imageFileChooser.setInitialDirectory(new File("."));
-
-    List<File> files = imageFileChooser.showOpenMultipleDialog(new Stage(StageStyle.UTILITY));
-    if (files != null) {
+    imageFileChooser.openFiles().ifPresent(files -> {
 
       imageFileChooser.setInitialFileName("JoinedImage");
-      File file = imageFileChooser.showSaveDialog(new Stage(StageStyle.UTILITY));
-      if (file != null) {
+
+      imageFileChooser.saveFile().ifPresent(file -> {
 
         Image joinedImage = ImageUtils.joinImageFiles(files);
         if (ImageUtils.write(joinedImage, file)) {
@@ -386,9 +376,9 @@ public class MainController {
 
         }
 
-      }
+      });
 
-    }
+    });
 
   }//}}}
 
@@ -407,27 +397,19 @@ public class MainController {
 
   @FXML private void saveAsMenuItemOnAction() {//{{{
 
-    imageFileChooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png"));
-    imageFileChooser.setInitialDirectory(new File("."));
-
-    File file = imageFileChooser.showSaveDialog(new Stage(StageStyle.UTILITY));
-    if (file != null) {
+    imageFileChooser.saveFile().ifPresent(file -> {
 
       outputImagePane.outputImageFile(file);
       fileListView.getItems().add(new MyFile(file));
       fileListView.getSelectionModel().selectLast();
 
-    }
+    });
 
   }//}}}
 
   @FXML private void newPresetMenuItemOnAction() {//{{{
 
-    presetFileChooser.setInitialDirectory(PresetFiles.DIR.FILE);
-    presetFileChooser.setInitialFileName("new_preset");
-
-    File file = presetFileChooser.showSaveDialog(new Stage(StageStyle.UTILITY));
-    if (file != null) {
+    presetFileChooser.saveFile().ifPresent(file -> {
 
       if (!file.exists()) {
 
@@ -439,25 +421,22 @@ public class MainController {
       File selectedFile = fileListView.getSelectionModel().getSelectedItem();
       PresetEditor editor = new PresetEditor(file, selectedFile);
       editor.showAndWait();
+
       imageStandard = new ImageStandard(file.getPath());
       updateOutputImageTitlePane();
 
-    }
+    });
 
   }//}}}
 
   @FXML private void openPresetMenuItemOnAction() {//{{{
 
-    presetFileChooser.getExtensionFilters().add(new ExtensionFilter(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION));
-    presetFileChooser.setInitialDirectory(PresetFiles.DIR.FILE);
-
-    File file = presetFileChooser.showOpenDialog(new Stage(StageStyle.UTILITY));
-    if (file != null) {
+    presetFileChooser.openFile().ifPresent(file -> {
 
       imageStandard = new ImageStandard(file);
       updateOutputImageTitlePane();
 
-    }
+    });
 
   }//}}}
 
