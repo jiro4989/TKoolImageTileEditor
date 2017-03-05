@@ -9,13 +9,14 @@ import javafx.stage.*;
 
 public class AboutStage extends Stage {
 
-  public AboutStage(String title, String version) {//{{{
+  public AboutStage(String title, String version, String css) {//{{{
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("about_stage.fxml"));
     try {
 
       BorderPane root = (BorderPane) loader.load();
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource(css).toExternalForm());
       setScene(scene);
 
       setResizable(false);

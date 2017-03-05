@@ -543,13 +543,9 @@ public class MainController {
         + Main.resources.getString("forceQuitContenr2")
         );
 
-    Optional<ButtonType> result = alert.showAndWait();
-    result.ifPresent(r -> {
-
-      if (r == ButtonType.OK)
-        Platform.exit();
-
-    });
+    alert.showAndWait()
+      .filter(r -> r == ButtonType.OK)
+      .ifPresent(r -> Platform.exit());
 
   }//}}}
 
@@ -581,7 +577,7 @@ public class MainController {
 
   @FXML private void aboutMenuItemOnAction() {//{{{
 
-    AboutStage about = new AboutStage(Main.TITLE, Main.VERSION);
+    AboutStage about = new AboutStage(Main.TITLE, Main.VERSION, "/app/res/css/basic.css");
     about.showAndWait();
 
   }//}}}
