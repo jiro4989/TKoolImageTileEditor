@@ -2,6 +2,8 @@ package app;
 
 import util.ResourceBundleWithUtf8;
 import util.MyProperties;
+import util.PreferencesKeys;
+import util.PropertiesFiles;
 
 import java.io.*;
 import java.net.URL;
@@ -15,13 +17,16 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
   public static final String TITLE = "TKool Image Tile Editor";
   public static final String VERSION = "ver 1.0";
   private MainController mainController;
   static ResourceBundle resources;
 
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) {//{{{
+
+    changeLanguages();
 
     URL location = getClass().getResource("main.fxml");
     resources = ResourceBundle.getBundle(
@@ -54,10 +59,27 @@ public class Main extends Application {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
+  }//}}}
 
   public static void main(String... args) {
     launch(args);
   }
+
+  private void changeLanguages() {//{{{
+
+    MyProperties preferences = new MyProperties(PropertiesFiles.PREFERENCES.FILE);
+    if (preferences.load()) {
+
+      String ja = Locale.JAPAN.getLanguage();
+      String langs = preferences.getProperty(PreferencesKeys.LANGS.KEY).orElse(ja);
+      if (!langs.equals(ja)) {
+
+        Locale.setDefault(Locale.ENGLISH);
+
+      }
+
+    }
+
+  }//}}}
 
 }

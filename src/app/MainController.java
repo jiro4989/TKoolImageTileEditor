@@ -89,6 +89,13 @@ public class MainController {
   @FXML private RadioMenuItem fontSize11RadioMenuItem;
   @FXML private RadioMenuItem fontSize12RadioMenuItem;
 
+  // 言語変更メニュー
+  @FXML private Menu     langsMenu;
+  @FXML private ToggleGroup langGroup;
+  @FXML private RadioMenuItem jpRadioMenuItem;
+  @FXML private RadioMenuItem enRadioMenuItem;
+
+
   // ヘルプメニュー
   @FXML private Menu     helpMenu;
   @FXML private MenuItem aboutMenuItem;
@@ -209,6 +216,7 @@ public class MainController {
     updateOutputImageTitlePane();
 
     updateRecentMenuItems();
+    changeLanguageRadioMenuItem();
 
   }//}}}
 
@@ -304,6 +312,18 @@ public class MainController {
 
     root.setStyle("-fx-font-size: " + text + "pt;");
     preferences.setProperty(FONT_SIZE.KEY, text);
+
+  }//}}}
+
+  private void changeLanguageRadioMenuItem() {//{{{
+
+    String ja  = Locale . JAPAN        . getLanguage();
+    String def = Locale . getDefault() . getLanguage();
+    if (!def.equals(ja)) {
+
+      enRadioMenuItem.setSelected(true);
+
+    }
 
   }//}}}
 
@@ -522,6 +542,30 @@ public class MainController {
 
   }//}}}
 
+  // 言語変更メニュー
+
+  @FXML private void jpRadioMenuItemOnAction() {//{{{
+
+    showLangsInformation();
+    preferences.setProperty(LANGS.KEY, Locale.JAPAN.getLanguage());
+
+  }//}}}
+
+  @FXML private void enRadioMenuItemOnAction() {//{{{
+
+    showLangsInformation();
+    preferences.setProperty(LANGS.KEY, Locale.ENGLISH.getLanguage());
+
+  }//}}}
+
+  private void showLangsInformation() {//{{{
+
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setHeaderText(Main.resources.getString("langsHeader"));
+    alert.showAndWait();
+
+  }//}}}
+
   // ヘルプメニュー
 
   @FXML private void aboutMenuItemOnAction() {//{{{
@@ -627,7 +671,8 @@ public class MainController {
 
     // preferences.xml に保存
     double[] poses = splitPane.getDividerPositions();
-    preferences.setProperty(DIV_POS.KEY               , "" + poses[0]);
+    preferences.setProperty(DIV_POS.KEY , "" + poses[0]);
+    //preferences.setProperty(LANGS.KEY, Locale.getDefault().getLanguage());
     preferences.store();
 
   }//}}}

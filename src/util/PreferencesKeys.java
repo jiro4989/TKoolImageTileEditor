@@ -6,7 +6,8 @@ public enum PreferencesKeys {
   ,FONT_SIZE       ( "fontSize"                  )
   ,IMAGE_INIT_DIR  ( "imageFileChooser.initDir"  )
   ,PRESET_INIT_DIR ( "presetFileChooser.initDir" )
-  ,PRESET_PATH     ( "presetPath"                ) ;
+  ,PRESET_PATH     ( "presetPath"                )
+  ,LANGS           ( "langs"                     ) ;
 
   public final String KEY;
 
