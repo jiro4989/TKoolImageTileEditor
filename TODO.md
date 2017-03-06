@@ -1,16 +1,15 @@
 - [ ] 行単位削除のプロトタイプを作成する
   - [ ] 戦略クラスを追加し、予めそれを設定した状態でテストする
 
-- [ ] AboutStageのJavadocを作る
-- [ ] AboutStageのdoc同封jarを作る
-- [ ] MyFileChooserをjarにする
 - [ ] MyPropertiesをjarにする
 - [ ] MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
+- [ ] READMEが書きづらすぎるのでシンプルな書き方に変更
 - [ ] READMEにGIFアニメの挿入
 - [ ] READMEのTODO
 - [ ] READMEのdocx版をLinuxから作る
 - [ ] READMEをプロポーショナルフォントでも変に見えないようにする
-- [ ] javadocを作る
+- [ ] README.htmlを作る
+- [ ] tkite.jarのjavadocを作る
 - [ ] 実行速度、メモリ消費量の測定
 - [ ] 行単位での削除
 - [ ] 行単位での移動
@@ -18,6 +17,7 @@
 - [x] AboutStageにBuilderパターンを適用する
 - [x] AboutStageにアプリアイコンをセット
 - [x] AboutStageのHyperlinkのミス
+- [x] AboutStageのJavadocを作る
 - [x] AboutStageのdocなしjarを作る
 - [x] AboutStageをCSSで変更可能にする
 - [x] AboutStageをGithubにあげる
@@ -25,6 +25,7 @@
 - [x] Escでプリセット編集画面を閉じるとエラーが発生する
 - [x] FileChooserで、オープンしたあとのディレクトリ位置を記憶
 - [x] JavaUpdateリンクファイルの作成
+- [x] MyFileChooserをjarにする
 - [x] PreferencesKey.enumでキーを管理
 - [x] PrimaryStageに 32x32 のアイコン画像のセット
 - [x] ショートカットキーの設定
