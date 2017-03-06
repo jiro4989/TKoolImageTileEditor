@@ -1,29 +1,32 @@
 - [ ] 行単位削除のプロトタイプを作成する
   - [ ] 戦略クラスを追加し、予めそれを設定した状態でテストする
 
-- [ ] JavaUpdateリンクファイルの作成
-- [ ] AboutStageにアプリアイコンをセット
 - [ ] AboutStageのJavadocを作る
 - [ ] AboutStageのdocなしjarを作る
-- [ ] AboutStageのHyperlinkのミス
 - [ ] AboutStageのdoc同封jarを作る
 - [ ] AboutStageをGithubにあげる
+- [ ] JavaUpdateリンクファイルの作成
+- [ ] JavaアップデートページURLの生成ツールの作成
 - [ ] MyFileChooserをjarにする
 - [ ] MyPropertiesをjarにする
 - [ ] MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
-- [ ] PrimaryStageに 32x32 のアイコン画像のセット
 - [ ] READMEのTODO
+- [ ] READMEをプロポーショナルフォントでも変に見えないようにする
+- [ ] READMEにGIFアニメの挿入
 - [ ] javadocを作る
 - [ ] 実行速度、メモリ消費量の測定
 - [ ] 行単位での削除
 - [ ] 行単位での移動
 - [ ] 行単位での空白挿入
 - [x] AboutStageにBuilderパターンを適用する
+- [x] AboutStageにアプリアイコンをセット
+- [x] AboutStageのHyperlinkのミス
 - [x] AboutStageをCSSで変更可能にする
 - [x] Aboutメニューの実装
 - [x] Escでプリセット編集画面を閉じるとエラーが発生する
 - [x] FileChooserで、オープンしたあとのディレクトリ位置を記憶
 - [x] PreferencesKey.enumでキーを管理
+- [x] PrimaryStageに 32x32 のアイコン画像のセット
 - [x] ショートカットキーの設定
 - [x] ドラッグアンドドロップ
 - [x] ドラッグアンドドロップで読み込むファイルはpngのみ
