@@ -41,6 +41,7 @@ public class AboutStage extends Stage {
    * @param title       アプリ名
    * @param author      作者名
    * @param blog        ブログ名
+   * @param blogUrl     ブログURL
    * @param css         StageのレイアウトCSSのURL
    * @param appIcon     アプリのアイコンURL
    * @param authorIcon  作者のアイコンURL
@@ -50,6 +51,7 @@ public class AboutStage extends Stage {
     private final String title;
     private String author     = null;
     private String blog       = null;
+    private String blogUrl    = null;
     private String css        = null;
     private String appIcon    = null;
     private String authorIcon = null;
@@ -88,6 +90,15 @@ public class AboutStage extends Stage {
      */
     public Builder blog(String aBlog) {//{{{
       blog = aBlog; return this;
+    }//}}}
+
+    /**
+     * <p>作者ブログURLのセット</p>
+     * @param aBlogUrl 作者ブログ名
+     * @return Builderインスタンス
+     */
+    public Builder blogUrl(String aBlogUrl) {//{{{
+      blogUrl = aBlogUrl; return this;
     }//}}}
 
     /**
@@ -145,6 +156,7 @@ public class AboutStage extends Stage {
     String title      = builder.title;
     String author     = builder.author;
     String blog       = builder.blog;
+    String blogUrl    = builder.blogUrl;
     String css        = builder.css;
     String appIcon    = builder.appIcon;
     String authorIcon = builder.authorIcon;
@@ -171,7 +183,10 @@ public class AboutStage extends Stage {
         if (authorIcon != null) controller.setAuthorIcon(authorIcon);
       } else controller.removeAuthorPane();
 
-      if (blog != null) controller.setBlog(blog);
+      if (blog != null) {
+        controller.setBlog(blog);
+        controller.setBlogUrl(blogUrl);
+      }
       else controller.removeBlogPane();
 
       if (appIcon != null) controller.setAppIcon(appIcon);

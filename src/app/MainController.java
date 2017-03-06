@@ -579,6 +579,7 @@ public class MainController {
     AboutStage about = new AboutStage.Builder(Main.TITLE, Main.VERSION)
       .author("次郎 (Jiro)")
       .blog("避難所の一つ")
+      .blogUrl("http://www.oracle.com/jp/index.html")
       .css("/app/res/css/basic.css")
       .appIcon("/app/res/img/app_icon.png")
       .authorIcon("/app/res/img/app_icon.png")

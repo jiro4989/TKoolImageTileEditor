@@ -67,7 +67,7 @@
                   <HBox fx:id="blogHBox" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
                         <Label fx:id="blogLabel" minWidth="100.0" text="Blog" />
-                        <Hyperlink fx:id="blogHyperlink" onAction="#blogHyperlinkOnAction" prefWidth="1000.0" text="www.oracle.com" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Hyperlink fx:id="blogHyperlink" onAction="#blogHyperlinkOnAction" prefWidth="1000.0" text="Blog URL" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </HBox>
                </children>

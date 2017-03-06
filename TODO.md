@@ -1,6 +1,7 @@
 - [ ] 行単位削除のプロトタイプを作成する
   - [ ] 戦略クラスを追加し、予めそれを設定した状態でテストする
 
+- [ ] JavaUpdateリンクファイルの作成
 - [ ] AboutStageにアプリアイコンをセット
 - [ ] AboutStageのJavadocを作る
 - [ ] AboutStageのdocなしjarを作る

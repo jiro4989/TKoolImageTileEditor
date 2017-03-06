@@ -193,6 +193,17 @@ public class AboutStageController {
   }//}}}
 
   /**
+   * ブログURLをセットする。
+   *
+   * @param link ブログリンクｖ
+   */
+  void setBlogUrl(String url) {//{{{
+
+    blogHyperlink.setText(url);
+
+  }//}}}
+
+  /**
    * アプリ名をセットする。
    *
    * @param appName アプリ名
