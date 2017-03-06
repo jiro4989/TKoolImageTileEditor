@@ -2,16 +2,14 @@
   - [ ] 戦略クラスを追加し、予めそれを設定した状態でテストする
 
 - [ ] AboutStageのJavadocを作る
-- [ ] AboutStageのdocなしjarを作る
 - [ ] AboutStageのdoc同封jarを作る
-- [ ] AboutStageをGithubにあげる
 - [ ] MyFileChooserをjarにする
 - [ ] MyPropertiesをjarにする
 - [ ] MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
 - [ ] READMEにGIFアニメの挿入
 - [ ] READMEのTODO
-- [ ] READMEをプロポーショナルフォントでも変に見えないようにする
 - [ ] READMEのdocx版をLinuxから作る
+- [ ] READMEをプロポーショナルフォントでも変に見えないようにする
 - [ ] javadocを作る
 - [ ] 実行速度、メモリ消費量の測定
 - [ ] 行単位での削除
@@ -20,7 +18,9 @@
 - [x] AboutStageにBuilderパターンを適用する
 - [x] AboutStageにアプリアイコンをセット
 - [x] AboutStageのHyperlinkのミス
+- [x] AboutStageのdocなしjarを作る
 - [x] AboutStageをCSSで変更可能にする
+- [x] AboutStageをGithubにあげる
 - [x] Aboutメニューの実装
 - [x] Escでプリセット編集画面を閉じるとエラーが発生する
 - [x] FileChooserで、オープンしたあとのディレクトリ位置を記憶

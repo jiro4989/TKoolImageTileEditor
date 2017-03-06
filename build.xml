@@ -9,6 +9,7 @@
   <property name="env.JAVA_HOME" value="${env.JAVA_HOME}"/>
   <property name="build.src.dir" value="src"/>
   <property name="build.classes.dir" value="classes"/>
+  <property name="build.javadoc.dir" value="doc"/>
   <property name="jar.name" value="tkite.jar"/>
 
   <!--}}}-->
@@ -108,6 +109,34 @@
   </target>
 
   <!--}}}-->
+
+  <target name="javadoc" depends="cleanJavadoc"><!--{{{-->
+
+    <mkdir dir="${build.javadoc.dir}"/>
+
+    <javadoc
+      sourcepath="${build.src.dir}"
+      destdir="${build.javadoc.dir}"
+      classpath="${build.classes.dir}"
+      encoding="UTF-8"
+      docencoding="UTF-8"
+      charset="UTF-8"
+      source="1.8"
+      public="true"
+      author="true"
+      version="true"
+      package="*"
+      >
+
+    </javadoc>
+
+  </target><!--}}}-->
+
+  <target name="cleanJavadoc"><!--{{{-->
+
+    <delete dir="${build.javadoc.dir}"/>
+
+  </target><!--}}}-->
 
 </project>
 
