@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -45,6 +46,7 @@ public class Main extends Application {
       scene.getStylesheets().add(getClass().getResource("res/css/basic.css").toExternalForm());
 
       primaryStage.setScene(scene);
+      primaryStage.getIcons().add(new Image(getClass().getResource("res/img/app_icon.png").toExternalForm()));
       primaryStage.setTitle(TITLE);
       primaryStage.setMinWidth(480);
       primaryStage.setMinHeight(270);

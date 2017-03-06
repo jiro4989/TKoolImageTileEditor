@@ -3,15 +3,21 @@
 
 - [ ] AboutStageにアプリアイコンをセット
 - [ ] AboutStageのJavadocを作る
-- [ ] AboutStageをjarにする
+- [ ] AboutStageのdocなしjarを作る
+- [ ] AboutStageのHyperlinkのミス
+- [ ] AboutStageのdoc同封jarを作る
+- [ ] AboutStageをGithubにあげる
 - [ ] MyFileChooserをjarにする
 - [ ] MyPropertiesをjarにする
+- [ ] MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
+- [ ] PrimaryStageに 32x32 のアイコン画像のセット
 - [ ] READMEのTODO
 - [ ] javadocを作る
-- [ ] アイコン画像のセット
+- [ ] 実行速度、メモリ消費量の測定
 - [ ] 行単位での削除
 - [ ] 行単位での移動
 - [ ] 行単位での空白挿入
+- [x] AboutStageにBuilderパターンを適用する
 - [x] AboutStageをCSSで変更可能にする
 - [x] Aboutメニューの実装
 - [x] Escでプリセット編集画面を閉じるとエラーが発生する

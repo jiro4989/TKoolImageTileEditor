@@ -2,7 +2,6 @@ package app;
 
 import jiro.javafx.stage.AboutStage;
 import jiro.javafx.stage.MyFileChooser;
-import jiro.javafx.stage.MyFileChooser.Builder;
 
 import static util.PreferencesKeys.*;
 
@@ -577,7 +576,14 @@ public class MainController {
 
   @FXML private void aboutMenuItemOnAction() {//{{{
 
-    AboutStage about = new AboutStage(Main.TITLE, Main.VERSION, "/app/res/css/basic.css");
+    AboutStage about = new AboutStage.Builder(Main.TITLE, Main.VERSION)
+      .author("次郎 (Jiro)")
+      .blog("避難所の一つ")
+      .css("/app/res/css/basic.css")
+      .appIcon("/app/res/img/app_icon.png")
+      .authorIcon("/app/res/img/app_icon.png")
+      .build();
+
     about.showAndWait();
 
   }//}}}

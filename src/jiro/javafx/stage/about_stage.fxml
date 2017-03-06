@@ -43,7 +43,7 @@
                   <ImageView fx:id="appIconImageView" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
-            <GridPane hgap="10.0" vgap="5.0" GridPane.columnIndex="1">
+            <GridPane fx:id="gridPane" hgap="10.0" vgap="5.0" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="10.0" />
@@ -55,13 +55,18 @@
               </rowConstraints>
                <children>
                   <Label fx:id="appDescLabel" minWidth="-Infinity" text="App Name :" />
-                  <Label fx:id="authorDescLabel" minWidth="-Infinity" text="Author :" GridPane.rowIndex="1" />
+                  <Label fx:id="authorDescLabel" prefWidth="1" minWidth="-Infinity" text="Author :" GridPane.rowIndex="1" />
                   <Label fx:id="blogDescLabel" minWidth="-Infinity" text="Blog :" GridPane.rowIndex="2" />
                   <Label fx:id="appLabel" text="Label" GridPane.columnIndex="1" />
-                  <Label text="次郎 (Jiro)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <HBox fx:id="authorHBox" alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label minWidth="100.0" text="避難所の一つ" />
+                        <Label fx:id="authorLabel" text="Author" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fx:id="authorIconImageView" fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="blogHBox" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Label fx:id="blogLabel" minWidth="100.0" text="Blog" />
                         <Hyperlink fx:id="blogHyperlink" onAction="#blogHyperlinkOnAction" prefWidth="1000.0" text="www.oracle.com" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </HBox>
