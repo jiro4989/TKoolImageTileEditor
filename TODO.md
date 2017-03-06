@@ -5,14 +5,13 @@
 - [ ] AboutStageのdocなしjarを作る
 - [ ] AboutStageのdoc同封jarを作る
 - [ ] AboutStageをGithubにあげる
-- [ ] JavaUpdateリンクファイルの作成
-- [ ] JavaアップデートページURLの生成ツールの作成
 - [ ] MyFileChooserをjarにする
 - [ ] MyPropertiesをjarにする
 - [ ] MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
+- [ ] READMEにGIFアニメの挿入
 - [ ] READMEのTODO
 - [ ] READMEをプロポーショナルフォントでも変に見えないようにする
-- [ ] READMEにGIFアニメの挿入
+- [ ] READMEのdocx版をLinuxから作る
 - [ ] javadocを作る
 - [ ] 実行速度、メモリ消費量の測定
 - [ ] 行単位での削除
@@ -25,6 +24,7 @@
 - [x] Aboutメニューの実装
 - [x] Escでプリセット編集画面を閉じるとエラーが発生する
 - [x] FileChooserで、オープンしたあとのディレクトリ位置を記憶
+- [x] JavaUpdateリンクファイルの作成
 - [x] PreferencesKey.enumでキーを管理
 - [x] PrimaryStageに 32x32 のアイコン画像のセット
 - [x] ショートカットキーの設定
