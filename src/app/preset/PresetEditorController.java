@@ -1,8 +1,9 @@
 package app.preset;
 
+import jiro.java.util.MyProperties;
+
 import app.ImageStandard;
 import util.JavaFXCustomizeUtils;
-import util.MyProperties;
 import util.PropertiesFiles;
 
 import java.io.File;
@@ -214,7 +215,7 @@ public class PresetEditorController {
   void closeRequest() {//{{{
 
     MyProperties mp = new MyProperties(PropertiesFiles.PREVIEW_EDITOR.FILE);
-    mp.setProperties(okButton);
+    mp.setProperty(okButton);
     mp.store();
 
   }//}}}

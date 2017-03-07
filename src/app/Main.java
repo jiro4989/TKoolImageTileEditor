@@ -1,7 +1,8 @@
 package app;
 
+import jiro.java.util.MyProperties;
+
 import util.ResourceBundleWithUtf8;
-import util.MyProperties;
 import util.PreferencesKeys;
 import util.PropertiesFiles;
 

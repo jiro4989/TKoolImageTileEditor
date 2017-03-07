@@ -1,6 +1,6 @@
 package app;
 
-import util.MyProperties;
+import jiro.java.util.MyProperties;
 import java.io.*;
 
 /**

@@ -2,13 +2,13 @@ package app;
 
 import jiro.javafx.stage.AboutStage;
 import jiro.javafx.stage.MyFileChooser;
+import jiro.java.util.MyProperties;
 
 import static util.PreferencesKeys.*;
 
 import app.image.*;
 import app.preset.PresetEditor;
 import util.ImageUtils;
-import util.MyProperties;
 import util.PresetFiles;
 import util.PropertiesFiles;
 import util.RecentFiles;
@@ -200,13 +200,11 @@ public class MainController {
 
     imageFileChooser  = new MyFileChooser.Builder("Image Files", "*.png")
       .initDir(imageInitDir)
-      .properties(preferences.getProperties()).initDirKey(IMAGE_INIT_DIR.KEY)
       .build();
 
     presetFileChooser = new MyFileChooser.Builder(PresetFiles.DESCRIPTION, PresetFiles.EXTENSION)
       .initDir(presetInitDir)
       .initFileName("new")
-      .properties(preferences.getProperties()).initDirKey(PRESET_INIT_DIR.KEY)
       .build();
 
     //}}}
@@ -386,6 +384,8 @@ public class MainController {
 
     imageFileChooser.openFiles().ifPresent(files -> {
 
+      preferences.setProperty(IMAGE_INIT_DIR.KEY, files.get(0).getParent());
+
       files.stream().forEach(file -> {
 
         MyFile myFile = new MyFile(file);
@@ -411,6 +411,8 @@ public class MainController {
       imageFileChooser.setInitialFileName("JoinedImage");
 
       imageFileChooser.saveFile().ifPresent(file -> {
+
+        preferences.setProperty(IMAGE_INIT_DIR.KEY, file.getParent());
 
         Image joinedImage = ImageUtils.joinImageFiles(files);
         if (ImageUtils.write(joinedImage, file)) {
@@ -452,6 +454,8 @@ public class MainController {
 
     imageFileChooser.saveFile().ifPresent(file -> {
 
+      preferences.setProperty(IMAGE_INIT_DIR.KEY, file.getParent());
+
       outputImagePane.outputImageFile(file);
       fileListView.getItems().add(new MyFile(file));
       fileListView.getSelectionModel().selectLast();
@@ -488,6 +492,7 @@ public class MainController {
       updateOutputImageTitlePane();
       drawSelectedFile();
 
+      preferences.setProperty(PRESET_INIT_DIR.KEY, file.getParent());
       preferences.setProperty(PRESET_PATH.KEY, path);
 
     });
@@ -502,6 +507,7 @@ public class MainController {
       updateOutputImageTitlePane();
       drawSelectedFile();
 
+      preferences.setProperty(PRESET_INIT_DIR.KEY, file.getParent());
       preferences.setProperty(PRESET_PATH.KEY, file.getPath());
 
     });
@@ -680,7 +686,7 @@ public class MainController {
 
     // MainStageの座標、ウィンドウ幅を保存
     MyProperties mainMp = new MyProperties(PropertiesFiles.MAIN.FILE);
-    mainMp.setProperties(reloadButton);
+    mainMp.setProperty(reloadButton);
     mainMp.store();
 
     // preferences.xml に保存

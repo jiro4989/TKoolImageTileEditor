@@ -1,7 +1,7 @@
 package app.preset;
 
 import util.ResourceBundleWithUtf8;
-import util.MyProperties;
+import jiro.java.util.MyProperties;
 
 import java.io.IOException;
 import java.io.File;

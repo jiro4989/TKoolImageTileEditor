@@ -1,14 +1,10 @@
 - [ ] 行単位削除のプロトタイプを作成する
   - [ ] 戦略クラスを追加し、予めそれを設定した状態でテストする
 
-- [ ] MyPropertiesをjarにする
 - [ ] MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
-- [ ] READMEが書きづらすぎるのでシンプルな書き方に変更
 - [ ] READMEにGIFアニメの挿入
 - [ ] READMEのTODO
 - [ ] READMEのdocx版をLinuxから作る
-- [ ] READMEをプロポーショナルフォントでも変に見えないようにする
-- [ ] README.htmlを作る
 - [ ] tkite.jarのjavadocを作る
 - [ ] 実行速度、メモリ消費量の測定
 - [ ] 行単位での削除
@@ -26,8 +22,11 @@
 - [x] FileChooserで、オープンしたあとのディレクトリ位置を記憶
 - [x] JavaUpdateリンクファイルの作成
 - [x] MyFileChooserをjarにする
+- [x] MyPropertiesをjarにする
 - [x] PreferencesKey.enumでキーを管理
 - [x] PrimaryStageに 32x32 のアイコン画像のセット
+- [x] README.htmlを作る
+- [x] READMEが書きづらすぎるのでシンプルな書き方に変更
 - [x] ショートカットキーの設定
 - [x] ドラッグアンドドロップ
 - [x] ドラッグアンドドロップで読み込むファイルはpngのみ
