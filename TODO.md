@@ -1,14 +1,11 @@
 - :x: MyWritableImage.javaクラスを作って、ImageUtils.javaを消す
+- :x: READMEのdocx版をLinuxから作る
 - :x: tkite.jarのjavadocを作る
 - :x: 実行速度、メモリ消費量の測定
 - :x: 行単位での削除
 - :x: 行単位での移動
 - :x: 行単位での空白挿入
-- [x] HyperlinkのURLを変更
 - [ ] リポジトリ名の変更
-- [x] READMEにGIFアニメの挿入
-- [ ] READMEのdocx版をLinuxから作る
-- [x] 画像アイコンを追加する
 - [x] AboutStageにBuilderパターンを適用する
 - [x] AboutStageにアプリアイコンをセット
 - [x] AboutStageのHyperlinkのミス
@@ -19,6 +16,7 @@
 - [x] Aboutメニューの実装
 - [x] Escでプリセット編集画面を閉じるとエラーが発生する
 - [x] FileChooserで、オープンしたあとのディレクトリ位置を記憶
+- [x] HyperlinkのURLを変更
 - [x] JavaUpdateリンクファイルの作成
 - [x] MyFileChooserをjarにする
 - [x] MyPropertiesをjarにする
@@ -26,6 +24,7 @@
 - [x] PrimaryStageに 32x32 のアイコン画像のセット
 - [x] README.htmlを作る
 - [x] READMEが書きづらすぎるのでシンプルな書き方に変更
+- [x] READMEにGIFアニメの挿入
 - [x] READMEのTODO
 - [x] new WritableImage()のインスタンスを予め作成しておく
 - [x] ショートカットキーの設定
@@ -44,6 +43,7 @@
 - [x] 別名保存時のファイルにフォーカスを移す
 - [x] 前回開いた場所を設定ファイルに保存
 - [x] 画像の横幅が等しければ連結可能に変更
+- [x] 画像アイコンを追加する
 - [x] 編集画面のプロパティが更新されていない
 - [x] 規格のあっていないファイルを選択すると画像パネルを空にする
 - [x] 言語変更メニューを追加
