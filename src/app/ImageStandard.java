@@ -2,6 +2,7 @@ package app;
 
 import jiro.java.util.MyProperties;
 import java.io.*;
+import javafx.scene.image.*;
 
 /**
  * 画像の規格を保持するクラス。
@@ -22,6 +23,9 @@ public class ImageStandard {
 
   /** パネル画像をまとめたイメージ全体の縦幅 */
   public final int imageHeight;
+
+  /** パネル初期化用のインスタンス */
+  public final Image emptyImage;
 
   /** 画像規格のキー */
   public static enum Key {//{{{
@@ -60,6 +64,7 @@ public class ImageStandard {
     imageWidth  = aImageWidth;
     imageHeight = aImageHeight;
     presetFile  = aPresetFile;
+    emptyImage = new WritableImage(size, size);
 
   }//}}}
 
@@ -94,6 +99,7 @@ public class ImageStandard {
     imageWidth  = w;
     imageHeight = h;
     presetFile = aPresetFile;
+    emptyImage = new WritableImage(size, size);
 
   }//}}}
 

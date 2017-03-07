@@ -77,6 +77,7 @@ class StackImageView extends StackPane {
 
     setSelection(!isSelected);
     selectedInstanceList.add(this);
+
     MainController.strategy.invoke(selectedInstanceList);
 
   }//}}}

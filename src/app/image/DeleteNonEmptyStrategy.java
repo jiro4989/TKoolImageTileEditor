@@ -1,9 +1,10 @@
 package app.image;
 
+import app.MainController;
+
 import java.util.List;
 import java.util.stream.IntStream;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 
 public class DeleteNonEmptyStrategy implements ControlOutputPaneStrategy {
   /**
@@ -13,7 +14,9 @@ public class DeleteNonEmptyStrategy implements ControlOutputPaneStrategy {
    */
   @Override
   public void invoke(List<StackImageView> list) {
-    list.get(0).setImage(new WritableImage(144, 144));
+    final int size = MainController.imageStandard.size;
+    final Image emptyImage = MainController.imageStandard.emptyImage;
+    list.get(0).setImage(emptyImage);
 
     // 選択したペイン以降の画像を現在のペインの位置まで移動する。//{{{
     int num = list.get(0).getNumber();
@@ -27,7 +30,7 @@ public class DeleteNonEmptyStrategy implements ControlOutputPaneStrategy {
     //}}}
     // 末尾のStackImageViewの画像を空白にする//{{{
     int lastIndex = siv.size()-1;
-    siv.get(lastIndex).setImage(new WritableImage(144, 144));
+    siv.get(lastIndex).setImage(emptyImage);
     //}}}
 
     list.clear();

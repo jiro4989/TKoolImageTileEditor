@@ -1,7 +1,9 @@
 package app.image;
 
+import app.MainController;
+
 import java.util.List;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.Image;
 
 public class DeleteStrategy implements ControlOutputPaneStrategy {
   /**
@@ -9,7 +11,10 @@ public class DeleteStrategy implements ControlOutputPaneStrategy {
    */
   @Override
   public void invoke(List<StackImageView> list) {
-    list.get(0).setImage(new WritableImage(144, 144));
+
+    int size = MainController.imageStandard.size;
+    final Image emptyImage = MainController.imageStandard.emptyImage;
+    list.get(0).setImage(emptyImage);
     list.clear();
     OutputImagePane.clearSelectedStackImageView();
   }
