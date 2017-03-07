@@ -148,31 +148,30 @@
                   <top>
                     <TitledPane fx:id="controlPanelTitledPane" animated="false" collapsible="false" text="%controlPanelTitledPane" BorderPane.alignment="CENTER">
                       <content>
-                        <GridPane hgap="10.0" vgap="5.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="10.0" prefWidth="150.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                          <children>
-                            <RadioButton fx:id="deleteModeRadioButton" mnemonicParsing="false" selected="true" text="%deleteModeRadioButton">
-                              <toggleGroup>
-                                <ToggleGroup fx:id="toggleGroup" />
-                              </toggleGroup>
-                            </RadioButton>
-                            <RadioButton fx:id="deleteNonEmptyModeRadioButton" mnemonicParsing="false" text="%deleteNonEmptyModeRadioButton" toggleGroup="$toggleGroup" GridPane.columnIndex="1" />
-                            <RadioButton fx:id="sortModeRadioButton" mnemonicParsing="false" text="%sortModeRadioButton" toggleGroup="$toggleGroup" GridPane.columnIndex="2" />
-                            <RadioButton fx:id="reverseModeRadioButton" mnemonicParsing="false" text="%reverseModeRadioButton" toggleGroup="$toggleGroup" GridPane.columnIndex="3" />
-                                          <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.rowIndex="1" />
-                                          <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                          </children>
-                        </GridPane>
+                                    <AnchorPane>
+                                       <children>
+                              <GridPane hgap="10.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                  <RadioButton fx:id="deleteModeRadioButton" mnemonicParsing="false" prefWidth="200.0" selected="true" text="%deleteModeRadioButton">
+                                    <toggleGroup>
+                                      <ToggleGroup fx:id="toggleGroup" />
+                                    </toggleGroup>
+                                  </RadioButton>
+                                  <RadioButton fx:id="deleteNonEmptyModeRadioButton" mnemonicParsing="false" prefWidth="200.0" text="%deleteNonEmptyModeRadioButton" toggleGroup="$toggleGroup" GridPane.columnIndex="1" />
+                                  <RadioButton fx:id="sortModeRadioButton" mnemonicParsing="false" prefWidth="200.0" text="%sortModeRadioButton" toggleGroup="$toggleGroup" GridPane.rowIndex="1" />
+                                  <RadioButton fx:id="reverseModeRadioButton" mnemonicParsing="false" prefWidth="200.0" text="%reverseModeRadioButton" toggleGroup="$toggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                </children>
+                              </GridPane>
+                                       </children>
+                                    </AnchorPane>
                       </content>
                       <BorderPane.margin>
                         <Insets />
