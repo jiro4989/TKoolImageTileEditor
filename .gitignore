@@ -1,6 +1,7 @@
+*.png
 /classes
 /input
 /output
-/properties
 /presets
-*.png
+/properties
+/test

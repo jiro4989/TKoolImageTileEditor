@@ -5,6 +5,8 @@
 - :x: 行単位での削除
 - :x: 行単位での移動
 - :x: 行単位での空白挿入
+- [x] バージョン表記が異なる
+- [x] AboutStageの横幅を広げる
 - [x] AboutStageにBuilderパターンを適用する
 - [x] AboutStageにアプリアイコンをセット
 - [x] AboutStageのHyperlinkのミス
