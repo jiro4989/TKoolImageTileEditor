@@ -4,8 +4,9 @@
 - :x: 行単位での削除
 - :x: 行単位での移動
 - :x: 行単位での空白挿入
-- [ ] HyperlinkのURLを変更
-- [ ] READMEにGIFアニメの挿入
+- [x] HyperlinkのURLを変更
+- [ ] リポジトリ名の変更
+- [x] READMEにGIFアニメの挿入
 - [ ] READMEのdocx版をLinuxから作る
 - [x] 画像アイコンを追加する
 - [x] AboutStageにBuilderパターンを適用する
