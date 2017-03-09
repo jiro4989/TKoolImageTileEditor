@@ -1,4 +1,4 @@
-*.png
+./*.png
 /classes
 /input
 /output
