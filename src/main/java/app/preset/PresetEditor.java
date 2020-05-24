@@ -1,31 +1,29 @@
 package app.preset;
 
-import util.ResourceBundleWithUtf8;
-import jiro.java.util.MyProperties;
-
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import jiro.java.util.MyProperties;
+import util.ResourceBundleWithUtf8;
 
 public class PresetEditor extends Stage {
 
   private PresetEditorController controller;
 
-  public PresetEditor(File presetFile, File previewFile) {//{{{
+  public PresetEditor(File presetFile, File previewFile) { // {{{
 
     URL location = getClass().getResource("preset_editor.fxml");
-    ResourceBundle resources = ResourceBundle.getBundle(
-        "app.res.langs.preset_editor"
-        , Locale.getDefault()
-        , ResourceBundleWithUtf8.UTF8_ENCODING_CONTROL
-        );
+    ResourceBundle resources =
+        ResourceBundle.getBundle(
+            "app.res.langs.preset_editor",
+            Locale.getDefault(),
+            ResourceBundleWithUtf8.UTF8_ENCODING_CONTROL);
     FXMLLoader loader = new FXMLLoader(location, resources);
 
     try {
@@ -44,7 +42,10 @@ public class PresetEditor extends Stage {
       setTitle(resources.getString("title"));
       initStyle(StageStyle.UTILITY);
       initModality(Modality.APPLICATION_MODAL);
-      setOnCloseRequest(e -> { controller.closeRequest(); });
+      setOnCloseRequest(
+          e -> {
+            controller.closeRequest();
+          });
 
       MyProperties mp = new MyProperties("properties/preview_editor.xml");
       if (mp.load()) mp.customStage(this);
@@ -55,13 +56,10 @@ public class PresetEditor extends Stage {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  } // }}}
 
-  }//}}}
-
-  public PresetEditor(File presetFile) {//{{{
+  public PresetEditor(File presetFile) { // {{{
 
     this(presetFile, null);
-
-  }//}}}
-
+  } // }}}
 }

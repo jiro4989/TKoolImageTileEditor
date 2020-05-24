@@ -2,10 +2,7 @@ package app;
 
 import java.io.File;
 
-/**
- * リストビューで扱う拡張Fileクラス。リストビューで表示されるテキストを変更する
- * 。
- */
+/** リストビューで扱う拡張Fileクラス。リストビューで表示されるテキストを変更する 。 */
 public class MyFile extends File {
 
   MyFile(File file) {
@@ -18,6 +15,7 @@ public class MyFile extends File {
 
   /**
    * リストビューに表示されるテキストを変更する。
+   *
    * @return ファイル名
    */
   @Override

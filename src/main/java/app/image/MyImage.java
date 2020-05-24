@@ -9,9 +9,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.*;
 import javax.imageio.ImageIO;
 
-/**
- * Imageクラスをラップしたクラス。
- */
+/** Imageクラスをラップしたクラス。 */
 class MyImage {
 
   /** 画像 */
@@ -24,39 +22,37 @@ class MyImage {
   public final int height;
 
   // 画像処理の書式(ARGB)
-  private static final WritablePixelFormat<IntBuffer> FORMAT = WritablePixelFormat.getIntArgbInstance();
+  private static final WritablePixelFormat<IntBuffer> FORMAT =
+      WritablePixelFormat.getIntArgbInstance();
 
   // コンストラクタ
 
-  public MyImage(File file) {//{{{
+  public MyImage(File file) { // {{{
 
     this(new Image("file:" + file.getPath()));
+  } // }}}
 
-  }//}}}
+  public MyImage(Image img) { // {{{
 
-  public MyImage(Image img) {//{{{
-
-    image  = img;
-    width  = (int) image.getWidth();
+    image = img;
+    width = (int) image.getWidth();
     height = (int) image.getHeight();
-
-  }//}}}
+  } // }}}
 
   // メソッド
 
-  public MyImage toReversedImage() {//{{{
+  public MyImage toReversedImage() { // {{{
 
     MyImage myimg = new MyImage(image);
     int[] pixels = myimg.getPixels();
 
     int[] newPixels = new int[pixels.length];
-    for (int i=0; i<pixels.length; i++) {
+    for (int i = 0; i < pixels.length; i++) {
 
       int a = (i + width) / width * width;
       int b = i / width * width;
       int reverseIndex = a + b - i - 1;
       newPixels[reverseIndex] = pixels[i];
-
     }
 
     WritableImage wImage = new WritableImage(width, height);
@@ -64,16 +60,14 @@ class MyImage {
     writer.setPixels(0, 0, width, height, FORMAT, newPixels, 0, width);
 
     return new MyImage(wImage);
+  } // }}}
 
-  }//}}}
-
-  public MyImage write(int x, int y, Image img) {//{{{
+  public MyImage write(int x, int y, Image img) { // {{{
 
     return write(x, y, new MyImage(img));
+  } // }}}
 
-  }//}}}
-
-  public MyImage write(int x, int y, MyImage myimg) {//{{{
+  public MyImage write(int x, int y, MyImage myimg) { // {{{
 
     int w = myimg.width;
     int h = myimg.height;
@@ -84,10 +78,9 @@ class MyImage {
     writer.setPixels(x, y, w, h, FORMAT, pixels, 0, w);
 
     return new MyImage(newImage);
+  } // }}}
 
-  }//}}}
-
-  public boolean output(File outputFile) {//{{{
+  public boolean output(File outputFile) { // {{{
 
     BufferedImage newImage = SwingFXUtils.fromFXImage(image, null);
     try {
@@ -100,10 +93,9 @@ class MyImage {
     }
 
     return false;
+  } // }}}
 
-  }//}}}
-
-  public MyImage toExpand(int widthRate, int heightRate) {//{{{
+  public MyImage toExpand(int widthRate, int heightRate) { // {{{
 
     WritableImage newImage = new WritableImage(width * widthRate, height * heightRate);
     PixelWriter writer = newImage.getPixelWriter();
@@ -111,17 +103,14 @@ class MyImage {
     writer.setPixels(0, 0, width, height, FORMAT, pixels, 0, width);
 
     return new MyImage(newImage);
+  } // }}}
 
-  }//}}}
-
-  private int[] getPixels() {//{{{
+  private int[] getPixels() { // {{{
 
     PixelReader reader = image.getPixelReader();
-    int[] pixels       = new int[width * height];
+    int[] pixels = new int[width * height];
     reader.getPixels(0, 0, width, height, FORMAT, pixels, 0, width);
-    
+
     return pixels;
-
-  }//}}}
-
+  } // }}}
 }
