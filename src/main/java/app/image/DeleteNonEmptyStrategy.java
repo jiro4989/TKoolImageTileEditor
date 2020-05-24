@@ -1,7 +1,6 @@
 package app.image;
 
 import app.MainController;
-
 import java.util.List;
 import java.util.stream.IntStream;
 import javafx.scene.image.Image;
@@ -22,16 +21,17 @@ public class DeleteNonEmptyStrategy implements ControlOutputPaneStrategy {
     int num = list.get(0).getNumber();
     num--;
     List<StackImageView> siv = OutputImagePane.stackImageViewList;
-    IntStream.range(num, siv.size()-1)
-      .forEach(i -> {
-        Image nextImage = siv.get(i+1).getImage();
-        siv.get(i).setImage(nextImage);
-      });
-    //}}}
+    IntStream.range(num, siv.size() - 1)
+        .forEach(
+            i -> {
+              Image nextImage = siv.get(i + 1).getImage();
+              siv.get(i).setImage(nextImage);
+            });
+    // }}}
     // 末尾のStackImageViewの画像を空白にする//{{{
-    int lastIndex = siv.size()-1;
+    int lastIndex = siv.size() - 1;
     siv.get(lastIndex).setImage(emptyImage);
-    //}}}
+    // }}}
 
     list.clear();
     OutputImagePane.clearSelectedStackImageView();

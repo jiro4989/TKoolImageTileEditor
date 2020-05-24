@@ -1,10 +1,6 @@
 package app.image;
 
-import app.image.MyImage;
-
-import java.nio.IntBuffer;
 import java.util.List;
-import java.util.stream.IntStream;
 import javafx.scene.image.*;
 
 public class ReverseStrategy implements ControlOutputPaneStrategy {
@@ -17,18 +13,15 @@ public class ReverseStrategy implements ControlOutputPaneStrategy {
   @Override
   public void invoke(List<StackImageView> list) {
 
-    list.stream().forEach(siv -> {
-
-      MyImage myimg = new MyImage(siv.getImage());
-      Image image = myimg.toReversedImage().image;
-      siv.setImage(image);
-
-    });
+    list.stream()
+        .forEach(
+            siv -> {
+              MyImage myimg = new MyImage(siv.getImage());
+              Image image = myimg.toReversedImage().image;
+              siv.setImage(image);
+            });
 
     list.clear();
     OutputImagePane.clearSelectedStackImageView();
-
   }
-
 }
-
