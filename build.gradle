@@ -61,10 +61,6 @@ dependencies {
     implementation "org.openjfx:javafx-controls:$javafx_version"
     implementation "org.openjfx:javafx-graphics:$javafx_version"
     implementation "org.openjfx:javafx-swing:$javafx_version"
-
-    implementation files('libs/about-stage-1.0.2.jar')
-    implementation files('libs/my-file-chooser-1.0.0.jar')
-    implementation files('libs/my-properties-1.0.0.jar')
 }
 
 sourceCompatibility = 14
