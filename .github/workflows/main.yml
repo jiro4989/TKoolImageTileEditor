@@ -11,7 +11,7 @@ on:
     types: [published]
 
 env:
-  APP_NAME: 'tkfm'
+  APP_NAME: 'tkite'
   JAVA_VERSION: '14'
   JAVAFX_VERSION: '14.0.1'
 
