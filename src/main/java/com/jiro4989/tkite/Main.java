@@ -46,9 +46,7 @@ public class Main extends Application {
       primaryStage.setScene(scene);
       primaryStage
           .getIcons()
-          .add(
-              new Image(
-                  getClass().getResource("res/img/com.jiro4989.tkite_icon.png").toExternalForm()));
+          .add(new Image(getClass().getResource("res/img/app_icon.png").toExternalForm()));
       primaryStage.setTitle(TITLE);
       primaryStage.setMinWidth(480);
       primaryStage.setMinHeight(270);
