@@ -1,8 +1,8 @@
 = TKoolImageTileEditor
 
-ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½Y (jiro)
+ìŽÒ: ŽŸ˜Y (jiro)
 
-ï¿½ï¿½ï¿½ï¿½}ï¿½jï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÍƒIï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½É‚ÄŒï¿½ï¿½Jï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B
-ï¿½È‰ï¿½ï¿½Ìƒyï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½Webï¿½uï¿½ï¿½ï¿½Eï¿½Uï¿½Å‰{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
+‘€ìƒ}ƒjƒ…ƒAƒ‹‚ÍƒIƒ“ƒ‰ƒCƒ“‚É‚ÄŒöŠJ‚µ‚Ä‚¢‚Ü‚·B
+ˆÈ‰º‚Ìƒy[ƒW‚ð‚¨Žg‚¢‚ÌWebƒuƒ‰ƒEƒU‚Å‰{——‚­‚¾‚³‚¢B
 
 https://github.com/jiro4989/TKoolImageTileEditor
