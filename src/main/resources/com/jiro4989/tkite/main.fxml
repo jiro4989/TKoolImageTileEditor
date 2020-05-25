@@ -95,16 +95,6 @@
             <RadioMenuItem fx:id="enRadioMenuItem" mnemonicParsing="false" onAction="#enRadioMenuItemOnAction" text="%enRadioMenuItem" toggleGroup="$langsGroup" />
           </items>
         </Menu>
-
-        <Menu fx:id="helpMenu" mnemonicParsing="false" text="%helpMenu">
-          <items>
-            <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#aboutMenuItemOnAction" text="%aboutMenuItem">
-              <accelerator>
-                <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="UP" />
-              </accelerator>
-            </MenuItem>
-          </items>
-        </Menu>
       </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="300.0" minWidth="250.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
