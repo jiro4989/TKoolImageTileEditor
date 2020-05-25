@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="10.0" maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jiro4989.tkite.preset.PresetEditorController">
+  <children>
+    <HBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="1">
+      <children>
+        <Pane maxWidth="+Infinity" HBox.hgrow="ALWAYS" />
+        <Button fx:id="okButton" minWidth="80.0" mnemonicParsing="false" onAction="#okButtonOnAction" text="%okButton" HBox.hgrow="NEVER">
+          <HBox.margin>
+            <Insets />
+          </HBox.margin>
+        </Button>
+        <HBox fx:id="okParent" alignment="CENTER">
+          <children>
+            <Button fx:id="cancelButton" cancelButton="true" minWidth="80.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" text="%cancelButton" HBox.hgrow="NEVER">
+              <HBox.margin>
+                <Insets left="14.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
+      </children>
+    </HBox>
+    <BorderPane prefHeight="200.0" prefWidth="200.0">
+      <left>
+        <AnchorPane>
+          <children>
+            <TitledPane fx:id="customizeTitledPane" collapsible="false" text="%customizeTitledPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <content>
+                <VBox spacing="5.0">
+                  <children>
+                    <AnchorPane>
+                      <children>
+                        <GridPane hgap="5.0" layoutY="3.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                          <children>
+                            <Label fx:id="rowLabel" text="%rowLabel" />
+                            <Button fx:id="rowDownButton" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="1" />
+                            <TextField fx:id="rowTextField" prefWidth="60.0" text="2" GridPane.columnIndex="2" />
+                            <Button fx:id="rowUpButton" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="3" />
+                            <Label fx:id="columnLabel" text="%columnLabel" GridPane.rowIndex="1" />
+                            <Label fx:id="sizeLabel" text="%sizeLabel" GridPane.rowIndex="2" />
+                            <Label fx:id="imageWidthLabel" text="%imageWidthLabel" GridPane.rowIndex="3" />
+                            <Label fx:id="imageHeightLabel" text="%imageHeightLabel" GridPane.rowIndex="4" />
+                            <Button fx:id="columnDownButton" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <TextField fx:id="columnTextField" prefWidth="50.0" text="4" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Button fx:id="columnUpButton" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Button fx:id="sizeDownButton" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <TextField fx:id="sizeTextField" prefWidth="50.0" text="144" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Button fx:id="sizeUpButton" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            <TextField fx:id="imageWidthTextField" editable="false" prefWidth="50.0" text="576" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <TextField fx:id="imageHeightTextField" editable="false" prefWidth="50.0" text="288" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                          </children>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                    <Separator prefWidth="200.0" />
+                    <HBox spacing="5.0">
+                      <children>
+                        <Button fx:id="fileChooserButton" mnemonicParsing="false" onAction="#fileChooserButtonOnAction" text="%fileChooserButton" />
+                        <TextField fx:id="imageFileTextField" editable="false" promptText="%imageFileTextField" />
+                      </children>
+                    </HBox>
+                    <AnchorPane>
+                      <children>
+                        <GridPane hgap="5.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                          <children>
+                            <Label fx:id="previewImageWidthLabel" text="%previewImageWidthLabel" />
+                            <TextField fx:id="previewImageWidthTextField" editable="false" prefWidth="60.0" GridPane.columnIndex="1" />
+                            <Label fx:id="previewImageHeightLabel" text="%previewImageHeightLabel" GridPane.rowIndex="1" />
+                            <TextField fx:id="previewImageHeightTextField" editable="false" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                          </children>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                    <Button fx:id="resizeButton" disable="true" mnemonicParsing="false" onAction="#resizeButtonOnAction" text="%resizeButton" />
+                    <Button fx:id="reRowColumnButton" disable="true" mnemonicParsing="false" onAction="#reRowColumnButtonOnAction" text="%reRowColumnButton" />
+                  </children>
+                </VBox>
+              </content>
+            </TitledPane>
+          </children>
+        </AnchorPane>
+      </left>
+      <center>
+        <AnchorPane>
+          <children>
+            <TitledPane fx:id="previewTitledPane" collapsible="false" text="%previewTitledPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+              <content>
+                <ScrollPane prefViewportHeight="177.0" prefViewportWidth="200.0">
+                  <content>
+                    <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0">
+                      <children>
+                        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </padding>
+                    </AnchorPane>
+                  </content>
+                </ScrollPane>
+              </content>
+            </TitledPane>
+          </children>
+        </AnchorPane>
+      </center>
+      <GridPane.margin>
+        <Insets />
+      </GridPane.margin>
+    </BorderPane>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="-Infinity" />
+  </columnConstraints>
+  <padding>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+  </padding>
+  <rowConstraints>
+    <RowConstraints maxHeight="Infinity" minHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+  </rowConstraints>
+</GridPane>
