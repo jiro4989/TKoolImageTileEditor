@@ -4,7 +4,6 @@ import static com.jiro4989.tkite.util.PreferencesKeys.*;
 
 import com.jiro4989.tkite.image.*;
 import com.jiro4989.tkite.preset.PresetEditor;
-import com.jiro4989.tkite.stage.AboutStage;
 import com.jiro4989.tkite.stage.MyFileChooser;
 import com.jiro4989.tkite.util.ImageUtils;
 import com.jiro4989.tkite.util.MyProperties;
@@ -557,24 +556,6 @@ public class MainController {
     Alert alert = new Alert(AlertType.INFORMATION);
     alert.setHeaderText(Main.resources.getString("langsHeader"));
     alert.showAndWait();
-  } // }}}
-
-  // ヘルプメニュー
-
-  @FXML
-  private void aboutMenuItemOnAction() { // {{{
-
-    AboutStage about =
-        new AboutStage.Builder(Main.TITLE, Main.VERSION)
-            .author("次郎 (Jiro)")
-            .blog("次ログ")
-            .blogUrl("http://jiroron666.hatenablog.com/")
-            .css("/com.jiro4989.tkite/res/css/basic.css")
-            .appIcon("/com.jiro4989.tkite/res/img/com.jiro4989.tkite_icon.png")
-            // .authorIcon("/com.jiro4989.tkite/res/img/com.jiro4989.tkite_icon.png")
-            .build();
-
-    about.showAndWait();
   } // }}}
 
   // ファイルリスト
