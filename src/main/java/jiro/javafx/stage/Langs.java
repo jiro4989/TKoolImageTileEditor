@@ -10,10 +10,10 @@ enum Langs {
   final String BLOG;
   final String CLOSE;
 
-  private Langs(String title, String app, String author, String blog, String close) {
+  private Langs(String title, String application, String author, String blog, String close) {
 
     STAGE_TITLE = title;
-    APP = app;
+    APP = application;
     AUTHOR = author;
     BLOG = blog;
     CLOSE = close;
