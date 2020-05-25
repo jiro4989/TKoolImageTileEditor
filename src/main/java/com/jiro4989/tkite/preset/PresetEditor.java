@@ -36,7 +36,7 @@ public class PresetEditor extends Stage {
       Scene scene = new Scene(root, WIDTH, HEIGHT);
       scene
           .getStylesheets()
-          .add(getClass().getResource("/com.jiro4989.tkite/res/css/basic.css").toExternalForm());
+          .add(getClass().getResource("/com/jiro4989/tkite/res/css/basic.css").toExternalForm());
 
       setScene(scene);
       setMinWidth(WIDTH);
