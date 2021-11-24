@@ -7,31 +7,31 @@
  */
 
 buildscript {
-    ext.javafx_version = '16'
+  ext.javafx_version = '16'
 
-    repositories {
-        mavenCentral()
-        maven {
-            setUrl("https://plugins.gradle.org/m2/")
-        }
+  repositories {
+    mavenCentral()
+    maven {
+      setUrl("https://plugins.gradle.org/m2/")
     }
-    dependencies {
-        classpath "org.openjfx:javafx-plugin:0.0.8"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+  }
+  dependencies {
+    classpath "org.openjfx:javafx-plugin:0.0.8"
+    classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
 
-        // Code Format
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:6.0.0"
-    }
+    // Code Format
+    classpath "com.diffplug.spotless:spotless-plugin-gradle:6.0.0"
+  }
 }
 
 plugins {
-    // Apply the java plugin to add support for Java
-    id 'java'
+  // Apply the java plugin to add support for Java
+  id 'java'
 
-    // Apply the application plugin to add support for building a CLI application.
-    id 'application'
+  // Apply the application plugin to add support for building a CLI application.
+  id 'application'
 
-    id 'jacoco'
+  id 'jacoco'
 }
 
 apply plugin: 'org.openjfx.javafxplugin'
@@ -40,41 +40,45 @@ apply plugin: "com.diffplug.spotless"
 apply plugin: "groovy"
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:28.2-jre'
+  // This dependency is used by the application.
+  implementation 'com.google.guava:guava:28.2-jre'
 
-    // Use JUnit test framework
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.6.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.2'
-    testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
+  // Use JUnit test framework
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'
+  testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.6.2'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.2'
+  testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
 
-    // JavaFX
-    implementation "org.openjfx:javafx-fxml:$javafx_version"
-    implementation "org.openjfx:javafx-base:$javafx_version"
-    implementation "org.openjfx:javafx-controls:$javafx_version"
-    implementation "org.openjfx:javafx-graphics:$javafx_version"
-    implementation "org.openjfx:javafx-swing:$javafx_version"
+  // JavaFX
+  implementation "org.openjfx:javafx-fxml:$javafx_version"
+  implementation "org.openjfx:javafx-base:$javafx_version"
+  implementation "org.openjfx:javafx-controls:$javafx_version"
+  implementation "org.openjfx:javafx-graphics:$javafx_version"
+  implementation "org.openjfx:javafx-swing:$javafx_version"
 }
 
 sourceCompatibility = 16
 targetCompatibility = 16
 
 application {
-    getMainClass().set('com.jiro4989.tkite.Main')
+  getMainClass().set('com.jiro4989.tkite.Main')
 }
 
 compileJava {
-    options.encoding = 'UTF-8'
+  options.encoding = 'UTF-8'
 }
 
 javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing' ]
+  modules = [
+    'javafx.controls',
+    'javafx.fxml',
+    'javafx.swing'
+  ]
 }
 
 jar {
@@ -84,7 +88,11 @@ jar {
 
   archiveBaseName = 'tkite'
 
-  from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+  from {
+    configurations.compileClasspath.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
 
   duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
@@ -184,8 +192,8 @@ task dumpDependencies(dependsOn: clearDependencies) {
         into libDir
       }
     }
-  } 
-} 
+  }
+}
 
 def appMods = [
   'javafx.base',
@@ -193,7 +201,7 @@ def appMods = [
   'javafx.swing',
   'javafx.graphics',
   'javafx.fxml',
-  ]
+]
 
 task runApp(type: Exec, dependsOn: dumpDependencies) {
   commandLine 'java',
