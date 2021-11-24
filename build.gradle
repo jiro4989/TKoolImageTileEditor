@@ -66,9 +66,7 @@ sourceCompatibility = 16
 targetCompatibility = 16
 
 application {
-    // Define the main class for the application.
-    mainClassName = 'com.jiro4989.tkite.Main'
-    // mainClassName = 'com.jiro4989.tkite.Main'
+    getMainClass().set('com.jiro4989.tkite.Main')
 }
 
 compileJava {
