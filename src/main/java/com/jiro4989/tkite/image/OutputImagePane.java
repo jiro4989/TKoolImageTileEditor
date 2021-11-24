@@ -72,8 +72,7 @@ public class OutputImagePane {
     // パネルの画像を出力画像に書き込む//{{{
 
     AtomicInteger atom = new AtomicInteger(0);
-    stackImageViewList
-        .stream()
+    stackImageViewList.stream()
         .forEach(
             siv -> {
               int i = atom.getAndIncrement();
