@@ -66,8 +66,7 @@ public class RecentFiles {
         Files.newBufferedWriter(path, Charset.forName("UTF-8"), StandardOpenOption.WRITE)) {
 
       List<String> list =
-          recentList
-              .stream()
+          recentList.stream()
               .map(item -> item.getText())
               .map(text -> text.replaceAll("\\\\", "/"))
               .distinct()

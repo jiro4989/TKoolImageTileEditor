@@ -279,9 +279,7 @@ public class MainController {
 
   private void selectToggleWithIndex(String fontSize) { // {{{
 
-    fontGroup
-        .getToggles()
-        .stream()
+    fontGroup.getToggles().stream()
         .map(t -> (RadioMenuItem) t)
         .filter(t -> t.getText().equals(fontSize))
         .forEach(t -> t.setSelected(true));
@@ -320,9 +318,7 @@ public class MainController {
       Path path = logFile.toPath();
       try (BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
 
-        br.lines()
-            .collect(Collectors.toCollection(LinkedHashSet::new))
-            .stream()
+        br.lines().collect(Collectors.toCollection(LinkedHashSet::new)).stream()
             .forEach(
                 line -> {
                   setOpenRecentMenuItem(line);
@@ -371,8 +367,7 @@ public class MainController {
             files -> {
               preferences.setProperty(IMAGE_INIT_DIR.KEY, files.get(0).getParent());
 
-              files
-                  .stream()
+              files.stream()
                   .forEach(
                       file -> {
                         MyFile myFile = new MyFile(file);
@@ -621,9 +616,7 @@ public class MainController {
 
       // 大文字小文字を区別せずにpngファイルのみをファイルリストに追加
       Pattern p = Pattern.compile("^.*\\.((?i)png)");
-      board
-          .getFiles()
-          .stream()
+      board.getFiles().stream()
           .filter(f -> p.matcher(f.getName()).matches())
           .forEach(
               file -> {

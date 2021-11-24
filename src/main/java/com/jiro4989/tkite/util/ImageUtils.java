@@ -136,8 +136,7 @@ public class ImageUtils {
 
     // 基準値と等しい横幅の画像のみを抽出したリストを生成
     List<Image> filteredImageList =
-        imageList
-            .stream()
+        imageList.stream()
             .map(f -> new Image("file:" + f.getPath()))
             .filter(
                 img -> {
@@ -156,8 +155,7 @@ public class ImageUtils {
 
     // 画像の連結
     AtomicInteger atom = new AtomicInteger(0);
-    filteredImageList
-        .stream()
+    filteredImageList.stream()
         .forEach(
             img -> {
               int i = atom.getAndIncrement();
