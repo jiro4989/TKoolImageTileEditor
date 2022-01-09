@@ -16,10 +16,6 @@ buildscript {
     }
   }
   dependencies {
-    classpath "org.openjfx:javafx-plugin:0.0.8"
-
-    // Code Format
-    classpath "com.diffplug.spotless:spotless-plugin-gradle:6.2.0"
   }
 }
 
@@ -27,15 +23,24 @@ plugins {
   // Apply the java plugin to add support for Java
   id 'java'
 
+  id 'groovy'
+
   // Apply the application plugin to add support for building a CLI application.
   id 'application'
 
-  id 'jacoco'
-}
+  // javafx
+  id "org.openjfx.javafxplugin" version "0.0.10"
 
-apply plugin: 'org.openjfx.javafxplugin'
-apply plugin: "com.diffplug.spotless"
-apply plugin: "groovy"
+  // Spotless for code formatting
+  id "com.diffplug.spotless" version "6.1.0"
+
+  id 'jacoco'
+
+  id "org.jetbrains.kotlin.jvm" version "1.6.10"
+
+  // Linter
+  id 'io.gitlab.arturbosch.detekt' version '1.19.0'
+}
 
 repositories {
   mavenCentral()
@@ -58,6 +63,12 @@ dependencies {
   implementation "org.openjfx:javafx-controls:$javafx_version"
   implementation "org.openjfx:javafx-graphics:$javafx_version"
   implementation "org.openjfx:javafx-swing:$javafx_version"
+
+  // Kotlin
+  implementation platform('org.jetbrains.kotlin:kotlin-bom')
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  testImplementation "org.jetbrains.kotlin:kotlin-test"
+  testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
 }
 
 sourceCompatibility = 16
