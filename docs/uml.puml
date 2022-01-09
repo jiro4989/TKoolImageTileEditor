@@ -1,0 +1,39 @@
+@startuml
+class ImageModel {
+  -Image image
+  +void flip()
+}
+
+class ImagesModel {
+  -List<ImageModel> images
+  -List<Int> selectedIndicies
+  -Operation operation
+  +void selectImage(Int)
+  +void execute()
+  +void setOperation(Operation)
+  -void swapImages(Int, Int)
+  -void flipImage(Int)
+  -void deleteImage(Int, Bool)
+}
+
+class Main {
+  -MainController mainController
+}
+
+class MainController {
+  -ImagesModel imagesModel
+}
+
+enum Operation {
+  SWAP
+  DELETE_IMAGE
+  DELETE_IMAGE_AND_SHORTEN
+  FLIP
+}
+
+ImagesModel -down- ImageModel
+ImagesModel -down- Operation
+MainController -down- ImagesModel
+MainController -down- Operation
+Main -down- MainController
+@enduml
