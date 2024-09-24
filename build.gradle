@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
   // This dependency is used by the application.
-  implementation 'com.google.guava:guava:33.3.0-jre'
+  implementation 'com.google.guava:guava:33.3.1-jre'
 
   // Use JUnit test framework
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.11.0'
