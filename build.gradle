@@ -7,7 +7,7 @@
  */
 
 buildscript {
-  ext.javafx_version = '22.0.2'
+  ext.javafx_version = '23.0.1'
 
   repositories {
     mavenCentral()
