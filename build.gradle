@@ -46,7 +46,7 @@ dependencies {
   implementation 'com.google.guava:guava:33.4.8-jre'
 
   // Use JUnit test framework
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.12.2'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.13.0'
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.13.0'
   testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.13.0'
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.13.0'
