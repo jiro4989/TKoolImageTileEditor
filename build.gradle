@@ -46,10 +46,10 @@ dependencies {
   implementation 'com.google.guava:guava:33.5.0-jre'
 
   // Use JUnit test framework
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.13.4'
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.13.4'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '6.0.0'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '6.0.0'
   testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.13.4'
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.13.4'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '6.0.0'
   testImplementation "org.testfx:testfx-junit5:4.0.18"
 
   // JavaFX
